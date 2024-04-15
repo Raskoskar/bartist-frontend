@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { token: null, name: null },
+  value: { token: null, name: null, isConnected: false },
 };
 
 export const artistSlice = createSlice({
@@ -11,10 +11,12 @@ export const artistSlice = createSlice({
     artistLogIn: (state, action) => {
       state.value.token = action.payload.token;
       state.value.name = action.payload.name;
+      state.value.isConnected = true;
     },
     artistLogOut: (state) => {
       state.value.token = null;
       state.value.name = null;
+      state.value.isConnected= false;
     },
   },
 });

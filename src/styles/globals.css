@@ -4,7 +4,6 @@
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -104,4 +103,22 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+button {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-radius: 16px;
+  border: none;
+  background-color: #3F88C5;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+button:hover{
+  cursor: pointer;
+  transition: 100ms;
+  border-radius: 30px;
 }
