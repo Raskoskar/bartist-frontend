@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Login.module.css";
 import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import { useState } from "react";
 export default function Login() {
   // État pour contrôler la visibilité du modal de sign up et de sign in
@@ -20,6 +21,7 @@ export default function Login() {
   const closeSignUpModal = () => {
     setIsSignUpModalOpen(false);
   };
+  const openSignInModal = () => setIsSignInModalOpen(true);
   const closeSignInModal = () => setIsSignInModalOpen(false);
 
   return (
@@ -33,7 +35,7 @@ export default function Login() {
       <main className={styles.main}>
         <div className={styles.header}>
           <img></img>
-          <button>Se connecter</button>
+          <button onClick={openSignInModal}>Se connecter</button>
         </div>
         <div className={styles.title}>
           <h2>
@@ -106,6 +108,10 @@ export default function Login() {
           wichUser={userType}
           isOpen={isSignUpModalOpen}
           onClose={closeSignUpModal}
+        />
+        <SignIn
+          isOpen={isSignInModalOpen}
+          onClose={closeSignInModal}
         />
       </main>
     </>

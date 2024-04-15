@@ -1,6 +1,6 @@
-export const signUpArtist = async (email, password) => {
+export const signUpVenue = async (email, password) => {
     try{
-        const response = await fetch(`http://localhost:3000/artists/signUp`, 
+        const response = await fetch(`http://localhost:3000/venues/signUp`, 
         {
             method: 'POST',
             headers: {
@@ -14,9 +14,10 @@ export const signUpArtist = async (email, password) => {
         console.log(error)
     }
 }
-export const signInArtist = async (email, password) => {
+
+export const signInVenue = async (email, password) => {
     try{
-        const response = await fetch(`http://localhost:3000/artists/signIn`, 
+        const response = await fetch(`http://localhost:3000/venues/signIn`, 
         {
             method: 'POST',
             headers: {

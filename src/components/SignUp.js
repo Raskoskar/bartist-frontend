@@ -1,28 +1,60 @@
 import React, { useState, useSelector } from "react";
 import styles from "../styles/SignUp.module.css";
 import { useDispatch } from "react-redux";
-import { signUpArsist } from "@/api/artists";
-import { login } from "../reducers/user";
+import { signUpArtist } from "@/api/artists";
+import { signUpVenue } from "@/api/venues";
+import { artistLogIn } from "../reducers/artist";
+import { venueLogIn } from "@/reducers/venue";
+import { useRouter } from "next/router";
 const SignUp = ({ isOpen, onClose, wichUser }) => {
-  const [signUpFirstname, setSignUpFirstname] = useState("");
-  const [signUpUsername, setSignUpUsername] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch();
+    const router = useRouter()
+  const handleRegister = async (type) => {
+    let data = null;
+    if (type == "artist") {
+      data = await signUpArtist(signUpEmail, signUpPassword);
 
-  const handleRegister = () => {
-    const data = signUpArsist()
-        if (data.result) {
-          console.log(data)
-          dispatch(login({ username: signUpUsername, token: data.token, isConnected: true }));
-          setSignUpFirstname("");
-          setSignUpUsername("");
-          setSignUpPassword("");
-        }else{
-          document.querySelector('#alert').innerHTML =  `Login failed : ${data.error}`;
-        }
+      if (data.result) {
+        dispatch(
+          artistLogIn({
+            username: signUpEmail,
+            token: data.token,
+            isConnected: true,
+          })
+        );
+        setSignUpEmail("");
+        setSignUpPassword("");
+        router.push("/ArtistForm")
+
+      } else {
+        document.querySelector(
+          "#alert"
+        ).innerHTML = `Login failed : ${data.error}`;
+      }
+    } else {
+      data = await signUpVenue(signUpEmail, signUpPassword);
+      if (data.result) {
+        dispatch(
+          venueLogIn({
+            username: signUpEmail,
+            token: data.token,
+            isConnected: true,
+          })
+        );
+        setSignUpEmail("");
+        setSignUpPassword("");
+        navigator.na
+      } else {
+        document.querySelector(
+          "#alert"
+        ).innerHTML = `Login failed : ${data.error}`;
+      }
     }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -42,20 +74,24 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
             type="text"
             name="firstname"
             placeholder="firstname..."
-            onChange={(e) => setSignUpFirstname(e.target.value)} 
-            value={signUpFirstname}
+            onChange={(e) => setSignUpEmail(e.target.value)}
+            value={signUpEmail}
           />
           <input
             className={styles.input}
             type="password"
             name="password"
             placeholder="password..."
-            onChange={(e) => setSignUpPassword(e.target.value)} 
+            onChange={(e) => setSignUpPassword(e.target.value)}
             value={signUpPassword}
           />
         </div>
-        <div id='alert'></div>
-        <button className={styles.buttonMain} id="register" onClick={() => handleRegister()}>
+        <div id="alert"></div>
+        <button
+          className={styles.buttonMain}
+          id="register"
+          onClick={() => handleRegister(wichUser)}
+        >
           Sign Up
         </button>
       </div>
