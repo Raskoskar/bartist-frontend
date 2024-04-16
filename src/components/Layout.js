@@ -1,15 +1,17 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Dashboard.module.css";
+import styles from "@/styles/Layout.module.css";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 
 
-export default function Layout({children}) {
-
+export default function Layout({children, isSelected}) {
+  const router = useRouter
   const artist = useSelector((state) => state.artist.value);
-
+  console.log(router.pathname)
   return (
     <>
       <Head>
@@ -21,13 +23,13 @@ export default function Layout({children}) {
         <div className={styles.sideMenu}>
             <h2>BarTist</h2>
             <div className={styles.links}>
-                <a>Mes events Prévus</a>
-                <a>Chercher des events</a>
-                <a>Mes propositions</a>
+                <Link className={router.pathname === '/Events' ? styles.selected : styles.menuItem} href="/Events">Mes évènements</Link>
+                <Link className={router.pathname === '/Search' ? styles.selected : styles.menuItem} href="/Search">Chercher des évènements</Link>
+                <Link className={router.pathname === '/Propositions' ? styles.selected : styles.menuItem} href="/Propositions">Mes propositions</Link>
             </div>
             <div>
                 <div></div>
-            </div>
+            </div>  
             <button >Log out</button>
         </div>
         <div className={styles.center}>

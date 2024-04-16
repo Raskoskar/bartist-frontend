@@ -9,7 +9,6 @@
     flex: 0.15;
     background-color: #1C1C1C;
     justify-content: space-around;
-    align-items: center;
 }
 
 .center{
@@ -71,4 +70,22 @@
     height: 40px;
     background-color: black;
     border-radius: 50%;
+}
+
+.selected{
+    background-color: #30178c;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.menuItem{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
