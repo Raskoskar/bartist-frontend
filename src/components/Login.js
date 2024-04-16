@@ -3,6 +3,7 @@ import styles from "../styles/Login.module.css";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { useState } from "react";
+
 export default function Login() {
   // État pour contrôler la visibilité du modal de sign up et de sign in
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);

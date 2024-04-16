@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     min-height: 550px;
-    max-height: 600px;
+    max-height: 800px;
     width: 400px;
     align-items: center;
     justify-content: space-between;
@@ -41,6 +41,10 @@
     flex-direction: column;
     gap: 25px
 }
+.form > h3{
+    text-align: center;
+    margin-top: 20px;
+}
 
 .formElem{
     display: flex;
@@ -61,20 +65,12 @@
 .input:focus{
     outline: none;
     border: 1px #D1D5DB solid;
+    
 }
 
-.select{
-    width: 300px;
-    height: 44px;
-    padding: 10px 10px;
-    border-radius: 16px;
-    background-color: transparent;
-    border: #3F88C5 solid 1px;
-    color: white
+.btnDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.select:focus{
-    outline: none;
-    border: 1px #D1D5DB solid;
-
-}
