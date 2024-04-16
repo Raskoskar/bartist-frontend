@@ -46,7 +46,7 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
         );
         setSignUpEmail("");
         setSignUpPassword("");
-        navigator.na
+        router.push("/VenueForm"); // dirige l'user vers la page venueform
       } else {
         document.querySelector(
           "#alert"

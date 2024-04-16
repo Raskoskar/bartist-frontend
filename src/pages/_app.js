@@ -6,10 +6,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import artist from "../reducers/artist";
+import venue from "../reducers/venue";
+
 
 import { Provider } from "react-redux";
 
-const reducers = combineReducers({ artist });
+const reducers = combineReducers({ artist, venue });
 const persistConfig = { key: "barTist", storage };
 
 const store = configureStore({

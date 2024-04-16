@@ -3,6 +3,7 @@ import styles from "../styles/SignUp.module.css";
 import { useDispatch } from "react-redux";
 import { signInArtist } from "@/api/artists";
 import { artistLogIn } from "../reducers/artist";
+import { venueLogIn } from "../reducers/venue";
 import { signInVenue, signUpVenue } from "@/api/venues";
 
 
@@ -15,7 +16,7 @@ const SignIn = ({ isOpen, onClose}) => {
   const handleSignIn = async () => {
     const data = await signInArtist(signInEmail, signInPassword);
     const data1 = await signInVenue(signInEmail, signInPassword);
-    console.log(data.data)
+    console.log(data)
     if (data.result) {
       console.log(data);
       dispatch(
@@ -27,8 +28,8 @@ const SignIn = ({ isOpen, onClose}) => {
       );
       setSignInEmail("");
       setSignInPassword("");
-    } else if (data1.results) {
-        console.log(data);
+    } else if (data1.result) {
+        console.log(data1);
       dispatch(
         venueLogIn({
           username: signInEmail,
