@@ -1,17 +1,21 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Layout.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
-const inter = Inter({ subsets: ["latin"] });
+import { artistLogOut } from "@/reducers/artist";
+import Image from "next/image";
 
-
-
-export default function Layout({children, isSelected}) {
-  const router = useRouter
+export default function Layout({ children }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const artist = useSelector((state) => state.artist.value);
-  console.log(router.pathname)
+
+  const handleLogOut = () => {
+    dispatch(artistLogOut());
+    router.push("/");
+  };
   return (
     <>
       <Head>
@@ -21,30 +25,63 @@ export default function Layout({children, isSelected}) {
       </Head>
       <div className={styles.main}>
         <div className={styles.sideMenu}>
-            <h2>BarTist</h2>
-            <div className={styles.links}>
-                <Link className={router.pathname === '/Events' ? styles.selected : styles.menuItem} href="/Events">Mes évènements</Link>
-                <Link className={router.pathname === '/Search' ? styles.selected : styles.menuItem} href="/Search">Chercher des évènements</Link>
-                <Link className={router.pathname === '/Propositions' ? styles.selected : styles.menuItem} href="/Propositions">Mes propositions</Link>
-            </div>
-            <div>
-                <div></div>
-            </div>  
-            <button >Log out</button>
+          <div className={styles.logoContainer}>
+            <Image
+              className={styles.logo}
+              src="/assets/logo.png"
+              width={200}
+              height={200}
+            />
+            <h2 className={styles.logoName}><span>Bar</span>Tist</h2>
+          </div>
+          <div className={styles.links}>
+            <Link
+              className={
+                router.pathname === "/Events"
+                  ? styles.selected
+                  : styles.menuItem
+              }
+              href="/Events"
+            >
+              Mes évènements
+            </Link>
+            <Link
+              className={
+                router.pathname === "/Search"
+                  ? styles.selected
+                  : styles.menuItem
+              }
+              href="/Search"
+            >
+              Chercher des évènements
+            </Link>
+            <Link
+              className={
+                router.pathname === "/Propositions"
+                  ? styles.selected
+                  : styles.menuItem
+              }
+              href="/Propositions"
+            >
+              Mes propositions
+            </Link>
+          </div>
+          <div>
+            <div></div>
+          </div>
+          <button onClick={() => handleLogOut()}>Log out</button>
         </div>
         <div className={styles.center}>
           <div className={styles.header}>
             <button className={styles.button}>Create Event</button>
             <div className={styles.rightContent}>
-                <div className={styles.imgContainer}></div>
-                <div className={styles.userInfo}>
-                    <p className={styles.name}>{artist.pseudo}</p>
-                </div>
+              <div className={styles.imgContainer}></div>
+              <div className={styles.userInfo}>
+                <p className={styles.name}>{artist.pseudo}</p>
+              </div>
             </div>
           </div>
-          <div className={styles.content}>
-            {children}
-          </div>
+          <div className={styles.content}>{children}</div>
         </div>
       </div>
     </>

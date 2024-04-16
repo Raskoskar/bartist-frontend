@@ -54,6 +54,7 @@ export default function ArtistForm() {
     }
   }
   // Style du Composant React Select
+  // (provided) => au lieu de garder le style natif on aplique ce qui est en desous
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -112,7 +113,7 @@ export default function ArtistForm() {
               </div>
               <div className={styles.formElem}>
                 <label>
-                  Genre <span>*</span>
+                  Type d'artiste
                 </label>
                 <Select
                   styles={customStyles}
@@ -135,8 +136,8 @@ export default function ArtistForm() {
                   Genre <span>*</span>
                 </label>
                 <Select
-                  isMulti
-                  styles={customStyles}
+                  isMulti // permet la selection multiple
+                  styles={customStyles} // voir ci-dessus
                   options={genreOptions}
                   onChange={handleGenreChange}
                 />
@@ -153,8 +154,8 @@ export default function ArtistForm() {
                   value={members}
                 />
               </div>
-              <button onClick={() => SetFirstStep(firstStep + 1)}>Suivant</button>
-            </>
+              <button onClick={() => SetFirstStep(firstStep + 1)}>Suivant</button> 
+            </> // ^ variable d'etat pour passer de page en page.
           ) : firstStep == 2 ? (
             <>
             <div className={styles.formElem}>
