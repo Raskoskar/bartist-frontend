@@ -20,7 +20,7 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
       if (data.result) {
         dispatch(
           artistLogIn({
-            username: signUpEmail,
+            pseudo: signUpEmail,
             token: data.token,
             isConnected: true,
           })
@@ -39,14 +39,14 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
       if (data.result) {
         dispatch(
           venueLogIn({
-            username: signUpEmail,
+            pseudo: signUpEmail,
             token: data.token,
             isConnected: true,
           })
         );
         setSignUpEmail("");
         setSignUpPassword("");
-        navigator.na
+        
       } else {
         document.querySelector(
           "#alert"
