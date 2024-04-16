@@ -5,14 +5,28 @@ import styles from '../styles/VenueForm.module.css';
 import Image from 'next/image';
 import React from "react";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { createProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
 
-function VenueForm(props) {
+function VenueForm() {
 
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [type, setType] = useState('');
     const [description, setDescription] = useState('');
+    const [picture, setPicture] = useState('');
+    const router = useRouter();
 
+    const handleSubmit = async () => {
+        const dataVenues = await createProfilVenue(venue.token, name, address, type, description, picture);
+        console.log('dataVenues =>', dataVenues);
+            if(dataVenues.result){
+                console.log('dataVenues =>', dataVenues);
+                router.push('/CreateEvent')   
+            } else {
+                document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
+            }
+    }
   return (
     <div className={styles.formContainer}>
         <form className={styles.form}>
@@ -28,21 +42,22 @@ function VenueForm(props) {
                         <option value="restaurant" className={styles.option}>Restaurant</option>
                         <option value="salle de concert" className={styles.option}>Salle de concert</option>
                     </select>                
-                    <input onChange={(e) => setDescription(e.target.value)} value={description} className={styles.input} type="text" placeholder="Quelques mots sur votre établissement..." id="formDescription"  />
+                    <input onChange={(e) => setDescription(e.target.value)} value={description} className={styles.inputSelect} type="text" placeholder="Quelques mots sur votre établissement..." id="formDescription"  />
                 </div>
                 <div className={styles.pictureSection}>
-                    <Image 
+                    {/* <Image 
                         className={styles.pictureProfil}
                         src=''
                         alt=""
                         // width={50}
                         // height={50}
-                        />
-                    <button id="addPicture" className={styles.pictureBtn} >Ajouter une photo de profil</button>        
+                        /> */}
+                    <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />       
                 </div>
             </div>
-            <button id="create" className={styles.createBtn} >Créer</button>
+            <button onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
         </form>
+        <div id="alert"></div>
     </div>
   );
 }

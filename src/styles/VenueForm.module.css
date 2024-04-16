@@ -15,7 +15,7 @@
     flex-direction: column;
     min-height: 550px;
     max-height: 600px;
-    width: 600px;
+    width: 650px;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
@@ -44,19 +44,16 @@
 .pictureSection{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 25px
 }
 
 .pictureProfil {
     border: #3F88C5 solid 1px;
     border-radius: 50%;
+    height: 120px;
 }
-
-.pictureBtn {
-    font-size: 12px;
-    padding: 5px;
-}
-
+ 
 .input{
     background-color: transparent;
     border: #3F88C5 solid 1px;
@@ -77,6 +74,17 @@
     color: white;
 }
 
+.inputPicture {
+    background-color: transparent;
+    border: #3F88C5 solid 1px;
+    padding: 15px 10px;
+    width: 120px;
+    height: 50px;
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+ 
+}
 
 .input:focus{
     outline: none;
