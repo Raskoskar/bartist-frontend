@@ -25,12 +25,12 @@ export default function Profile() {
   // Savoir si l'utilisateur est un artiste ou un établissement pour gérer l'affichage.
   const user = useSelector((state) => state.user.value);
   const isVenue = user.isVenue;
-
+  console.log(isVenue)
   // Récupération des informations utilisateurs en BDD :
   useEffect(() => {
     getProfile(user.token, user.isVenue).then((response) =>
       setProfile(response)
-    ).then(console.log(profile.socials.youtube));
+    )
   }, []);
 
   // Gestion des selects
