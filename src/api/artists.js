@@ -45,7 +45,7 @@ export const updateArtist = async (
   spotify
 ) => {
   try {
-    const response = await fetch(`http://localhost:3000/artists/createProfileArtist/${token}`, {
+    const response = await fetch(`http://localhost:3000/artists/createProfile/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

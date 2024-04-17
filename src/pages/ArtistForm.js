@@ -44,8 +44,9 @@ export default function ArtistForm() {
   };
   const handleSubmit = async () => {
     const data = await updateArtist(artist.token, name, type, description, members, picture, genres, medias, youtube, souncloud, facebook, deezer, spotify);
+    console.log(data)
+
     if (data.result){
-      console.log(data)
       router.push("/Search")
     }else {
       document.querySelector(
