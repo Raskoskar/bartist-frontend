@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-
+  const isVenue = !user.isVenue
   const handleLogOut = () => {
     dispatch(logOut());
     router.push("/");
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
               Mes évènements
             </Link>
             <>
-              {user.isVenue && ( <>
+              {isVenue && ( <>
                 <Link
                   className={
                     router.pathname === "/CreateEvent"
@@ -73,7 +73,7 @@ export default function Layout({ children }) {
               }
               href="/Search"
             >
-              {user.isVenue
+              {isVenue
                 ? "Rechercher un artiste"
                 : "Rechercher un évènement"}
             </Link>
@@ -89,11 +89,11 @@ export default function Layout({ children }) {
             </Link>
             <Link
               className={
-                router.pathname === "/Profil"
+                router.pathname === "/Profile"
                   ? styles.selected
                   : styles.menuItem
               }
-              href="/Profil"
+              href="/Profile"
             >
               Mon Profil
             </Link>
@@ -106,7 +106,7 @@ export default function Layout({ children }) {
         </div>
         <div className={styles.center}>
           <div className={styles.header}>
-            <button className={styles.button}>Create Event</button>
+            <button className={styles.button}>Créer un évènement</button>
             <div className={styles.rightContent}>
               <div className={styles.imgContainer} onClick={() => handleProfil()}></div>
               <div className={styles.userInfo}>

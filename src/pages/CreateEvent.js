@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
-
+import Layout from "@/components/Layout"
+import styles from "@/styles/CreateEvent.module.css"
+import Select from "react-select"
 export default function CreateEvents() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

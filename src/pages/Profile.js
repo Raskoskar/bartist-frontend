@@ -4,7 +4,8 @@ import styles from "@/styles/Profil.module.css";
 import Select from "react-select";
 import { useState } from "react";
 
-export default function Profil() {
+export default function Profile() {
+
   // Variables d'états
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
