@@ -2,10 +2,10 @@ import Layout from "@/components/Layout";
 import { useSelector } from "react-redux";
 import styles from "@/styles/Profil.module.css";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProfile } from "@/hooks/getProfil";
 
 export default function Profile() {
-
   // Variables d'états
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -19,14 +19,21 @@ export default function Profile() {
   const [deezer, setDeezer] = useState("");
   const [spotify, setSpotify] = useState("");
   const [souncloud, setSoundcloud] = useState("");
-  const [adresse, setAdresse] = useState("");
+  const [adress, setAdress] = useState("");
   const [venueType, setVenueType] = useState("");
-
+  const [profile, setProfile] = useState({});
   // Savoir si l'utilisateur est un artiste ou un établissement pour gérer l'affichage.
   const user = useSelector((state) => state.user.value);
   const isVenue = user.isVenue;
-  // Récupération des
-  // Options pour les select et logique d'attribution aux var d'états
+
+  // Récupération des informations utilisateurs en BDD :
+  useEffect(() => {
+    getProfile(user.token, user.isVenue).then((response) =>
+      setProfile(response)
+    ).then(console.log(profile.socials.youtube));
+  }, []);
+
+  // Gestion des selects
   const genreOptions = [
     { label: "Rap", value: "rap" },
     { label: "Pop", value: "pop" },
@@ -55,6 +62,42 @@ export default function Profile() {
   };
   const handleVenueChange = (selectedOptions) => {
     setVenueType(selectedOptions.value);
+  };
+
+  // Fonction de mise à jour du profil utilisateur:
+  const handleUpdateProfil = async () => {
+    if (!isVenue){
+      const data = await updateArtist(
+        user.token,
+        name != "" ? name : profile.name,
+        type != "" ? type : profile.type,
+        description != "" ? description : profile.description,
+        members != "" ? members : profile.members,
+        picture != "" ? picture : profile.picture,
+        genres != [] ? genres : profile.genres,
+        medias != [] ? medias : profile.medias,
+        youtube != "" ? youtube : profile.medias.youtube,
+        souncloud != "" ? souncloud : profile.medias.soundcloud,
+        facebook != "" ? facebook : profile.medias.facebook,
+        deezer != "" ? deezer : profile.facebook,
+        spotify != "" ? spotify : profile.spotify
+      );
+    } else{
+      const data = await updateArtist(
+        user.token,
+        name != "" ? name : profile.name,
+        adress != "" ? type : profile.type,
+        description != "" ? description : profile.description,
+        type != "" ? members : profile.members,
+        picture != "" ? picture : profile.picture,
+      )
+    }
+    if(data.result){
+      console.log(data.result)
+    }else{
+      console.error(data.error)
+    }
+    
   };
 
   // Style du Composant React Select
@@ -124,7 +167,7 @@ export default function Profile() {
           <hr />
           <div className={styles.formContent}>
             <div className={styles.formContent}>
-              <image></image>
+              <image alt="profil"></image>
               <h2>Informations générales</h2>
             </div>
             <div className={styles.formElem}>
@@ -135,10 +178,10 @@ export default function Profile() {
               <input
                 className={styles.input}
                 type="text"
-                placeholder={`Votre nom ${
-                  isVenue ? "d'établissemnt" : "de scène"
-                }...`}
-                onChange={(e) => setName(e.target.value)}
+                placeholder={profile.name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
                 value={name}
               />
             </div>
@@ -149,7 +192,7 @@ export default function Profile() {
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Quelques mots sur vous..."
+                placeholder={profile.description}
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
               />
@@ -158,14 +201,14 @@ export default function Profile() {
               <>
                 <div className={styles.formElem}>
                   <label>
-                    Adresse <span>*</span>
+                    Adress <span>*</span>
                   </label>
                   <input
                     className={styles.input}
                     type="text"
-                    placeholder="Adresse de l'établissement..."
-                    onChange={(e) => setAdresse(e.target.value)}
-                    value={adresse}
+                    placeholder={profile.adress}
+                    onChange={(e) => setAdress(e.target.value)}
+                    value={adress}
                   />
                 </div>
                 <div className={styles.formElem}>
@@ -207,7 +250,7 @@ export default function Profile() {
                   <input
                     className={styles.input}
                     type="text"
-                    placeholder="Nombre de membres..."
+                    placeholder={profile.members}
                     onChange={(e) => setMembers(e.target.value)}
                     value={members}
                   />
@@ -217,7 +260,7 @@ export default function Profile() {
                   <input
                     className={styles.input}
                     type="text"
-                    placeholder="Ajouter des images ou vidéos de vos prestations..."
+                    placeholder={profile.media}
                     onChange={(e) => {
                       setMedias(e.target.value);
                     }}
@@ -233,7 +276,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder="Lien vers votre chaine youtube..."
+                      placeholder={profile.socials.youtube}
                       onChange={(e) => setYoutube(e.target.value)}
                       value={youtube}
                     />
@@ -243,7 +286,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder="Lien vers votre profil Deezer..."
+                      placeholder={profile.socials.deezer}
                       onChange={(e) => setDeezer(e.target.value)}
                       value={deezer}
                     />
@@ -253,7 +296,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder="Lien vers votre Spotify..."
+                      placeholder={profile.socials.spotify}
                       onChange={(e) => setSpotify(e.target.value)}
                       value={spotify}
                     />
@@ -263,7 +306,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder="Lien vers votre SoundCloud..."
+                      placeholder={profile.socials.soundcloud}
                       onChange={(e) => setSoundcloud(e.target.value)}
                       value={souncloud}
                     />
@@ -273,7 +316,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder="Lien vers votre Facebook..."
+                      placeholder={profile.socials.facebook}
                       onChange={(e) => setFacebook(e.target.value)}
                       value={facebook}
                     />

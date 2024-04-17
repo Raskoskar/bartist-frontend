@@ -54,3 +54,19 @@ export const updateProfilVenue = async (
     }
 
 }
+
+
+export const getVenue = async (token) => {
+    try{
+      const response = await fetch(`http://localhost:3000/venues/${token}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data.venue
+    }catch(error){
+      console.error("Error retrieving venues infos:", error.message)
+    }
+  }
