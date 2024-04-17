@@ -12,12 +12,13 @@ export const createEvent = async (
     instagram,
   ) => {
     try {
-      const response = await fetch(`http://localhost:3000/artists/createEvent/${token}`, {
+      const response = await fetch(`http://localhost:3000/events/createEvent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          token: token,
           title: title,
           description: description,
           date: date,

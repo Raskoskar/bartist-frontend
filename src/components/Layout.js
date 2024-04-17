@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const isVenue = !user.isVenue
+  const isVenue = user.isVenue
   const handleLogOut = () => {
     dispatch(logOut());
     router.push("/");

@@ -3,6 +3,8 @@ import { useState } from "react";
 import Layout from "@/components/Layout"
 import styles from "@/styles/CreateEvent.module.css"
 import Select from "react-select"
+import { useSelector } from "react-redux";
+
 import { createEvent } from "@/api/events";
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -23,12 +25,13 @@ export default function CreateEvent() {
     const [status, setStatus] = useState("");
     const [date, setDate] = useState();
 
+    const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
+
     const genreOptions = [
         { label: "Rap", value: "rap" },
         { label: "Pop", value: "pop" },
         { label: "Techno", value: "techno" },
       ];
-
 
     const handleGenreChange = (selectedOptions) => {
         setGenres(
@@ -36,17 +39,24 @@ export default function CreateEvent() {
         );
       };
 
-
       const handleSave = () => {
         setStatus('Draft');
-        createEvent();
+        createEvent(    user.token,
+          title,
+          description,
+          date,
+          hour_start,
+          picture,
+          genres,
+          status,
+          facebook,
+          instagram,);
       };
 
       const handlePublish = () => {
         setStatus('Published')
         createEvent();
       };
-
 
       //const handleSave à rajouter
       //const handlePublish à rajouter
