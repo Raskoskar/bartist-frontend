@@ -31,6 +31,7 @@ export default function Layout({ children }) {
         <div className={styles.sideMenu}>
           <div className={styles.logoContainer}>
             <Image
+              alt="logo"
               className={styles.logo}
               src="/assets/logo.png"
               width={200}
