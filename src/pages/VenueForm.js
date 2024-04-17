@@ -13,7 +13,7 @@ function VenueForm() {
     const [address, setAddress] = useState('');
     const [type, setType] = useState('');
     const [description, setDescription] = useState('');
-    const [picture, setPicture] = useState('');
+    const [picture, setPicture] = useState('testpicture');
 
     const venue = useSelector((state) => state.venue.value);// Pour utiliser le token du reducer venue
 
@@ -24,7 +24,7 @@ function VenueForm() {
         console.log('dataVenues =>', dataVenues);
             if(dataVenues.result){
                 console.log('dataVenues =>', dataVenues);
-                router.push('/Search')
+                router.push('/CreateEvent')   
             } else {
                 document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
             }

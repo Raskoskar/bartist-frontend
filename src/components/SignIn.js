@@ -31,8 +31,6 @@ const SignIn = ({ isOpen, onClose}) => {
 
     } else if (data1.result) {
         console.log(data1);
-    } else if (data1.result) {
-        console.log(data1);
       dispatch(
         venueLogIn({
           pseudo: signInEmail,
