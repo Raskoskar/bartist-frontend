@@ -13,21 +13,23 @@ function VenueForm() {
     const [address, setAddress] = useState('');
     const [type, setType] = useState('');
     const [description, setDescription] = useState('');
-    const [picture, setPicture] = useState('');
+    const [picture, setPicture] = useState('testpicture');
 
     const venue = useSelector((state) => state.venue.value);// Pour utiliser le token du reducer venue
 
     const router = useRouter(); //pour les redirections
 
-    const handleSubmit = async () => {
-        const dataVenues = await updateProfilVenue(venue.token, name, address, type, description, picture);
-        console.log('dataVenues =>', dataVenues);
-            if(dataVenues.result){
-                console.log('dataVenues =>', dataVenues);
-                router.push('/CreateEvent')   
-            } else {
-                document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
-            }
+    const handleSubmit =  () => { console.log("submit values: ", {token: venue.token, name, address, type, description, picture});
+        updateProfilVenue(venue.token, name, address, type, description, picture)
+        .then(dataVenue => {
+            console.log('dataVenue =>', dataVenue);
+                if(dataVenue.result){
+                    console.log('dataVenue =>', dataVenue);
+                    router.push('/CreateEvent')   
+                } else {
+                    document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenue.error}`;
+                }
+        }).catch(error => console.error("handleSubmit error: ",error));
     }
   return (
     <div className={styles.formContainer}>

@@ -27,10 +27,8 @@ const SignIn = ({ isOpen, onClose}) => {
       );
       setSignInEmail("");
       setSignInPassword("");
-      router.push("/ArtistForm")
+      router.push("/Search")
 
-    } else if (data1.result) {
-        console.log(data1);
     } else if (data1.result) {
         console.log(data1);
       dispatch(
@@ -42,7 +40,7 @@ const SignIn = ({ isOpen, onClose}) => {
       );
       setSignInEmail("");
       setSignInPassword("");
-      router.push("/VenueForm");
+      router.push("/Search");
     }else
     {
       document.querySelector(
