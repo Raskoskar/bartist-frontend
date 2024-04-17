@@ -62,7 +62,7 @@ export default function Layout({ children }) {
                   }
                   href="/CreateEvent"
                 >
-                  créer un évènement
+                  Créer un évènement
                 </Link>
               </>)}
             </>
