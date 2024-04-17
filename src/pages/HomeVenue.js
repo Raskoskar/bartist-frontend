@@ -7,10 +7,10 @@ import Layout from '../components/Layout';
 function HomeVenue(props) {
 
   return (
-    <div >
-    <Layout/>
-    </div>
-  );
+    <Layout isSelected="#HomeVenue">
+      <h1>HomeVenue</h1>
+    </Layout>
+);
 }
 
 export default HomeVenue;
