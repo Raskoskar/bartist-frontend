@@ -15,13 +15,13 @@ function VenueForm() {
     const [description, setDescription] = useState('');
     const [picture, setPicture] = useState('testpicture');
 
-    const venue = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
+    const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
 
     const router = useRouter(); //pour les redirections
 
     // submit formulaire creation profil etablissement
     const handleSubmit = async () => {
-        const dataVenues = await updateProfilVenue(venue.token, name, address, type, description, picture);
+        const dataVenues = await updateProfilVenue(user.token, name, address, type, description, picture);
         console.log('dataVenues =>', dataVenues);
             if(dataVenues.result){
                 console.log('dataVenues =>', dataVenues);
@@ -70,7 +70,7 @@ function VenueForm() {
                     />
                 </div>
             </div>
-            <button onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
+            <button type='button' onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
         </form>
         <div id="alert"></div>
     </div>
@@ -78,4 +78,3 @@ function VenueForm() {
 }
 
 export default VenueForm;
-

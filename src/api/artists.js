@@ -1,3 +1,7 @@
+
+
+// Fonction de liaison vers le backend et de controle des données de l'utilisateur pour 
+// l'inscription d'un nouvel utilisateur
 export const signUpArtist = async (email, password) => {
   try {
     const response = await fetch(`http://localhost:3000/artists/signUp`, {
@@ -13,6 +17,9 @@ export const signUpArtist = async (email, password) => {
     console.log(error);
   }
 };
+
+// Fonction de liaison vers le backend et de controle des données de l'utilisateur pour 
+// la connnexion d'un utilisateur
 export const signInArtist = async (email, password) => {
   try {
     const response = await fetch(`http://localhost:3000/artists/signIn`, {
@@ -29,6 +36,8 @@ export const signInArtist = async (email, password) => {
   }
 };
 
+// Fonction de liaison vers le backend et de controle des données de l'utilisateur pour 
+// la mise à jour d'un profil utilisateur.
 export const updateArtist = async (
   token,
   name,
@@ -71,3 +80,19 @@ export const updateArtist = async (
     console.error("Error during update:", error.message);
   }
 };
+
+// Fonction de liaison vers le backend et de controle des données pour récupérer les données sur un artiste.
+export const getArtist = async (token) => {
+  try{
+    const response = await fetch(`http://localhost:3000/artists/${token}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data.artist
+  }catch(error){
+    console.error("Error retrieving artist infos:", error.message)
+  }
+}
