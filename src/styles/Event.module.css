@@ -1,0 +1,22 @@
+.eventTitle {
+    color: black;
+}
+
+.cardContainer {
+    border: solid 1px black;
+    width: 220px;
+    height: 320px;
+    margin: 20px;
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eventContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    color: black;
+}

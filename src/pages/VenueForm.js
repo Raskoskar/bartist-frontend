@@ -19,6 +19,7 @@ function VenueForm() {
 
     const router = useRouter(); //pour les redirections
 
+    // submit formulaire creation profil etablissement
     const handleSubmit = async () => {
         const dataVenues = await updateProfilVenue(user.token, name, address, type, description, picture);
         console.log('dataVenues =>', dataVenues);
@@ -29,6 +30,12 @@ function VenueForm() {
                 document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
             }
     }
+
+    //upload img
+    const handleFileUpload = (e) => {
+        setPicture(e.target.value); // Récupère le fichier sélectionné par l'utilisateur
+    };
+
   return (
     <div className={styles.formContainer}>
         <form className={styles.form}>
@@ -54,7 +61,13 @@ function VenueForm() {
                         // width={50}
                         // height={50}
                         /> */}
-                    {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />        */}
+                    {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />*/}
+                    <input
+                        type="file"
+                        onChange={(e) => handleFileUpload(e)}
+                        accept="image/*" // Limite le type de fichiers acceptés aux images
+                        className={styles.inputFile}
+                    />
                 </div>
             </div>
             <button type='button' onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
