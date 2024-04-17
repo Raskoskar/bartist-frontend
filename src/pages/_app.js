@@ -7,6 +7,11 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import user from "../reducers/user";
 
+//Imports pour pouvoir utiliser les calendriers dans tout le site
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import 'moment/locale/fr' //Pour mettre les heures et dates au format GB similaire à FR
+
 
 import { Provider } from "react-redux";
 
@@ -25,10 +30,12 @@ function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Head>
-          <title>BarTist</title>
-        </Head>
-        <Component {...pageProps} />
+        <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="fr">
+          <Head>
+            <title>BarTist</title>
+          </Head>
+          <Component {...pageProps} />
+        </LocalizationProvider>
       </PersistGate>
     </Provider>
   );
