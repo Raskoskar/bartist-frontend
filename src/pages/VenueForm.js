@@ -28,17 +28,6 @@ function VenueForm() {
             } else {
                 document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
             }
-    const handleSubmit =  () => { console.log("submit values: ", {token: venue.token, name, address, type, description, picture});
-        updateProfilVenue(venue.token, name, address, type, description, picture)
-        .then(dataVenue => {
-            console.log('dataVenue =>', dataVenue);
-                if(dataVenue.result){
-                    console.log('dataVenue =>', dataVenue);
-                    router.push('/CreateEvent')   
-                } else {
-                    document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenue.error}`;
-                }
-        }).catch(error => console.error("handleSubmit error: ",error));
     }
   return (
     <div className={styles.formContainer}>
@@ -68,7 +57,7 @@ function VenueForm() {
                     {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />        */}
                 </div>
             </div>
-            <button onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
+            <button type='button' onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
         </form>
         <div id="alert"></div>
     </div>
@@ -76,4 +65,3 @@ function VenueForm() {
 }
 
 export default VenueForm;
-
