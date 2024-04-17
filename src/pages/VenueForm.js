@@ -1,12 +1,11 @@
 import styles from '../styles/VenueForm.module.css';
-// import 'antd/dist/antd.css';
-// import { Button } from 'antd';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { createProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
+import { updateProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
 
 function VenueForm() {
 
@@ -15,10 +14,13 @@ function VenueForm() {
     const [type, setType] = useState('');
     const [description, setDescription] = useState('');
     const [picture, setPicture] = useState('');
-    const router = useRouter();
+
+    const venue = useSelector((state) => state.venue.value);// Pour utiliser le token du reducer venue
+
+    const router = useRouter(); //pour les redirections
 
     const handleSubmit = async () => {
-        const dataVenues = await createProfilVenue(venue.token, name, address, type, description, picture);
+        const dataVenues = await updateProfilVenue(venue.token, name, address, type, description, picture);
         console.log('dataVenues =>', dataVenues);
             if(dataVenues.result){
                 console.log('dataVenues =>', dataVenues);
@@ -52,7 +54,7 @@ function VenueForm() {
                         // width={50}
                         // height={50}
                         /> */}
-                    <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />       
+                    {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />        */}
                 </div>
             </div>
             <button onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>

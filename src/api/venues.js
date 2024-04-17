@@ -34,10 +34,10 @@ export const signInVenue = async (email, password) => {
 }
 
 //FETCH create profil
-export const createProfilVenue = async ( 
-    name, address, type, description, picture) => {
+export const updateProfilVenue = async ( 
+    token, name, address, type, description, picture) => {
     try{
-        const response = await fetch(`http://localhost:3000/venues/createprofil/:token`, 
+        const response = await fetch(`http://localhost:3000/venues/createprofil/${token}`, 
         {
             method: 'POST',
             headers: {

@@ -5,12 +5,12 @@ import { signInArtist } from "@/api/artists";
 import { artistLogIn } from "../reducers/artist";
 import { venueLogIn } from "@/reducers/venue";
 import { signInVenue, signUpVenue } from "@/api/venues";
-
+import { useRouter } from "next/router";
 
 const SignIn = ({ isOpen, onClose}) => {
   const [signInEmail, setSignInEmail] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
-
+  const router = useRouter()
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
@@ -27,6 +27,8 @@ const SignIn = ({ isOpen, onClose}) => {
       );
       setSignInEmail("");
       setSignInPassword("");
+      router.push("/ArtistForm")
+
     } else if (data1.result) {
         console.log(data1);
     } else if (data1.result) {
@@ -40,6 +42,7 @@ const SignIn = ({ isOpen, onClose}) => {
       );
       setSignInEmail("");
       setSignInPassword("");
+      router.push("/VenueForm");
     }else
     {
       document.querySelector(
