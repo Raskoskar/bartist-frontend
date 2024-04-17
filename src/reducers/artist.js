@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { token: null, pseudo: null, isConnected: false },
+  value: { token: null, pseudo: null, isConnected: false, },
 };
 
 export const artistSlice = createSlice({

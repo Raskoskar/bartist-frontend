@@ -20,7 +20,7 @@ const SignIn = ({ isOpen, onClose}) => {
     if (data.result) {
       dispatch(
         artistLogIn({
-          username: signInEmail,
+          pseudo: signInEmail,
           token: data.token,
           isConnected: true,
         })
@@ -35,7 +35,7 @@ const SignIn = ({ isOpen, onClose}) => {
         console.log(data1);
       dispatch(
         venueLogIn({
-          username: signInEmail,
+          pseudo: signInEmail,
           token: data.token,
           isConnected: true,
         })
