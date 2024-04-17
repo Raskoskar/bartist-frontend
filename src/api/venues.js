@@ -36,8 +36,9 @@ export const signInVenue = async (email, password) => {
 //FETCH create profil
 export const updateProfilVenue = async ( 
     token, name, address, type, description, picture) => {
-        console.log("update profil venue variable", token, name, address, type, description, picture);
+        
     try{
+        
         const response = await fetch(`http://localhost:3000/venues/createProfile/${token}`, 
         {
             method: 'POST',

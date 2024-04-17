@@ -15,12 +15,12 @@ function VenueForm() {
     const [description, setDescription] = useState('');
     const [picture, setPicture] = useState('testpicture');
 
-    const venue = useSelector((state) => state.venue.value);// Pour utiliser le token du reducer venue
+    const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
 
     const router = useRouter(); //pour les redirections
 
     const handleSubmit = async () => {
-        const dataVenues = await updateProfilVenue(venue.token, name, address, type, description, picture);
+        const dataVenues = await updateProfilVenue(user.token, name, address, type, description, picture);
         console.log('dataVenues =>', dataVenues);
             if(dataVenues.result){
                 console.log('dataVenues =>', dataVenues);
@@ -57,7 +57,7 @@ function VenueForm() {
                     {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />        */}
                 </div>
             </div>
-            <button onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
+            <button type='button' onClick={() => handleSubmit()} id="create" className={styles.createBtn} >Créer</button>
         </form>
         <div id="alert"></div>
     </div>

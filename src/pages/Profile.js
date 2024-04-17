@@ -4,6 +4,8 @@ import styles from "@/styles/Profil.module.css";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import { getProfile } from "@/hooks/getProfil";
+import { updateArtist } from "@/api/artists";
+import { updateProfilVenue } from "@/api/venues";
 
 export default function Profile() {
   // Variables d'états
@@ -25,13 +27,16 @@ export default function Profile() {
   // Savoir si l'utilisateur est un artiste ou un établissement pour gérer l'affichage.
   const user = useSelector((state) => state.user.value);
   const isVenue = user.isVenue;
-  console.log(isVenue)
   // Récupération des informations utilisateurs en BDD :
   useEffect(() => {
     getProfile(user.token, user.isVenue).then((response) =>
       setProfile(response)
-    )
+    ).then(console.log(profile))
   }, []);
+
+  useEffect(() => {
+    console.log("Current Venue Type:", type);
+}, [type]);
 
   // Gestion des selects
   const genreOptions = [
@@ -57,41 +62,46 @@ export default function Profile() {
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
-  const handleTypeChange = (selectedOptions) => {
+  const handleTypeChange =  (selectedOptions) => {
+    console.log(selectedOptions.value)
     setType(selectedOptions.value);
+    
   };
   const handleVenueChange = (selectedOptions) => {
+    console.log(selectedOptions.value)
     setVenueType(selectedOptions.value);
   };
 
   // Fonction de mise à jour du profil utilisateur:
   const handleUpdateProfil = async () => {
+    let data = null
     if (!isVenue){
-      const data = await updateArtist(
+       data = await updateArtist(
         user.token,
         name != "" ? name : profile.name,
-        type != "" ? type : profile.type,
+        venueType != "" ? venueType : profile.type,
         description != "" ? description : profile.description,
         members != "" ? members : profile.members,
         picture != "" ? picture : profile.picture,
         genres != [] ? genres : profile.genres,
         medias != [] ? medias : profile.medias,
         youtube != "" ? youtube : profile.medias.youtube,
-        souncloud != "" ? souncloud : profile.medias.soundcloud,
-        facebook != "" ? facebook : profile.medias.facebook,
-        deezer != "" ? deezer : profile.facebook,
-        spotify != "" ? spotify : profile.spotify
+        souncloud != "" ? souncloud : profile.socials.soundcloud,
+        facebook != "" ? facebook : profile.socials.facebook,
+        deezer != "" ? deezer : profile.socials.deezer,
+        spotify != "" ? spotify : profile.socials.spotify
       );
     } else{
-      const data = await updateArtist(
+       data = await updateProfilVenue(
         user.token,
         name != "" ? name : profile.name,
-        adress != "" ? type : profile.type,
+        adress != "" ? adress : profile.adress,
+        type != "" ? type : profile.type,
         description != "" ? description : profile.description,
-        type != "" ? members : profile.members,
         picture != "" ? picture : profile.picture,
       )
     }
+    console.log(data)
     if(data.result){
       console.log(data.result)
     }else{
@@ -206,7 +216,7 @@ export default function Profile() {
                   <input
                     className={styles.input}
                     type="text"
-                    placeholder={profile.adress}
+                    placeholder={profile.address}
                     onChange={(e) => setAdress(e.target.value)}
                     value={adress}
                   />
@@ -219,6 +229,7 @@ export default function Profile() {
                     styles={customStyles}
                     options={venueOptions}
                     onChange={handleVenueChange}
+                    value={venueOptions.find(option => option.value === venueType)}
                   />
                 </div>
               </>
@@ -230,6 +241,7 @@ export default function Profile() {
                     styles={customStyles}
                     options={typeOptions}
                     onChange={handleTypeChange}
+                    value={typeOptions.find(option => option.value === type)}
                   />
                 </div>
                 <div className={styles.formElem}>
@@ -241,6 +253,7 @@ export default function Profile() {
                     styles={customStyles} // voir ci-dessus
                     options={genreOptions}
                     onChange={handleGenreChange}
+                    value={genreOptions.find(option => option.value === genres)}
                   />
                 </div>
                 <div className={styles.formElem}>
@@ -276,7 +289,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder={profile.socials.youtube}
+                      placeholder={profile.socials?.youtube}
                       onChange={(e) => setYoutube(e.target.value)}
                       value={youtube}
                     />
@@ -286,7 +299,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder={profile.socials.deezer}
+                      placeholder={profile.socials?.deezer}
                       onChange={(e) => setDeezer(e.target.value)}
                       value={deezer}
                     />
@@ -296,7 +309,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder={profile.socials.spotify}
+                      placeholder={profile.socials?.spotify}
                       onChange={(e) => setSpotify(e.target.value)}
                       value={spotify}
                     />
@@ -306,7 +319,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder={profile.socials.soundcloud}
+                      placeholder={profile.socials?.soundcloud}
                       onChange={(e) => setSoundcloud(e.target.value)}
                       value={souncloud}
                     />
@@ -316,7 +329,7 @@ export default function Profile() {
                     <input
                       className={styles.input}
                       type="text"
-                      placeholder={profile.socials.facebook}
+                      placeholder={profile.socials?.facebook}
                       onChange={(e) => setFacebook(e.target.value)}
                       value={facebook}
                     />
@@ -324,6 +337,7 @@ export default function Profile() {
                 </>
               </>
             )}
+            <button type="button" onClick={() => handleUpdateProfil()}>Mettre à jour</button>
           </div>
         </div>
       </div>
