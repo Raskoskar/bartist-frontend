@@ -1,10 +1,9 @@
-import React, { useState, useSelector } from "react";
+import React, { useState } from "react";
 import styles from "../styles/SignUp.module.css";
 import { useDispatch } from "react-redux";
 import { signInArtist } from "@/api/artists";
-import { artistLogIn } from "../reducers/artist";
-import { venueLogIn } from "@/reducers/venue";
-import { signInVenue, signUpVenue } from "@/api/venues";
+import { logIn } from "../reducers/user";
+import { signInVenue } from "@/api/venues";
 import { useRouter } from "next/router";
 
 const SignIn = ({ isOpen, onClose}) => {
@@ -19,30 +18,30 @@ const SignIn = ({ isOpen, onClose}) => {
     console.log(data)
     if (data.result) {
       dispatch(
-        artistLogIn({
+        logIn({
           pseudo: signInEmail,
           token: data.token,
           isConnected: true,
+          isVenue: false,
         })
       );
       setSignInEmail("");
       setSignInPassword("");
-      router.push("/ArtistForm")
+      router.push("/Search")
 
     } else if (data1.result) {
         console.log(data1);
-    } else if (data1.result) {
-        console.log(data1);
       dispatch(
-        venueLogIn({
+        logIn({
           pseudo: signInEmail,
           token: data.token,
           isConnected: true,
+          isVenue: true,
         })
       );
       setSignInEmail("");
       setSignInPassword("");
-      router.push("/VenueForm");
+      router.push("/Search");
     }else
     {
       document.querySelector(

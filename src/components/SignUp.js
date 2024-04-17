@@ -3,8 +3,7 @@ import styles from "../styles/SignUp.module.css";
 import { useDispatch } from "react-redux";
 import { signUpArtist } from "@/api/artists";
 import { signUpVenue } from "@/api/venues";
-import { artistLogIn } from "../reducers/artist";
-import { venueLogIn } from "@/reducers/venue";
+import { logIn } from "../reducers/user";
 import { useRouter } from "next/router";
 const SignUp = ({ isOpen, onClose, wichUser }) => {
   const [signUpEmail, setSignUpEmail] = useState("");
@@ -19,10 +18,11 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
 
       if (data.result) {
         dispatch(
-          artistLogIn({
+          logIn({
             pseudo: signUpEmail,
             token: data.token,
             isConnected: true,
+            isVenue: false,
           })
         );
         setSignUpEmail("");
@@ -38,10 +38,11 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
       data = await signUpVenue(signUpEmail, signUpPassword);
       if (data.result) {
         dispatch(
-          venueLogIn({
+          logIn({
             pseudo: signUpEmail,
             token: data.token,
             isConnected: true,
+            isVenue: true
           })
         );
         setSignUpEmail("");

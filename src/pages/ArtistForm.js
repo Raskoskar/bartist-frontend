@@ -20,7 +20,7 @@ export default function ArtistForm() {
   const [souncloud, setSoundcloud] = useState("");
 
   const [firstStep, SetFirstStep] = useState(1);
-  const artist = useSelector((state) => state.artist.value);
+  const artist = useSelector((state) => state.user.value);
   const router = useRouter();
   const [buttonText, setButtonText] = useState('passer')
   const genreOptions = [

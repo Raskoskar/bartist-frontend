@@ -4,18 +4,22 @@ import styles from "@/styles/Layout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { artistLogOut } from "@/reducers/artist";
+import { logOut } from "@/reducers/user";
 import Image from "next/image";
 
 export default function Layout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const artist = useSelector((state) => state.artist.value);
+  const user = useSelector((state) => state.user.value);
 
   const handleLogOut = () => {
-    dispatch(artistLogOut());
+    dispatch(logOut());
     router.push("/");
   };
+
+  const handleProfil = () => {
+    router.push("/Profil")
+  }
   return (
     <>
       <Head>
@@ -32,7 +36,9 @@ export default function Layout({ children }) {
               width={200}
               height={200}
             />
-            <h2 className={styles.logoName}><span>Bar</span>Tist</h2>
+            <h2 className={styles.logoName}>
+              <span>Bar</span>Tist
+            </h2>
           </div>
           <div className={styles.links}>
             <Link
@@ -45,6 +51,20 @@ export default function Layout({ children }) {
             >
               Mes évènements
             </Link>
+            <>
+              {user.isVenue && ( <>
+                <Link
+                  className={
+                    router.pathname === "/CreateEvent"
+                      ? styles.selected
+                      : styles.menuItem
+                  }
+                  href="/CreateEvent"
+                >
+                  créer un évènement
+                </Link>
+              </>)}
+            </>
             <Link
               className={
                 router.pathname === "/Search"
@@ -53,7 +73,9 @@ export default function Layout({ children }) {
               }
               href="/Search"
             >
-              Chercher des évènements
+              {user.isVenue
+                ? "Rechercher un artiste"
+                : "Rechercher un évènement"}
             </Link>
             <Link
               className={
@@ -65,6 +87,17 @@ export default function Layout({ children }) {
             >
               Mes propositions
             </Link>
+            <Link
+              className={
+                router.pathname === "/Profil"
+                  ? styles.selected
+                  : styles.menuItem
+              }
+              href="/Profil"
+            >
+              Mon Profil
+            </Link>
+            
           </div>
           <div>
             <div></div>
@@ -75,9 +108,9 @@ export default function Layout({ children }) {
           <div className={styles.header}>
             <button className={styles.button}>Create Event</button>
             <div className={styles.rightContent}>
-              <div className={styles.imgContainer}></div>
+              <div className={styles.imgContainer} onClick={() => handleProfil()}></div>
               <div className={styles.userInfo}>
-                <p className={styles.name}>{artist.pseudo}</p>
+                <p className={styles.name}>{user.pseudo}</p>
               </div>
             </div>
           </div>

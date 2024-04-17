@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout"
 export default function Search() {
     return (
-        <Layout isSelected="#search">
+        <Layout>
         <h1>Search</h1>
         </Layout>
     )
