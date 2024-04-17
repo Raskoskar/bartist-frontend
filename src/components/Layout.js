@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const isVenue = !user.isVenue
+  const isVenue = user.isVenue
   const handleLogOut = () => {
     dispatch(logOut());
     router.push("/");
@@ -107,7 +107,8 @@ export default function Layout({ children }) {
         </div>
         <div className={styles.center}>
           <div className={styles.header}>
-            <button className={styles.button}>Créer un évènement</button>
+            <>{isVenue ? <button onClick={() => router.push('/CreateEvent')} className={styles.button}>Créer un évènement</button> : <button onClick={() => router.push('/Search')} className={styles.button}>Chercher un évènement</button> }</>
+            
             <div className={styles.rightContent}>
               <div className={styles.imgContainer} onClick={() => handleProfil()}></div>
               <div className={styles.userInfo}>
