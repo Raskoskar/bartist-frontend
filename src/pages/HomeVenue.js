@@ -2,13 +2,13 @@ import styles from '../styles/HomeVenue.module.css';
 import Image from 'next/image';
 import React from "react";
 import { useState } from "react";
-import NavBarVenue from '../components/NavBarVenue';
+import Layout from '../components/Layout';
 
 function HomeVenue(props) {
 
   return (
     <div >
-    <NavBarVenue/>
+    <Layout/>
     </div>
   );
 }

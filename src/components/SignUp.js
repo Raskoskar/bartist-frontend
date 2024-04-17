@@ -11,7 +11,7 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
   const [signUpPassword, setSignUpPassword] = useState("");
 
   const dispatch = useDispatch();
-    const router = useRouter()
+  const router = useRouter()
   const handleRegister = async (type) => {
     let data = null;
     if (type == "artist") {
