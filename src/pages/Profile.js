@@ -12,7 +12,7 @@ export default function Profile() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
-  const [genres, setGenres] = useState([]);
+  const [genres, setGenres] = useState([""]);
   const [members, setMembers] = useState("");
   const [picture, setPicture] = useState("");
   const [medias, setMedias] = useState([""]);
@@ -31,12 +31,9 @@ export default function Profile() {
   useEffect(() => {
     getProfile(user.token, user.isVenue).then((response) =>
       setProfile(response)
-    ).then(console.log(profile))
-  }, []);
+    )
+  },[type, genres, venueType]);
 
-  useEffect(() => {
-    console.log("Current Venue Type:", type);
-}, [type]);
 
   // Gestion des selects
   const genreOptions = [
@@ -58,17 +55,17 @@ export default function Profile() {
   ];
 
   const handleGenreChange = (selectedOptions) => {
+    console.log(genres.length > 1 ? genres : profile.genres)
     setGenres(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
   const handleTypeChange =  (selectedOptions) => {
-    console.log(selectedOptions.value)
+    console.log("current selected type: ",selectedOptions.value)
     setType(selectedOptions.value);
     
   };
   const handleVenueChange = (selectedOptions) => {
-    console.log(selectedOptions.value)
     setVenueType(selectedOptions.value);
   };
 
@@ -79,11 +76,11 @@ export default function Profile() {
        data = await updateArtist(
         user.token,
         name != "" ? name : profile.name,
-        venueType != "" ? venueType : profile.type,
+        type != "" ? type : profile.type,
         description != "" ? description : profile.description,
         members != "" ? members : profile.members,
         picture != "" ? picture : profile.picture,
-        genres != [] ? genres : profile.genres,
+        genres.length > 0 ? genres : profile.genres,
         medias != [] ? medias : profile.medias,
         youtube != "" ? youtube : profile.medias.youtube,
         souncloud != "" ? souncloud : profile.socials.soundcloud,
@@ -96,7 +93,7 @@ export default function Profile() {
         user.token,
         name != "" ? name : profile.name,
         adress != "" ? adress : profile.adress,
-        type != "" ? type : profile.type,
+        venueType != "" ? venueType : profile.type,
         description != "" ? description : profile.description,
         picture != "" ? picture : profile.picture,
       )
@@ -226,6 +223,7 @@ export default function Profile() {
                     Type d'établissement <span>*</span>
                   </label>
                   <Select
+                  placeholder={profile.type}
                     styles={customStyles}
                     options={venueOptions}
                     onChange={handleVenueChange}
@@ -238,6 +236,7 @@ export default function Profile() {
                 <div className={styles.formElem}>
                   <label>Type d'artiste</label>
                   <Select
+                  placeholder={profile.type}
                     styles={customStyles}
                     options={typeOptions}
                     onChange={handleTypeChange}
