@@ -3,17 +3,25 @@ import { useState } from "react";
 import Layout from "@/components/Layout"
 import styles from "@/styles/CreateEvent.module.css"
 import Select from "react-select"
+import { createEvent } from "@/api/events";
+
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import moment from 'moment'
+
+
+
 
 export default function CreateEvent() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [date, setDate] = useState(''); //à rajouter dans le form
-    const [hour_start, setHour_start] = useState(''); //à rajouter dans le form
+    const [hour_start, setHour_start] = useState(); //à finir
     const [picture, setPicture] = useState('');
     const [genres, setGenres] = useState([]);
     const [facebook, setFacebook] = useState("");
     const [instagram, setInstagram] = useState("");
     const [status, setStatus] = useState("");
+    const [date, setDate] = useState();
 
     const genreOptions = [
         { label: "Rap", value: "rap" },
@@ -28,18 +36,15 @@ export default function CreateEvent() {
         );
       };
 
-      const saveEvent = () => {
-        //Faire un fetch
-      };
 
       const handleSave = () => {
         setStatus('Draft');
-        saveEvent();
+        createEvent();
       };
 
       const handlePublish = () => {
         setStatus('Published')
-        saveEvent();
+        createEvent();
       };
 
 
@@ -111,10 +116,27 @@ export default function CreateEvent() {
                 value={description}
               />
             </div>
-            /*div date et heure de début à rajouter*/
+
             <div className={styles.formElem}>
               <label>
-                Genres <span>*</span>
+                Date de l'événement <span>*</span>
+              </label>
+              <DatePicker disablePast onChange={(e) => {console.log(e), setDate(e)}} value={date} slotProps={{
+    textField: {
+    }
+    
+  }}/>
+            </div>
+            <div className={styles.formElem}>
+              <label>
+                Heure de début de l'événement <span>*</span>
+              </label>
+              <MobileTimePicker 
+              onChange={(e) => setHour_start(e)} value={hour_start}  />
+            </div>
+            <div className={styles.formElem}>
+              <label>
+                Genres musicaux <span>*</span>
               </label>
               <Select
                 isMulti
