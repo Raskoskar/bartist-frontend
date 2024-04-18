@@ -96,3 +96,23 @@ export const getArtist = async (token) => {
     console.error("Error retrieving artist infos:", error.message)
   }
 }
+
+
+export const getArtists = async () => {
+  try{
+    const response = await fetch(`http://localhost:3000/artists`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    let data = await response.json()
+    if(data){
+      return data
+    }else{
+      return data = {message: "error"}
+    }
+  }catch(error){
+    console.error("Error retrieving artists:", error.message)
+  }
+}

@@ -34,8 +34,21 @@ export const createEvent = async (
         }),
       });
       const data = await response.json();
+      console.log('data create event => ', data);
       console.log(data)
       return data;
+    } catch (error) {
+      console.error("Error during creation:", error.message);
+    }
+  };
+
+  export const displayEvent = async (token) => {
+    try {
+      const response = await fetch(`http://localhost:3000/events/displayEvent/${token}`, {
+      });
+      const data = await response.json();
+      console.log('data display event => ', data.event);
+      return data.event;
     } catch (error) {
       console.error("Error during creation:", error.message);
     }

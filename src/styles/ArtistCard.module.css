@@ -1,0 +1,78 @@
+.card {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    box-shadow: grey 0px 2px 10px 0px ;
+    transition: 300ms;
+}
+
+.card:hover{
+    transition: 300ms;
+    cursor: pointer;
+    transform: scale(1.01);
+    border: 1px solid #007bff
+}
+
+.leftContent{
+    display: flex;
+    letter-spacing: 0.5px;
+    gap: 10px;
+    align-items: center;
+}
+
+.imgContainer{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.infos{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.infos > h3{
+    font-size: 16px;
+}
+
+.dispos{
+
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 20px;
+}
+
+.contact{
+    height: fit-content;
+    font-size: 14px;
+    background-color: yellowgreen;
+}
+
+.book{
+    height: fit-content;
+    font-size: 14px;
+    background-color: #007bff;
+}
+
+.genres{
+    display: flex;
+    gap: 10px;
+}
+
+.genre{
+    background-color: #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}

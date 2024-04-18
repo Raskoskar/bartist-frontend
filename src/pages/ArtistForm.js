@@ -4,6 +4,7 @@ import styles from "../styles/ArtistForm.module.css";
 import Select from "react-select";
 import { useRouter } from "next/router";
 import { updateArtist } from "@/api/artists";
+import genreOptions from "@/data/genres.json"
 
 export default function ArtistForm() {
   const [name, setName] = useState("");
@@ -23,11 +24,7 @@ export default function ArtistForm() {
   const artist = useSelector((state) => state.user.value);
   const router = useRouter();
   const [buttonText, setButtonText] = useState('passer')
-  const genreOptions = [
-    { label: "Rap", value: "rap" },
-    { label: "Pop", value: "pop" },
-    { label: "Techno", value: "techno" },
-  ];
+  
   const typeOptions = [
     { label: "DJ", value: "dj" },
     { label: "Chanteur", value: "chanteur" },
