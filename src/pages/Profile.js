@@ -32,7 +32,7 @@ export default function Profile() {
     getProfile(user.token, user.isVenue).then((response) =>
       setProfile(response)
     )
-  },[type, genres, venueType]);
+  },[]);
 
 
   // Gestion des selects
@@ -185,7 +185,7 @@ export default function Profile() {
               <input
                 className={styles.input}
                 type="text"
-                placeholder={profile.name}
+                placeholder={profile?.name}
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
