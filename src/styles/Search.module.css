@@ -5,7 +5,7 @@
     display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
 }
 
 .filters{
@@ -16,13 +16,17 @@
 }
 
 .input{
-    background-color: transparent;
-    border: #3F88C5 solid 1px;
+    background-color: #06013f53;
+    border: none;
     padding: 15px 10px;
     width: 100%;
     height: 44px;
     border-radius: 16px;
     color: black;
+}
+.input::placeholder{
+    color: #ffffff;
+    letter-spacing: 1px;
 }
 
 .input:focus{
