@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: 'artist',
+  name: 'user',
   initialState,
   reducers: {
     logIn: (state, action) => {
