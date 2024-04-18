@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getProfile } from "@/hooks/getProfil";
 import { updateArtist } from "@/api/artists";
 import { updateProfilVenue } from "@/api/venues";
+import genreOptions from "@/data/genres.json"
 
 export default function Profile() {
   // Variables d'états
@@ -36,11 +37,7 @@ export default function Profile() {
 
 
   // Gestion des selects
-  const genreOptions = [
-    { label: "Rap", value: "rap" },
-    { label: "Pop", value: "pop" },
-    { label: "Techno", value: "techno" },
-  ];
+  
   const typeOptions = [
     { label: "DJ", value: "dj" },
     { label: "Chanteur", value: "chanteur" },
