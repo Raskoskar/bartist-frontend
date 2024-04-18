@@ -9,20 +9,16 @@ import { createEvent } from "@/api/events";
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
-import moment from 'moment'
-
-
 
 
 export default function CreateEvent() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [hour_start, setHour_start] = useState(); //à finir
+    const [hour_start, setHour_start] = useState();
     const [picture, setPicture] = useState('');
     const [genres, setGenres] = useState([]);
     const [facebook, setFacebook] = useState("");
     const [instagram, setInstagram] = useState("");
-    const [status, setStatus] = useState("");
     const [date, setDate] = useState();
 
     const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
@@ -40,8 +36,10 @@ export default function CreateEvent() {
       };
 
       const handleSave = () => {
-        setStatus('Draft');
-        createEvent(    user.token,
+        const status = 'Draft';
+        console.log(status)
+        createEvent(    
+          user.token,
           title,
           description,
           date,
@@ -50,16 +48,27 @@ export default function CreateEvent() {
           genres,
           status,
           facebook,
-          instagram,);
+          instagram,
+        );
       };
 
       const handlePublish = () => {
-        setStatus('Published')
-        createEvent();
-      };
+        const status = 'Published';
+        console.log(status)
 
-      //const handleSave à rajouter
-      //const handlePublish à rajouter
+        createEvent(    
+          user.token,
+          title,
+          description,
+          date,
+          hour_start,
+          picture,
+          genres,
+          status,
+          facebook,
+          instagram,
+        );
+      };
 
       // Style du Composant React Select
   const customStyles = {
@@ -99,6 +108,7 @@ export default function CreateEvent() {
     }),
   };
 
+
     return (
       <Layout /* isSelected="#search" */>
         <div className={styles.main}>
@@ -131,7 +141,7 @@ export default function CreateEvent() {
               <label>
                 Date de l'événement <span>*</span>
               </label>
-              <DatePicker disablePast onChange={(e) => {console.log(e), setDate(e)}} value={date} slotProps={{
+              <DatePicker disablePast onChange={(e) => {console.log('date',e), setDate(e)}} value={date} slotProps={{
     textField: {
     }
     
@@ -142,7 +152,7 @@ export default function CreateEvent() {
                 Heure de début de l'événement <span>*</span>
               </label>
               <MobileTimePicker 
-              onChange={(e) => setHour_start(e)} value={hour_start}  />
+              onChange={(e) => setHour_start(e)} value={hour_start} minutesStep={15} />
             </div>
             <div className={styles.formElem}>
               <label>
@@ -204,4 +214,5 @@ export default function CreateEvent() {
         </div>
       </Layout>
     );
+
 }
