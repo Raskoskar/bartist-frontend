@@ -19,12 +19,10 @@ function EventCardList({ event }) {
             setVenue({});
           }
         })
-        .then(console.log(event.date));
     } catch (error) {
       console.error("Error useEffect: ", error.message);
     }
   }, []);
-  // État pour contrôler la visibilité du modal de sign up et de sign in
 
   // Fonction pour ouvrir les modals
   const openEventModal = () => {
