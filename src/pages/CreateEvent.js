@@ -108,6 +108,11 @@ export default function CreateEvent() {
     }),
   };
 
+    //upload img
+    const handleFileUpload = (e) => {
+      setPicture(e.target.value); // Récupère le fichier sélectionné par l'utilisateur
+    };
+
 
     return (
       <Layout /* isSelected="#search" */>
@@ -169,9 +174,11 @@ export default function CreateEvent() {
               <label>Photo</label>
               <input
                 className={styles.input}
-                type="text"
+                type="file"
                 placeholder="Ajouter une photo d'illustration..."
-                onChange={(e) => setPicture(e.target.value)}
+                // onChange={(e) => setPicture(e.target.value)}
+                onChange={(e) => handleFileUpload(e)}
+                accept="image/*" // Limite le type de fichiers acceptés aux images
                 value={picture}
               />
             </div>

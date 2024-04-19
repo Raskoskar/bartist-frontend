@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 export default function Events() {
 
     const [cardEvent, setCardEvent] = useState([]);
+
     // toggle switch calendar/list
     // const [disabled, setDisabled] = useState(true);
     // const toggle = () => {
@@ -32,11 +33,10 @@ export default function Events() {
             </div>
             <div className={styles.cardContainer}>
                 <div className={styles.eventContainer}> 
-                    <div>
+                    {/* <div> */}
                         {/* { card } */}
-                        <CardEvent />
-                    
-                    </div>
+                        <CardEvent />                    
+                    {/* </div> */}
                 </div>
             </div>
         </Layout>

@@ -42,9 +42,9 @@ export const createEvent = async (
     }
   };
 
-  export const displayEvent = async (token) => {
+  export const displayEvents = async (token) => {
     try {
-      const response = await fetch(`http://localhost:3000/events/displayEvent/${token}`, {
+      const response = await fetch(`http://localhost:3000/events/displayEvents/${token}`, {
       });
       const data = await response.json();
       console.log('data display event => ', data.event);

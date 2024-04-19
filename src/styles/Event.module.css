@@ -4,13 +4,14 @@
 
 .cardContainer {
     border: solid 1px black;
-    width: 220px;
-    height: 320px;
+    /* width: 220px;
+    height: 320px; */
     margin: 20px;
     margin: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: aqua;
 }
 
 .eventContainer {
