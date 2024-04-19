@@ -3,14 +3,14 @@ import styles from "../styles/EventCardList.module.css";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { EventInfo } from "./EventInfo";
-import { getVenue } from "@/api/venues";
+import { getVenueById } from "@/api/venues";
 function EventCardList({ event }) {
   const [venue, setVenue] = useState([]);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
 
   useEffect(() => {
     try {
-      getVenue(event.venue)
+      getVenueById(event.venue)
         .then((data) => {
           if (data && data.result) {
             setVenue(data.venue);
@@ -19,12 +19,10 @@ function EventCardList({ event }) {
             setVenue({});
           }
         })
-        .then(console.log(event.date));
     } catch (error) {
       console.error("Error useEffect: ", error.message);
     }
   }, []);
-  // État pour contrôler la visibilité du modal de sign up et de sign in
 
   // Fonction pour ouvrir les modals
   const openEventModal = () => {
