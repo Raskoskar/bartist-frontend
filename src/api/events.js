@@ -78,7 +78,7 @@ export const createEvent = async (
 
   export const updateStatus = async () => {
     try{
-      const response = await fetch('http://localhost:3000/events/updateStatus/:status', {
+      const response = await fetch('http://localhost:3000/events/updateStatus/:id', {
       });
       const data = await response.json()
       return data;
