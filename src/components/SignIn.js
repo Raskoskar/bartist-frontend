@@ -76,7 +76,7 @@ const SignIn = ({ isOpen, onClose}) => {
             className={styles.input}
             type="password"
             name="password"
-            placeholder="password..."
+            placeholder="mot de passe..."
             onChange={(e) => setSignInPassword(e.target.value)}
             value={signInPassword}
           />
