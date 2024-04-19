@@ -1,7 +1,7 @@
 
 
 // Fonction de liaison vers le backend pour l'affichage des bookings'
-export const displayAllBookings = async (token, isVenue) => {
+export const displayBookings = async (token, isVenue) => {
     try {
         console.log(token)
         console.log(isVenue)
