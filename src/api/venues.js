@@ -56,10 +56,25 @@ export const updateProfilVenue = async (
 
 }
 
-
-export const getVenue = async (id) => {
+// FONCTION DE RECUPERATION D'UN ETABLISSEMENT EN FONCTION DE SON OBJECT ID
+export const getVenueById = async (id) => {
     try{
-      const response = await fetch(`http://localhost:3000/venues/${id}`, {
+      const response = await fetch(`http://localhost:3000/venues/id/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data
+    }catch(error){
+      console.error("Error retrieving venues infos:", error.message)
+    }
+  }
+
+  export const getVenueByToken = async (token) => {
+    try{
+      const response = await fetch(`http://localhost:3000/venues/token/${token}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

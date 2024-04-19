@@ -9,6 +9,7 @@ import { createEvent } from "@/api/events";
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import genreOptions from "@/data/genres.json";
 
 
 export default function CreateEvent() {
@@ -23,11 +24,7 @@ export default function CreateEvent() {
 
     const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
 
-    const genreOptions = [
-        { label: "Rap", value: "rap" },
-        { label: "Pop", value: "pop" },
-        { label: "Techno", value: "techno" },
-      ];
+   
 
     const handleGenreChange = (selectedOptions) => {
         setGenres(

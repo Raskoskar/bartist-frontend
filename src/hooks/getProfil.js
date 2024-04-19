@@ -1,11 +1,11 @@
 import { getArtist } from "@/api/artists";
-import { getVenue } from "@/api/venues";
+import { getVenueByToken } from "@/api/venues";
 
 export async function getProfile(token, isVenue) {
   try {
     let data = null;
     if (isVenue) {
-      data = await getVenue(token);
+      data = await getVenueByToken(token);
     } else {
       data = await getArtist(token);
     }
