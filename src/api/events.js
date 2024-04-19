@@ -64,3 +64,14 @@ export const createEvent = async (
       console.error("Error fetching events: ", error.message)
     }
   }
+
+  export const getEventById = async () => {
+    try{
+      const response = await fetch('http://localhost:3000/events/id',
+      )
+      const data = await response.json()
+      return data;
+    }catch(error){
+      console.error("Error fetching an event by Id: ", error.message)
+    }
+  }
