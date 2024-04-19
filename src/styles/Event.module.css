@@ -1,23 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .eventTitle {
     color: black;
 }
 
 .cardContainer {
-    border: solid 1px black;
-    /* width: 220px;
-    height: 320px; */
-    margin: 20px;
+    /* border: solid 1px black;
+    width: 220px;
+    height: 320px;
     margin: 50px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: aqua;
+    align-items: center; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    /* background-color: aqua; */
 }
 
-.eventContainer {
+/* .eventContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
     color: black;
-}
+} */

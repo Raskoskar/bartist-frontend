@@ -6,17 +6,44 @@
     align-items: center;
     border: solid 1px black;
     width: 200px;
-    height: 300px;
+    height: auto;
     margin: 20px;
+    color: black;
+    background-color: #ffff;
+    box-shadow: grey 0px 2px 10px 0px ;
+    border-radius: 10px;
 }
+
+.card:hover{
+    transition: 300ms;
+    cursor: pointer;
+    transform: scale(1.01);
+    border: 1px solid #007bff
+}
+
 
 .pictureEvent {
     object-fit: contain;
+    width: 100%;
+    border: 50%;
+    margin-top: 5px;
 }
 
 .cardInfo {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    gap: 10px;
+}
+
+.cardSpan {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.cardBtnDelete {
+    color: red;
 }

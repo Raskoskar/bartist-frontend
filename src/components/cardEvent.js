@@ -1,59 +1,58 @@
 import styles from '../styles/CardEvent.module.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-import { displayEvents } from '../api/events';
+import { deleteEvents, updateStatus } from '../api/events';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-function CardEvent() {
+function CardEvent({event}) {
 
-    //État local pour stocker les événements récupérés depuis l'api events
-    const [events, setEvents] = useState([]); 
-    // Creation const token pour recuperer le token du reducer afin de pouvoir s'en servir dans le param
-    const token = useSelector(state => state.user.value.token )
-
-    // appel createEvent lorsqu'on appel le composant
-    useEffect(() => {
-        getEvents();
-    }, []);
-
-    // Recuperation des events
-    const getEvents = async () => {
-        try {
-            const dataEvent = await displayEvents(token);
-            console.log('dataEvent => ', dataEvent);
-            console.log('token => ', token);
-            if(dataEvent) {
-                // console.log('dataEvent => ', dataEvent);
-                setEvents(dataEvent);
-            }
-        } catch (error) {
-            console.log('error fetch dataEvent => ', error);
+    // function pour changer le statut d'un event
+    const handleChangeStatus = () => {
+        const status = ''// Définir le statut pour que au click le statut passe de draft a published et vice versa
+        if(event.status === 'published'){
+            status ='draft';
+        } else if (event.status === 'draft'){
+            status = 'published';
         }
+        updateStatus();
     }
+
+    // function pour supprimer un event
+    const handleDeleteEvent = () => {
+        deleteEvents();
+    }
+
     //map pour afficher chaque events
-    const eventComponents = events.map((dataEvent, i ) => (
-        <div className={styles.card} key={i}>
+    
+    // useEffect(() => {
+    //     console.log(event);
+    // }, []);
+
+    return(
+        <div className={styles.card}>
             <Image 
                 className={styles.pictureEvent}
-                src={dataEvent.picture}
-                alt={dataEvent.title}
+                src={event.picture}
+                alt={event.title}
                 width={200}
                 height={100}
             /> 
-            <h3 className={styles.cardTitle}>{dataEvent.title}</h3>
             <div className={styles.cardInfo}>
-                <span>{dataEvent.genres}</span>
-                <span>{dataEvent.status}</span>
-                <span>{dataEvent.date}</span>
+                <div className={styles.cardTitle}>
+                    <h3 className={styles.cardTitle}>{event.title}</h3>
+                </div>
+                <div className={styles.cardSpan}>
+                    <span className={styles.spanGenre}>{event.genres}</span>
+                    <span onClick={() =>handleChangeStatus()} className={styles.spanStatus}>{event.status}</span>
+                    <span className={styles.spanDate}>{event.date}</span>
+                </div>
+                <div className={styles.cardBtnDelete}>
+                    <FontAwesomeIcon onClick={() => handleDeleteEvent()} icon={faWindowClose}  className={styles.actionIcon} />
+                </div>
             </div>
         </div>
-    ));
-
-    return(
-            <>
-                {eventComponents}
-            </>
     );
 }
 
