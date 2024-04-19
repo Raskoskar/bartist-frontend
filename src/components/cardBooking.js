@@ -1,30 +1,34 @@
 import styles from '../styles/CardBooking.module.css';
 import Image from 'next/image';
 import React from 'react';
+import { useSelector } from "react-redux";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import { updateBookingStatus } from '../api/bookings';
 
 export default function CardBooking(props) {
+    const user = useSelector((state) => state.user.value);
+
 
     //État local pour stocker les événements récupérés depuis l'api bookings
 
 
-    const handleConfirmBooking = () => {
+    const handleConfirmBooking = (id) => {
         const status = 'Confirmed';
-        props.updateBookingStatus(status)
+        updateBookingStatus(status, id)
 	}
 
-    const handleRefuseBooking = () => {
+    const handleRefuseBooking = (id) => {
         const status = 'Refused';
-        props.updateBookingStatus(status)
+        updateBookingStatus(status, id)
 	}
 
     const buttons = (
         <>
-            <FontAwesomeIcon onClick={() => handleConfirmBooking()} icon={faCheckSquare}  className={styles.actionIcon} />
-            <FontAwesomeIcon onClick={() => handleRefuseBooking()} icon={faWindowClose}  className={styles.actionIcon} />
+            <FontAwesomeIcon onClick={() => handleConfirmBooking(props.id)} icon={faCheckSquare}  className={styles.actionIcon} />
+            <FontAwesomeIcon onClick={() => handleRefuseBooking(props.id)} icon={faWindowClose}  className={styles.actionIcon} />
         </>
     )
 
@@ -46,7 +50,7 @@ export default function CardBooking(props) {
                 <span>{props.rate}</span>
                 <span>{props.hour_start}</span>
                 <span>{props.duration} hour(s)</span>
-                {props.status === 'Pending' && buttons}
+                {(props.status === 'Pending' && props.creatorIsVenue !== user.isVenue) ? buttons : <span>{props.status}</span>}
                 {(props.status === 'Confirmed' || props.status === 'Refused') && <span>{props.status}</span>}
 
             </div>

@@ -20,14 +20,14 @@ export const displayBookings = async (token, isVenue) => {
   };
 
   // Fonction de liaison vers le backend pour le changement de statut d'un booking'
-export const updateBookingStatus = async (token, isVenue, status) => {
+export const updateBookingStatus = async (status, id) => {
     try {
       const response = await fetch(`http://localhost:3000/bookings/updateBookingStatus`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ _id: _id}),
+        body: JSON.stringify({ _id: id, status: status}),
       });
       const data = await response.json();
       return data;

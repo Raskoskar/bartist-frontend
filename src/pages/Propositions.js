@@ -15,7 +15,7 @@ export default function Propositions() {
         displayBookings(user.token, user.isVenue)
         .then(data => {
             setBookings(data.dataBookings);
-            console.log('data',data.dataBookings);        });
+        });
     }, []);
 
 
@@ -23,6 +23,7 @@ export default function Propositions() {
         return (
           <CardBooking
             key={i}
+            id={data._id}
             title={data.title}
             // picture={data.picture}
             venue={data.venue}
@@ -32,7 +33,7 @@ export default function Propositions() {
             rate={data.rate}
             hour_start={data.hour_start}
             duration={data.duration}
-
+            creatorIsVenue={data.creatorIsVenue}
           />
         );
     })
