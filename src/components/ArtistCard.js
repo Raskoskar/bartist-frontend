@@ -29,7 +29,7 @@ function ArtistCard({artist}) {
           </div>
           <div className={styles.genres}>{artist.genres.map(genre => {
             return (
-            <div className={styles.genre}><p>{genre}</p></div>)
+            <div key={genre} className={styles.genre}><p>{genre}</p></div>)
           })}</div>
         </div>
         <div className={styles.dispos}>?</div>
