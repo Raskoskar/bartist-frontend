@@ -1,10 +1,25 @@
 
 
 // Fonction de liaison vers le backend pour l'affichage des bookings'
+export const createBooking = async (isVenue, token, eventId, tokenOtherUser, date, description, status, duration, hour_start, rate) => {
+  try {
+    const response = await fetch(`http://localhost:3000/bookings/createBooking`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({isVenue, token, eventId, tokenOtherUser, date, description, status, duration, hour_start, rate}),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error during display bookings:", error.message);
+  }
+};
+
+
 export const displayBookings = async (token, isVenue) => {
     try {
-        console.log(token)
-        console.log(isVenue)
       const response = await fetch(`http://localhost:3000/bookings/displayAllBookings`, {
         method: "POST",
         headers: {
