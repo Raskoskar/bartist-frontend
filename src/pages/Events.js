@@ -25,7 +25,7 @@ import { displayEvents } from '../api/events';
     // })
 
     // Recuperation des events et creation d'une fonction getEvents pour appeller displayEvents
-    const getEvents = async () => {
+    const getsEvents = async () => {
         try {
             const dataEvent = await displayEvents(token);
             console.log('dataEvent => ', dataEvent);
@@ -42,7 +42,7 @@ import { displayEvents } from '../api/events';
 
         // appel getEvents lorsqu'on appel le composant
         useEffect(() => {
-            getEvents()
+            getsEvents()
         }, []);
 
     return (
@@ -61,7 +61,7 @@ import { displayEvents } from '../api/events';
                     {/* { card } */}
                     {/* <CardEvent />                     */}
 
-                    {/* map pour afficher chaque events */}
+                    {/* map pour afficher chaque events / preferable de le faire dans le return, comme cela react ne considere pas cardEvent comme un bloc, mais comme plusieur */}
                     {events.map(event => {
                         console.log(event);
                         return <CardEvent event={event} key={event._id}/>
