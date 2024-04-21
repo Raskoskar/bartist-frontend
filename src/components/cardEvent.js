@@ -10,7 +10,7 @@ function CardEvent({event}) {
 
     // function pour changer le statut d'un event
     const handleChangeStatus = () => {
-        const status = ''// Définir le statut pour que au click le statut passe de draft a published et vice versa
+        let status = ''// Définir le statut pour que au click le statut passe de draft a published et vice versa
         if(event.status === 'published'){
             status ='draft';
         } else if (event.status === 'draft'){
