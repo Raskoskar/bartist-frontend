@@ -85,7 +85,7 @@ export const updateArtist = async (
 // Fonction de liaison vers le backend et de controle des données pour récupérer les données sur un artiste.
 export const getArtist = async (token) => {
   try {
-    const response = await fetch(`http://localhost:3000/artists/${token}`, {
+    const response = await fetch(`http://localhost:3000/artists/token/${token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -32,9 +32,11 @@ export default function Profile() {
   const router = useRouter();
   // Récupération des informations utilisateurs en BDD :
   useEffect(() => {
+    console.log(user.token)
     getProfile(user.token, user.isVenue)
       .then((response) => {
-        if (response.result) {
+        console.log(response);
+        if (response) {
         setProfile(response);
         } else {
           console.log("error");
