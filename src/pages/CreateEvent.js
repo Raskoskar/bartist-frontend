@@ -4,6 +4,8 @@ import Layout from "@/components/Layout"
 import styles from "@/styles/CreateEvent.module.css"
 import Select from "react-select"
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 
 import { createEvent } from "@/api/events";
 
@@ -23,6 +25,8 @@ export default function CreateEvent() {
     const [date, setDate] = useState();
 
     const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
+    const router = useRouter();
+
 
    
 
@@ -47,6 +51,8 @@ export default function CreateEvent() {
           facebook,
           instagram,
         );
+        router.push("/Events")
+
       };
 
       const handlePublish = () => {
@@ -65,6 +71,8 @@ export default function CreateEvent() {
           facebook,
           instagram,
         );
+        router.push("/Events")
+
       };
 
       // Style du Composant React Select

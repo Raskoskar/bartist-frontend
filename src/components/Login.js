@@ -72,7 +72,7 @@ export default function Login() {
             </div>
 
             <button onClick={() => openSignUpModal("artist")}>
-              S'inscire en tant qu'artiste
+              S'inscrire en tant qu'artiste
             </button>
           </div>
           <div className={styles.card}>
@@ -101,7 +101,7 @@ export default function Login() {
               </p>
             </div>
             <button onClick={() => openSignUpModal("venue")}>
-              S'inscire en tant qu'établissement
+              S'inscrire en tant qu'établissement
             </button>
           </div>
         </div>
