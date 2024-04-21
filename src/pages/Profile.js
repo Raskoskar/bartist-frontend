@@ -36,10 +36,12 @@ export default function Profile() {
     getProfile(user.token, user.isVenue)
       .then((response) => {
         console.log(response);
-        if (response) {
+        if (!isVenue) {
         setProfile(response);
-        } else {
-          console.log("error");
+        }else if (isVenue) {
+          setProfile(response.venue)
+        }else{
+          console.log("error in getProfile")
         }
       })
       
