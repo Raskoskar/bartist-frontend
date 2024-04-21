@@ -25,7 +25,7 @@ function VenueForm() {
         console.log('dataVenues =>', dataVenues);
             if(dataVenues.result){
                 console.log('dataVenues =>', dataVenues);
-                router.push("/Search")
+                router.push("/Events")
             } else {
                 document.querySelector("#alert").innerHTML = `Creation failed : ${dataVenues.error}`;
             }
