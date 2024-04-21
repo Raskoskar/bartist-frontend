@@ -34,7 +34,7 @@ const SignIn = ({ isOpen, onClose}) => {
       dispatch(
         logIn({
           pseudo: signInEmail,
-          token: data.token,
+          token: data1.token,
           isConnected: true,
           isVenue: true,
         })
