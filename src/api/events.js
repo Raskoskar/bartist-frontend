@@ -65,20 +65,32 @@ export const createEvent = async (
     }
   }
 
-  export const deleteEvents = async () => {
+  export const deleteEvents = async (_id) => {
     try{
-      const response = await fetch('http://localhost:3000/events/deleteEvent/:_id', {
-      });
-      const data = await response.json()
+      const response = await fetch(`http://localhost:3000/events/deleteEvent`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: _id,
+    }),
+  });
+  const data = await response.json()
       return data;
     }catch(error){
       console.error("Error fetching events: ", error.message)
     }
   }
 
-  export const updateStatus = async () => {
+  export const updateEventStatus = async (status, id) => {
     try{
-      const response = await fetch('http://localhost:3000/events/updateStatus/:id', {
+      const response = await fetch('http://localhost:3000/events/updateEventStatus', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: id, status: status}),
       });
       const data = await response.json()
       return data;

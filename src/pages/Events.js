@@ -58,13 +58,10 @@ import { displayEvents } from '../api/events';
                     <h1>Mes évènements</h1>
                 </div>
                 <div className={styles.cardContainer}>
-                    {/* { card } */}
-                    {/* <CardEvent />                     */}
-
                     {/* map pour afficher chaque events / preferable de le faire dans le return, comme cela react ne considere pas cardEvent comme un bloc, mais comme plusieur */}
-                    {events.map(event => {
+                    { events.map(event => {
                         console.log(event);
-                        return <CardEvent event={event} key={event._id}/>
+                        return <CardEvent event={event} id={event._id} key={event.title}/>
                     })}
                 </div>
             </div>

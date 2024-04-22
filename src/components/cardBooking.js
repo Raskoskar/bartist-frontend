@@ -12,6 +12,7 @@ import { updateBookingStatus } from "../api/bookings";
 import { getArtistById } from "@/api/artists";
 import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
+
 export default function CardBooking({ booking, isReceived }) {
   //État local pour stocker les événements récupérés depuis l'api bookings
   const [artistBook, setArtistBook] = useState(null);
