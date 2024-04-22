@@ -107,7 +107,7 @@ function CardBooking({ booking, isReceived }) {
 
   return (
     <>
-      <div className={cardClass()} onClick={() => openEventModal()}>
+      <div className={cardClass()} onClick={(e) => openEventModal(e)}>
         <div className={styles.leftContent}>
           <div className={styles.dateContainer}>
             <span className={styles.day}>{day}</span>
