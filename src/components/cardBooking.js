@@ -21,18 +21,14 @@ function CardBooking({ booking, isReceived }) {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
 
   useEffect(() => {
-    console.log(booking.artist);
     getArtistById(booking.artist).then((dataA) => {
       setArtistBook(dataA.artist);
-      console.log(artistBook);
     });
     getVenueById(booking.venue).then((dataV) => {
       setVenueBook(dataV.venue);
-      console.log(venueBook);
     });
     getEventById(booking.event).then((dataE) => {
       setEventBook(dataE.event);
-      console.log(eventBook);
     });
   }, []);
 

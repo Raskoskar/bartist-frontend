@@ -12,6 +12,7 @@ export const createBooking = async (
   status,
   description
 ) => {
+  console.log(hour_start)
   try {
     const response = await fetch(
       `http://localhost:3000/bookings/createBooking`,
