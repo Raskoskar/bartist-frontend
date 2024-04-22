@@ -3,6 +3,7 @@ import styles from "@/styles/Propositions.module.css";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import CardBooking from "@/components/cardBooking";
+import CreateBookingProposal from "@/components/CreateBookingProposal";
 import { displayBookings } from "../api/bookings";
 
 export default function Propositions() {
@@ -31,6 +32,7 @@ export default function Propositions() {
         <div className={styles.titleContainer}>
           <span className={styles.title}>Propositions</span>
         </div>
+        <CreateBookingProposal />
         <div className={styles.bookings}>
           <div>
             <div className={styles.bookingsTitleContainer}>

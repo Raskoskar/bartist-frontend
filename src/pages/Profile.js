@@ -9,6 +9,9 @@ import { updateProfilVenue } from "@/api/venues";
 import genreOptions from "@/data/genres.json";
 import { useRouter } from "next/router";
 
+import CreateBookingProposal from "@/components/CreateBookingProposal";
+
+
 export default function Profile() {
   // Variables d'états
   const [name, setName] = useState("");
@@ -159,6 +162,7 @@ export default function Profile() {
             Mon Profil {isVenue ? "établissement" : "artiste"}
           </span>
         </div>
+        <CreateBookingProposal />
         <div
           className={`${styles.formContainer} ${
             !isVenue ? styles.twoColumns : ""

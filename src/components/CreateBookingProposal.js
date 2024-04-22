@@ -1,10 +1,11 @@
 import styles from "@/styles/BookingProposal.module.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { useSelector } from "react-redux";
 
 import { createBooking } from "../api/bookings";
-// api pour récupérer les events du venue
+import { getEventsByVenueToken } from "../api/events" // api pour récupérer les events du venue
 
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker'; // Pour saisir une heure de début sur une horloge
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput'; // Pour saisir un nombre d'heures
@@ -24,12 +25,12 @@ je trouve :
 Boutons annuler // envoyer la proposition
 
 
-Je suis un établissment, je clique sur un artiste
+Je suis un établissment, je clique sur un artiste -> stocker le token de l'artiste dans son composant ?
 je trouve : 
-- événement à choisir dans une liste déroulante qui affihce  la date 
+- événement à choisir dans une liste déroulante qui affihce  la date -> avec une route qui cherche la liste des événements d'après le token du user
 - date pré-remplie - après choix de l'événement
-- venue pré-rempli
-- artiste pré-rempli
+- venue pré-rempli 
+- artiste pré-rempli 
 
 - heure de début //OK 
 - duration //OK 
@@ -41,18 +42,37 @@ Boutons annuler // envoyer la proposition
 
 
 
-const BookingProposal = () => {
+const CreateBookingProposal = () => {
     const [hour_start, setHour_start] = useState();
     const [duration, setDuration] = useState();
+    const [date, setDate] = useState();
+
     const [description, setDescription] = useState("");
     const [rate, setRate] = useState();
     const user = useSelector((state) => state.user.value);
+    const [venue, setVenue] = useState("");
+    const [event, setEvent] = useState('')
 
     if(user.isVenue) {
 // - événement à choisir dans une liste déroulante qui affiche  la date 
+useEffect(() => {
+  setVenue(user.pseudo)
+  getEventsByVenueToken(user.token)
+    .then((data) => {
+    console.log(`liste d'événéments =>`,data.events);
+    const eventsTitles = data.events.map(e => e.title)
+    const eventsDates = data.events.map(e => e.date)
+    console.log(eventsTitles)
+    console.log(eventsDates)
+  });
+}, []);
+
 // - date pré-remplie - après choix de l'événement
 // - venue pré-rempli
+
 // - artiste pré-rempli
+//créer une route qui renvoie 'tokenOtherUser'
+
     } else {
       // - événement pré-rempli
       // - venue pré-rempli
@@ -70,6 +90,12 @@ const BookingProposal = () => {
         <div className={styles.wrapper}>
 
           <h3>Envoyer une proposition de booking</h3>
+          <div className={styles.formElem}>
+            <label>
+              Etablissement<span></span>
+            </label>
+            <span>{venue}</span>
+          </div>
           <div className={styles.formElem}>
             <label>
               Heure de début de l'événement <span>*</span>
@@ -133,5 +159,5 @@ const BookingProposal = () => {
     );
   };
   
-  export default BookingProposal;
+  export default CreateBookingProposal;
   

@@ -110,3 +110,15 @@ export const getEvents = async () => {
       console.error("Error fetching an event by Id: ", error.message)
     }
   }
+
+  export const getEventsByVenueToken = async (token) =>
+  {
+    try{
+      const response = await fetch(`http://localhost:3000/events/getEventsByVenueToken/${token}`,
+      )
+      const data = await response.json()
+      return data;
+    }catch(error){
+      console.error("Error fetching events by venue token: ", error.message)
+    }
+  }
