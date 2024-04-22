@@ -65,43 +65,49 @@ export const getEvents = async () => {
   }
 };
 
-export const deleteEvents = async () => {
-  try {
-    const response = await fetch(
-      "http://localhost:3000/events/deleteEvent/:_id",
-      {}
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching events: ", error.message);
+  export const deleteEvents = async (_id) => {
+    try{
+      const response = await fetch(`http://localhost:3000/events/deleteEvent`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      _id: _id,
+    }),
+  });
+  const data = await response.json()
+      return data;
+    }catch(error){
+      console.error("Error fetching events: ", error.message)
+    }
   }
 };
 
-export const updateStatus = async () => {
-  try {
-    const response = await fetch(
-      "http://localhost:3000/events/updateStatus/:id",
-      {}
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching events: ", error.message);
+  export const updateEventStatus = async (status, id) => {
+    try{
+      const response = await fetch('http://localhost:3000/events/updateEventStatus', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: id, status: status}),
+      });
+      const data = await response.json()
+      return data;
+    }catch(error){
+      console.error("Error fetching events: ", error.message)
+    }
   }
-};
 
-export const getEventById = async (id) => {
-  try {
-    const response = await fetch(`http://localhost:3000/events/id/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching an event by Id: ", error.message);
+  export const getEventById = async () => {
+    try{
+      const response = await fetch('http://localhost:3000/events/id',
+      )
+      const data = await response.json()
+      return data;
+    }catch(error){
+      console.error("Error fetching an event by Id: ", error.message)
+    }
   }
 };
