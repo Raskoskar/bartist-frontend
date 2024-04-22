@@ -13,6 +13,7 @@ export default function Propositions() {
 
   useEffect(() => {
     displayBookings(user.token, user.isVenue).then((data) => {
+      console.log(data)
       setBookings(data.dataBookings);
       console.log("data", data.dataBookings);
       setVenueBookings(

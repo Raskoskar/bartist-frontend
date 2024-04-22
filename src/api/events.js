@@ -82,7 +82,7 @@ export const getEvents = async () => {
       console.error("Error fetching events: ", error.message)
     }
   }
-};
+
 
   export const updateEventStatus = async (status, id) => {
     try{
@@ -100,9 +100,9 @@ export const getEvents = async () => {
     }
   }
 
-  export const getEventById = async () => {
+  export const getEventById = async (id) => {
     try{
-      const response = await fetch('http://localhost:3000/events/id',
+      const response = await fetch(`http://localhost:3000/events/id/${id}`,
       )
       const data = await response.json()
       return data;
@@ -110,4 +110,3 @@ export const getEvents = async () => {
       console.error("Error fetching an event by Id: ", error.message)
     }
   }
-};
