@@ -162,7 +162,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
               Heure de début de l'événement <span>*</span>
             </label>
             <MobileTimePicker
-              onChange={(e) => setHour_start(e)}
+              onChange={(e) => setHour_start(e)} 
               value={hour_start}
               minutesStep={15}
             />

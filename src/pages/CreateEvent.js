@@ -151,7 +151,7 @@ export default function CreateEvent() {
               <label>
                 Date de l'événement <span>*</span>
               </label>
-              <DatePicker disablePast onChange={(e) => {console.log('date',e), setDate(e)}} value={date} slotProps={{
+              <DatePicker disablePast onChange={(e) => {setDate(e)}} value={date} slotProps={{
     textField: {
     }
     
