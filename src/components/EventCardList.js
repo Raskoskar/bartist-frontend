@@ -63,7 +63,7 @@ function EventCardList({ event }) {
             <span className={styles.venue}>{venue.name}</span>
           </div>
           <div className={styles.genres}>
-            {event.genres.map((genre) => {
+            {event.genres?.map((genre) => {
               return (
                 <div key={genre} className={styles.genre}>
                   <p>{genre}</p>
