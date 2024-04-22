@@ -45,7 +45,7 @@ function CardBooking({ booking, isReceived }) {
   const handleRefuseBooking = (event) => {
     const status = "Refused";
     updateBookingStatus(booking._id, status);
-    event.stopPropagation(e);
+    event.stopPropagation();
 
   };
 
