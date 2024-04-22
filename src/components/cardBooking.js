@@ -36,25 +36,28 @@ function CardBooking({ booking, isReceived }) {
     });
   }, []);
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = (event) => {
     const status = "Confirmed";
     updateBookingStatus(booking._id, status);
+    event.stopPropagation();
   };
 
-  const handleRefuseBooking = () => {
+  const handleRefuseBooking = (event) => {
     const status = "Refused";
     updateBookingStatus(booking._id, status);
+    event.stopPropagation(e);
+
   };
 
   const buttons = (
     <div className={styles.btnContainer}>
       <FontAwesomeIcon
-        onClick={() => handleConfirmBooking()}
+        onClick={(e) => handleConfirmBooking(e)}
         icon={faCheck}
         className={styles.btnAccept}
       />
       <FontAwesomeIcon
-        onClick={() => handleRefuseBooking()}
+        onClick={(e) => handleRefuseBooking(e)}
         icon={faXmark}
         className={styles.btnDecline}
       />
@@ -78,13 +81,17 @@ function CardBooking({ booking, isReceived }) {
 
 
   // Fonction pour ouvrir les modals
-  const openEventModal = () => {
+  const openEventModal = (event) => {
     setIsEventModalOpen(true);
+    event.stopPropagation();
+
   };
 
   // Fonction pour fermer le modal
-  const closeEventModal = () => {
+  const closeEventModal = (event) => {
     setIsEventModalOpen(false);
+    event.stopPropagation();
+
   };
 
 

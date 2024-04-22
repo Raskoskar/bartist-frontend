@@ -14,35 +14,6 @@ import { getArtist } from "@/api/artists";
 import { useRouter } from "next/navigation";
 
 
-/* Je suis un artiste, je clique sur un événement 
-je trouve :
-- événement pré-rempli
-- venue pré-rempli
-- artiste pré-rempli
-- date pré-remplie
-- heure de début //OK 
-- duration //OK 
-- description //OK 
-- tarif //OK 
-
-Boutons annuler // envoyer la proposition
-
-
-Je suis un établissment, je clique sur un artiste -> stocker le token de l'artiste dans son composant ?
-je trouve : 
-- événement à choisir dans une liste déroulante qui affihce  la date -> avec une route qui cherche la liste des événements d'après le token du user
-- date pré-remplie - après choix de l'événement
-- venue pré-rempli 
-- artiste pré-rempli 
-
-- heure de début //OK 
-- duration //OK 
-- description //OK 
-- tarif //OK 
-
-Boutons annuler // envoyer la proposition
-*/
-
 
 // transformer en modal lié au  bouton booker pour récupérer les infos
 const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
@@ -91,16 +62,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
     };
     
 
-    /* On récupère toute les infos artiste en paramètres constructeur du component
-     ID ARTIST => artist._id
-     ID VENUE => venue._id
-     ID EVENT => eventBooking._id
-     HOUR_START => hour_start
-     RATE => rate
-     STATUS => status
-     DURATION  => duration
-     DESCRIPTION => description
-    */
+   
     const handleSubmit = async () => {
       const status = 'Pending';
       if(user.isVenue){
