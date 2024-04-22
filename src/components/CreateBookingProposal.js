@@ -1,7 +1,7 @@
 import styles from "@/styles/BookingProposal.module.css";
 
 import React, { useEffect, useState } from "react";
-
+import Select from "react-select";
 import { useSelector } from "react-redux";
 
 import { createBooking } from "../api/bookings";
@@ -9,6 +9,9 @@ import { getEventsByVenueToken } from "../api/events" // api pour récupérer le
 
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker'; // Pour saisir une heure de début sur une horloge
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput'; // Pour saisir un nombre d'heures
+import { getVenueByToken } from "@/api/venues";
+import { getArtist } from "@/api/artists";
+import { useRouter } from "next/navigation";
 
 
 /* Je suis un artiste, je clique sur un événement 
@@ -41,31 +44,116 @@ Boutons annuler // envoyer la proposition
 */
 
 
+// transformer en modal lié au  bouton booker pour récupérer les infos
+const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
+  const router = useRouter()
+    const [hour_start, setHour_start] = useState(); // Input hour_start
+    const [duration, setDuration] = useState(); // Input duration
 
-const CreateBookingProposal = () => {
-    const [hour_start, setHour_start] = useState();
-    const [duration, setDuration] = useState();
-    const [date, setDate] = useState();
-
-    const [description, setDescription] = useState("");
-    const [rate, setRate] = useState();
+    const [description, setDescription] = useState(""); // input desc
+    const [rate, setRate] = useState(); //input rate
     const user = useSelector((state) => state.user.value);
-    const [venue, setVenue] = useState("");
-    const [event, setEvent] = useState('')
+    const [venue, setVenue] = useState(""); // Objet venue
+    const [events, setEvents] = useState([]) // Liste  des events
+    const [eventBooking, setEventBooking] = useState("") // event selectionné pour le booking
+    const [artistBook, setArtistBook] = useState("") // artist selectionné pour le booking
+    useEffect(() => {
+      if(user.isVenue){
+        getVenueByToken(user.token).then(data => {
+          setVenue(data.venue._id)
+        })
+        getEventsByVenueToken(user.token) // Je récupère les events de l'artiste
+          .then((data) => {
+          setEvents(data.events)
+          
+        });
+      }else{
+        getArtist(user.token).then(data => {
+          setArtistBook(data)
+        })
+      }
+      
+    }, []);
 
-    if(user.isVenue) {
+    const eventsInfos = events.map(eventOne => {
+      return {label: `${eventOne.title} ${eventOne.date}`, value: eventOne._id }
+    })
+
+    const handleEventChange = (selectedOptions) => {
+      console.log("current selected type: ", selectedOptions.value);
+      setEventBooking(selectedOptions.value);
+    };
+    const handleWrapper = (event) => {
+      event.stopPropagation();
+    };
+    const handleClose = () => {
+      onClose();
+    };
+    
+
+    /* On récupère toute les infos artiste en paramètres constructeur du component
+     ID ARTIST => artist._id
+     ID VENUE => venue._id
+     ID EVENT => eventBooking._id
+     HOUR_START => hour_start
+     RATE => rate
+     STATUS => status
+     DURATION  => duration
+     DESCRIPTION => description
+    */
+    const handleSubmit = async () => {
+      const status = 'Pending';
+      if(user.isVenue){
+         await createBooking(user.token, user.isVenue, artist._id , venue, eventBooking, hour_start, Number(duration), Number(rate), status, description)
+         router.push("/Propositions")
+      }else{
+        const data = await createBooking(user.token, user.isVenue, artistBook._id , event.venue, event._id, hour_start, Number(duration), Number(rate), status, description)
+        console.log(data)
+      }
+    }
+
+
+    const customStyles = {
+      control: (provided) => ({
+        ...provided,
+        backgroundColor: "transparent",
+        border: "1px solid #3F88C5",
+        borderRadius: "16px",
+        width: "100%",
+        height: "44px",
+        fontSize: "14px",
+      }),
+      menu: (provided) => ({
+        ...provided,
+        padding: "0px",
+        fontSize: "12px",
+      }),
+      option: (provided, state) => ({
+        ...provided,
+        ...styles.option,
+        backgroundColor: state.isFocused ? "#3F88C5" : "white",
+        color: state.isSelected ? "white" : "black",
+        color: state.isFocused ? "white" : "black",
+        fontSize: "12px",
+      }),
+      multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: "#3F88C5",
+        color: "white",
+      }),
+      multiValueLabel: (provided) => ({
+        ...provided,
+        color: "white",
+      }),
+      multiValueRemove: (provided) => ({
+        ...provided,
+      }),
+    };
+
 // - événement à choisir dans une liste déroulante qui affiche  la date 
-useEffect(() => {
-  setVenue(user.pseudo)
-  getEventsByVenueToken(user.token)
-    .then((data) => {
-    console.log(`liste d'événéments =>`,data.events);
-    const eventsTitles = data.events.map(e => e.title)
-    const eventsDates = data.events.map(e => e.date)
-    console.log(eventsTitles)
-    console.log(eventsDates)
-  });
-}, []);
+
+
+
 
 // - date pré-remplie - après choix de l'événement
 // - venue pré-rempli
@@ -73,29 +161,40 @@ useEffect(() => {
 // - artiste pré-rempli
 //créer une route qui renvoie 'tokenOtherUser'
 
-    } else {
+
       // - événement pré-rempli
       // - venue pré-rempli
       // - artiste pré-rempli
       // - date pré-remplie
-    }
+      if (!isOpen) return null;
+
   
-    const handleSubmit = async () => {
-      const status = 'Pending';
-      createBooking(user.isVenue, user.token, eventId, tokenOtherUser, date, description, status, duration, hour_start, rate)
-    }
     
+    const isVenue = user.isVenue
     return (
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
+      <div className={styles.container} onClick={handleClose}>
+        <div className={styles.wrapper} onClick={handleWrapper}>
 
           <h3>Envoyer une proposition de booking</h3>
           <div className={styles.formElem}>
             <label>
-              Etablissement<span></span>
+             {isVenue ? "à l'artiste" : "Pour l'événement"}<span></span>
             </label>
-            <span>{venue}</span>
+            <span>{isVenue ? artist.name : event.title}</span>
           </div>
+          <div className={styles.formElem}>
+            <label>
+              {isVenue ?"Etablissement" : "Artiste"}<span></span>
+            </label>
+            <span>{user.pseudo}</span>
+          </div> {isVenue ? <Select
+                    placeholder="choisissez un évènement"
+                    styles={customStyles}
+                    options={eventsInfos}
+                    onChange={handleEventChange}
+                    value={eventsInfos.find((option) => option.value === eventBooking)}
+                  /> : <></>}
+          
           <div className={styles.formElem}>
             <label>
               Heure de début de l'événement <span>*</span>

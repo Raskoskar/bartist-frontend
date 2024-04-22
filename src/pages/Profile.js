@@ -8,7 +8,6 @@ import { updateArtist } from "@/api/artists";
 import { updateProfilVenue } from "@/api/venues";
 import genreOptions from "@/data/genres.json";
 import { useRouter } from "next/router";
-
 import CreateBookingProposal from "@/components/CreateBookingProposal";
 
 
@@ -35,10 +34,8 @@ export default function Profile() {
   const router = useRouter();
   // Récupération des informations utilisateurs en BDD :
   useEffect(() => {
-    console.log(user.token)
     getProfile(user.token, user.isVenue)
       .then((response) => {
-        console.log(response);
         if (!isVenue) {
         setProfile(response);
         }else if (isVenue) {
@@ -66,13 +63,11 @@ export default function Profile() {
   ];
 
   const handleGenreChange = (selectedOptions) => {
-    console.log(genres.length > 1 ? genres : profile.genres);
     setGenres(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
   const handleTypeChange = (selectedOptions) => {
-    console.log("current selected type: ", selectedOptions.value);
     setType(selectedOptions.value);
   };
   const handleVenueChange = (selectedOptions) => {

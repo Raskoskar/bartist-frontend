@@ -133,9 +133,8 @@ function CardBooking({ booking, isReceived }) {
         </div>
 
         {booking.status === "Pending" && isReceived == true && buttons}
-        {(booking.status === "Confirmed" || booking.status === "Refused") && (
+        {(booking.status === "Confirmed" || booking.status === "Refused" || isReceived == false) && (
           <div className={styles.statusContainer}>
-            {" "}
             <span>{booking.status}</span>
           </div>
         )}
