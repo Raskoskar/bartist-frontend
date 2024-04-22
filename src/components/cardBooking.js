@@ -14,29 +14,33 @@ import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
 export default function CardBooking({ booking, isReceived }) {
   //État local pour stocker les événements récupérés depuis l'api bookings
-  const [artistBook, setArtistBook] = useState(null);
-  const [venueBook, setVenueBook] = useState(null);
-  const [eventBook, setEventBook] = useState(null);
+  const [artistBook, setArtistBook] = useState({});
+  const [venueBook, setVenueBook] = useState({});
+  const [eventBook, setEventBook] = useState({});
   useEffect(() => {
+    console.log(booking.artist);
     getArtistById(booking.artist).then((dataA) => {
-      setArtistBook(dataA);
+      setArtistBook(dataA.artist);
+      console.log(artistBook);
     });
     getVenueById(booking.venue).then((dataV) => {
-      setVenueBook(dataV);
+      setVenueBook(dataV.venue);
+      console.log(venueBook);
     });
     getEventById(booking.event).then((dataE) => {
-      setEventBook(dataE);
+      setEventBook(dataE.event);
+      console.log(eventBook);
     });
   }, []);
 
   const handleConfirmBooking = () => {
     const status = "Confirmed";
-    props.updateBookingStatus(status);
+    updateBookingStatus(booking._id, status);
   };
 
   const handleRefuseBooking = () => {
     const status = "Refused";
-    props.updateBookingStatus(status);
+    updateBookingStatus(booking._id, status);
   };
 
   const buttons = (
@@ -68,41 +72,56 @@ export default function CardBooking({ booking, isReceived }) {
   const month = parts[1];
   const year = parts[2];
   // ----------------------------------------- //
+
+  const cardClass = () => {
+    let baseClass = styles.card;
+    if (booking.status === "Confirmed") {
+      return `${baseClass} ${styles.accepted}`;
+    } else if (booking.status === "Refused") {
+      return `${baseClass} ${styles.cancel}`;
+    }
+    return baseClass;
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={cardClass()}>
       <div className={styles.leftContent}>
         <div className={styles.dateContainer}>
-          <span className={styles.day}>{/*day*/}19</span>
-          <span className={styles.month}>{/*month*/}avril</span>
-          <span className={styles.year}>{year}2024</span>
+          <span className={styles.day}>{day}</span>
+          <span className={styles.month}>{month}</span>
+          <span className={styles.year}>{year}</span>
         </div>
-        <div className={styles.imgContainer}></div>
         <div className={styles.infos}>
-          <span className={styles.title}>{eventBook?.title}Event Title</span>
+          <span className={styles.title}>{eventBook.title}</span>
           <div className={styles.genres}>
-            {/*eventBook?.genres?.map((genre) => {
+            {eventBook.genres?.map((genre) => {
               return (
                 <div key={genre} className={styles.genre}>
                   <p>{genre}</p>
                 </div>
               );
-            })*/}
-            RAP
+            })}
           </div>
         </div>
       </div>
       <div className={styles.venueInfosContainer}>
-            <span>Venue Name</span>
-            <span>Venue Address</span>
+        <span>{venueBook.name}</span>
+        <span>{venueBook.address}</span>
       </div>
       <div className={styles.hoursContainer}>
-        <span>19h00</span>
-        <span>4H</span>
+        <span>{booking.hour_start}</span>
+        <span>{booking.duration} heures</span>
       </div>
-      <div className={styles.tarifContainer}>190€/h</div>
-      {(booking.status === "Pending" && isReceived == true) && buttons}
+      <div className={styles.tarifContainer}>
+        {booking.rate / booking.duration}/heure
+      </div>
+
+      {booking.status === "Pending" && isReceived == true && buttons}
       {(booking.status === "Confirmed" || booking.status === "Refused") && (
-        <span>{booking.status}</span>
+        <div className={styles.statusContainer}>
+          {" "}
+          <span>{booking.status}</span>
+        </div>
       )}
     </div>
   );

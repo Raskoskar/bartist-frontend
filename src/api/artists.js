@@ -119,7 +119,7 @@ export const getArtists = async () => {
 
 export const getArtistById = async (id) => {
   try {
-    const response =fetch(`http://localhost:3000/artists/id/${id}`, {
+    const response = await fetch(`http://localhost:3000/artists/id/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

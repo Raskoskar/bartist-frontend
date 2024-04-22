@@ -40,7 +40,7 @@ export default function Propositions() {
                   <span>Event</span>
                 </div>
                 <div className={styles.hint}>
-                  <span>Etablissement</span>
+                  <span>Etablissement <br/> Adresse</span>
                 </div>
                 <div className={styles.hint}>
                   <span>Heure arrivée <br/>Nombre d'heures</span>
@@ -49,7 +49,7 @@ export default function Propositions() {
                   <span>Tarif</span>
                 </div>
                 <div className={styles.hint}>
-                  <span> </span>
+                  <span>Status</span>
                 </div>
               </div>
             {user.isVenue

@@ -35,7 +35,7 @@ export const displayBookings = async (token, isVenue) => {
   };
 
   // Fonction de liaison vers le backend pour le changement de statut d'un booking'
-export const updateBookingStatus = async (status, id) => {
+export const updateBookingStatus = async (id, status) => {
     try {
       const response = await fetch(`http://localhost:3000/bookings/updateBookingStatus`, {
         method: "POST",
