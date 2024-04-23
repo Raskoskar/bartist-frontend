@@ -1,104 +1,86 @@
 import styles from "../styles/EventCardList.module.css";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { EventInfo } from "./EventInfo";
 import { getVenueById } from "@/api/venues";
 import CreateBookingProposal from "./CreateBookingProposal";
-function EventCardList({ event }) {
-  const [venue, setVenue] = useState([]);
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+import formatDate from "@/utils/dateFormater";
 
+function EventCardList({ event }) {
+  const [venue, setVenue] = useState({}); // Utilisation d'un objet pour initialiser 'venue'
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      getVenueById(event.venue)
-        .then((data) => {
-          if (data && data.result) {
-            setVenue(data.venue);
-          } else {
-            console.log("No events found or error:", data.message);
-            setVenue({});
-          }
-        })
-    } catch (error) {
-      console.error("Error useEffect: ", error.message);
-    }
-  }, []);
+    getVenueById(event.venue)
+      .then((data) => {
+        if (data && data.venue) {
+          setVenue(data.venue);
+        } else {
+          console.error("No events found or error:", data.message);
+          setVenue({});
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching venue: ", error);
+      });
+  }, [event.venue]); // Ajout de event.venue comme dépendance
 
-  // Fonction pour ouvrir les modals
-  const openEventModal = (event) => {
-    setIsEventModalOpen(true);
+  // Gestion généralisée de l'ouverture des modales
+  const toggleModal = (modalSetter, event) => {
+    modalSetter(true);
     event.stopPropagation();
   };
 
-  const openBookingModal = (event) => {
-    setIsBookingModalOpen(true);
-    event.stopPropagation();
-
+  // Fermeture des modales
+  const closeModal = (modalSetter) => {
+    modalSetter(false);
   };
 
-  // Fonction pour fermer le modal
-  const closeEventModal = () => {
-    setIsEventModalOpen(false);
-  };
+  const date = formatDate(event.date);
 
-  const closeBookingModal = () => {
-    setIsBookingModalOpen(false);
-  };
-
-  // Découpage de la date de l'événement
-  // ?? A DEPLACER DANS UN FICHIER UTILS/DATE ??
-  const date = new Date(event.date);
-  const formattedDate = date.toLocaleDateString("fr-FR", {
-    day: "2-digit", // numeric, 2-digit
-    month: "long", // numeric, 2-digit, long, short, narrow
-    year: "numeric", // numeric, 2-digit
-  });
-
-  const parts = formattedDate.split(" ");
-  const day = parts[0]; 
-  const month = parts[1]; 
-  const year = parts[2]; 
-// ----------------------------------------- //
   return (
     <>
-      <div className={styles.card} onClick={(e) => openEventModal(e)}>
+      <div className={styles.card} onClick={(e) => toggleModal(setIsEventModalOpen, e)}>
         <div className={styles.leftContent}>
           <div className={styles.dateContainer}>
-            <span className={styles.day}>{day}</span>
-            <span className={styles.month}>{month}</span>
-            <span className={styles.year}>{year}</span>
+            <span className={styles.day}>{date.day}</span>
+            <span className={styles.month}>{date.month}</span>
+            <span className={styles.year}>{date.year}</span>
           </div>
-          <div className={styles.imgContainer}></div>
+          <div className={styles.imgContainer}>
+            {/*event.picture && (
+              {<Image src={event.picture} alt={event.title} width={100} height={100} layout="fill" objectFit="cover" />}
+            )*/}
+          </div>
           <div className={styles.infos}>
             <span className={styles.title}>{event.title}</span>
             <span className={styles.venue}>{venue.name}</span>
           </div>
           <div className={styles.genres}>
-            {event.genres?.map((genre) => {
-              return (
-                <div key={genre} className={styles.genre}>
-                  <p>{genre}</p>
-                </div>
-              );
-            })}
+            {event.genres?.map((genre) => (
+              <div key={genre} className={styles.genre}>
+                <p>{genre}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <div className={styles.dispos}>?</div>
         <div className={styles.buttonContainer}>
           <button className={styles.contact}>Contacter</button>
-          <button className={styles.book} onClick={(e) => openBookingModal(e)}>Se proposer</button>
+          <button className={styles.book} onClick={(e) => toggleModal(setIsBookingModalOpen, e)}>Se proposer</button>
         </div>
       </div>
       <EventInfo
         isOpen={isEventModalOpen}
-        onClose={closeEventModal}
+        onClose={() => closeModal(setIsEventModalOpen)}
         event={event}
         venue={venue}
       />
-      <CreateBookingProposal isOpen={isBookingModalOpen} onClose={closeBookingModal} event={event}/>
+      <CreateBookingProposal
+        isOpen={isBookingModalOpen}
+        onClose={() => closeModal(setIsBookingModalOpen)}
+        event={event}
+      />
     </>
   );
 }

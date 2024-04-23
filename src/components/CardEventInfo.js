@@ -2,79 +2,65 @@ import styles from "@/styles/CardEventInfo.module.css";
 import Image from 'next/image';
 import { deleteEvents, updateEventStatus } from '../api/events';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faWindowClose, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faWindowClose, faCheck } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
 
+function CardEventInfo({ isOpen, onClose, event }) {
+    const [isDelete, setIsDelete] = useState(false); // État pour gérer si l'événement est supprimé
 
-function CardEventInfo({isOpen, onClose, event}) {
+    if (!isOpen) return null; // Ne rien rendre si le modal n'est pas ouvert
 
-    const [isDelete, setIsDelete] = useState(false); //Définit un etat pour gerer l'affichage, false par defaut
+    const handleEventClose = () => onClose();
 
-    if (!isOpen) return null;
+    const handleEventWrapper = (event) => event.stopPropagation();
 
-    const handleEventClose = () => {
-        onClose();
-      };
-    
-      const handleEventWrapper = (event) => {
-        event.stopPropagation();
-      };
-          
-    // fonction pour changer le statut d'un event
-    const handleChangeStatus = () => {
-        // definit const a Published, care si il est Published pas besoin de generer l'affichage conditionnel
-        const status = 'Published';
-        updateEventStatus(status, event._id); // on passe status en parametre comme definit dans la route et on appel le parametre event avec l'id definit dans le body de la route
-        // Update the status
-        
+    const handleChangeStatus = async () => {
+        try {
+            await updateEventStatus('Published', event._id);
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour du statut:", error);
+        }
     }
 
-    // fonction pour supprimer un event
-    const handleDeleteEvent = () => {
-        console.log(event._id);
-        deleteEvents(event._id); // on appel le parametre event avec l'id definit dans le body de la route.
-        // router.reload();
-        setIsDelete(true); // L'etat passe a true lorsqu'on clique sur l'icone supprime le bloc sans avoir a rafraichir la page
+    const handleDeleteEvent = async () => {
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer cet événement ?")) {
+            try {
+                await deleteEvents(event._id);
+                setIsDelete(true); // Met à jour l'état pour supprimer le composant de l'UI
+            } catch (error) {
+                console.error("Erreur lors de la suppression de l'événement:", error);
+            }
+        }
     }
-    //si supprimer, on n'affiche rien
-    if(isDelete){
-        return null;
-    }
-    
 
-    return(
+    if (isDelete) return null; // Ne rien rendre si l'événement a été supprimé
+
+    return (
         <div onClick={handleEventClose} className={`${styles.container} ${isOpen ? styles.open : ''}`}>
-            <div onClick={handleEventWrapper} className={`${styles.wrapper} ${isOpen ? styles.open : ''}`}>
-                        <Image 
-                            className={styles.pictureEvent}
-                            src={event.picture}
-                            alt={event.title}
-                            width={200}
-                            height={100}
-                        /> 
-                    
-                    <div className={styles.cardModalInfo}>
-                        <div className={styles.title}>
-                            <h4>Titre :</h4>
-                            <h3>{event.title}</h3>
-                        </div>
-                        <div className={styles.description}>
-                            <h4>Description :</h4>
-                            <p>{event.description}</p>
-                        </div>
+            <div onClick={handleEventWrapper} className={styles.wrapper}>
+                <Image
+                    className={styles.pictureEvent}
+                    src={event.picture}
+                    alt={event.title}
+                    width={200}
+                    height={100}
+                />
+                <div className={styles.cardModalInfo}>
+                    <div className={styles.title}>
+                        <h4>Titre :</h4>
+                        <h3>{event.title}</h3>
                     </div>
-                    <div className={styles.cardBtns}>
-                        <div className={styles.cardBtnDelete}>
-                            <FontAwesomeIcon onClick={ handleDeleteEvent } icon={faWindowClose}  className={styles.deleteIcon} size='2xl'/>
-                        </div>
-                        <div className={styles.cardBtnPublish}>
-                            {/* affichage conditionnel => si event.status est en Draft alors tu affiche un bouton pour changer le status, sinon si le status est en Published, le btn ne s'affiche pas*/}
-                            {event.status === 'Draft' && <FontAwesomeIcon onClick={ handleChangeStatus } icon={faCheck} className={styles.publishIcon} size='2xl'/>}
-                        </div>
+                    <div className={styles.description}>
+                        <h4>Description :</h4>
+                        <p>{event.description}</p>
                     </div>
+                </div>
+                <div className={styles.cardBtns}>
+                    <FontAwesomeIcon onClick={handleDeleteEvent} icon={faWindowClose} className={styles.deleteIcon} size='2xl' />
+                    {event.status === 'Draft' && <FontAwesomeIcon onClick={handleChangeStatus} icon={faCheck} className={styles.publishIcon} size='2xl' />}
+                </div>
             </div>
         </div>
-
     );
 };
 

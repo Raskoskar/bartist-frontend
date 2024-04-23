@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Layout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -11,15 +10,13 @@ export default function Layout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const isVenue = user.isVenue
+  const isVenue = user.isVenue;
+
   const handleLogOut = () => {
     dispatch(logOut());
     router.push("/");
   };
 
-  const handleProfil = () => {
-    router.push("/Profil")
-  }
   return (
     <>
       <Head>
@@ -28,98 +25,119 @@ export default function Layout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={styles.blurBg}>
-      <div className={styles.main}>
-        <div className={styles.sideMenu}>
-          <div className={styles.logoContainer}>
-            <Image
-              alt="logo"
-              className={styles.logo}
-              src="/assets/logo.png"
-              width={200}
-              height={200}
-            />
-            <h2 className={styles.logoName}>
-              <span>Bar</span>Tist
-            </h2>
-          </div>
-          <div className={styles.links}>
-            <Link
-              className={
-                router.pathname === "/Events"
-                  ? styles.selected
-                  : styles.menuItem
-              }
-              href="/Events"
-            >
-              Mes évènements
-            </Link>
-            <>
-              {isVenue && ( <>
-                <Link
+        <div className={styles.main}>
+          <aside className={styles.sideMenu}>
+            <div className={styles.logoContainer}>
+              <Image
+                alt="logo"
+                src="/assets/logo.png"
+                width={100}
+                height={100}
+              />
+              <h2 className={styles.logoName}>
+                <span>Bar</span>Tist
+              </h2>
+            </div>
+            <nav>
+              <Link href="/Events" passHref>
+                <span
                   className={
-                    router.pathname === "/CreateEvent"
+                    router.pathname === "/Events"
                       ? styles.selected
                       : styles.menuItem
                   }
-                  href="/CreateEvent"
                 >
-                  Créer un évènement
+                  Mes évènements
+                </span>
+              </Link>
+              {isVenue && (
+                <Link href="/CreateEvent" passHref>
+                  <span
+                    className={
+                      router.pathname === "/CreateEvent"
+                        ? styles.selected
+                        : styles.menuItem
+                    }
+                  >
+                    Créer un évènement
+                  </span>
                 </Link>
-              </>)}
-            </>
-            <Link
-              className={
-                router.pathname === "/Search"
-                  ? styles.selected
-                  : styles.menuItem
-              }
-              href="/Search"
-            >
-              {isVenue
-                ? "Rechercher un artiste"
-                : "Rechercher un évènement"}
-            </Link>
-            <Link
-              className={
-                router.pathname === "/Propositions"
-                  ? styles.selected
-                  : styles.menuItem
-              }
-              href="/Propositions"
-            >
-              Mes propositions
-            </Link>
-            <Link
-              className={
-                router.pathname === "/Profile"
-                  ? styles.selected
-                  : styles.menuItem
-              }
-              href="/Profile"
-            >
-              Mon Profil
-            </Link>
-            
-          </div>
-          <div>
-            <div></div>
-          </div>
-          <button onClick={() => handleLogOut()}>Log out</button>
-        </div>
-        <div className={styles.center}>
-          <div className={styles.header}>
-            <>{isVenue ? <button onClick={() => router.push('/CreateEvent')} className={styles.button}>Créer un évènement</button> : <button onClick={() => router.push('/Search')} className={styles.button}>Chercher un évènement</button> }</>
-            
-            <div className={styles.rightContent}>
-              <div className={styles.imgContainer} onClick={() => handleProfil()}></div>
-              <div className={styles.userInfo}>
-                <p className={styles.name}>{user.pseudo}</p>
+              )}
+              <Link href="/Search" passHref>
+                <span
+                  className={
+                    router.pathname === "/Search"
+                      ? styles.selected
+                      : styles.menuItem
+                  }
+                >
+                  {isVenue
+                    ? "Rechercher un artiste"
+                    : "Rechercher un évènement"}
+                </span>
+              </Link>
+              <Link href="/Propositions" passHref>
+                <span
+                  className={
+                    router.pathname === "/Propositions"
+                      ? styles.selected
+                      : styles.menuItem
+                  }
+                >
+                  Mes propositions
+                </span>
+              </Link>
+              <Link href="/Profile" passHref>
+                <span
+                  className={
+                    router.pathname === "/Profile"
+                      ? styles.selected
+                      : styles.menuItem
+                  }
+                >
+                  Mon Profil
+                </span>
+              </Link>
+            </nav>
+            <button onClick={handleLogOut} className={styles.logoutButton}>
+              Log out
+            </button>
+          </aside>
+          <div className={styles.center}>
+            <header className={styles.header}>
+              <>
+                {isVenue ? (
+                  <button
+                    onClick={() => router.push("/CreateEvent")}
+                    className={styles.button}
+                  >
+                    Créer un évènement
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => router.push("/Search")}
+                    className={styles.button}
+                  >
+                    Chercher un évènement
+                  </button>
+                )}
+              </>
+              <div className={styles.rightContent}>
+                <Image
+                  src="/assets/user-icon.png"
+                  alt="Profil"
+                  width={40}
+                  height={40}
+                  onClick={() => router.push("/Profile")}
+                />
+                <div className={styles.userInfo}>
+                  <p className={styles.name}>{user.pseudo}</p>
+                </div>
               </div>
-            </div>
+            </header>
+            <main className={styles.content}>{children}</main>
           </div>
-          <div className={styles.content}>{children}</div>
         </div>
-      </div>
       </div>
     </>
   );

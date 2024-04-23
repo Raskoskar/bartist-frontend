@@ -1,0 +1,18 @@
+[
+    { "label": "DJ", "value": "DJ" },
+    { "label": "Chanteur", "value": "Chanteur" },
+    { "label": "Groupe", "value": "Groupe" },
+    { "label": "Instrumentiste", "value": "Instrumentiste" },
+    { "label": "Compositeur", "value": "Compositeur" },
+    { "label": "Orchestre", "value": "Orchestre" },
+    { "label": "Interprète", "value": "Interprète" },
+    { "label": "Danseur", "value": "Danseur" },
+    { "label": "Beatmaker", "value": "Beatmaker" },
+    { "label": "Producteur", "value": "Producteur" },
+    { "label": "Rappeur", "value": "Rappeur" },
+    { "label": "Animateur", "value": "Animateur" },
+    { "label": "Choriste", "value": "Choriste" },
+    { "label": "Arrangeur", "value": "Arrangeur" },
+    { "label": "Auteur", "value": "Auteur" }
+  ]
+  

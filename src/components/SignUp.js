@@ -1,58 +1,49 @@
-import React, { useState, useSelector } from "react";
+import React, { useState } from "react";
 import styles from "../styles/SignUp.module.css";
 import { useDispatch } from "react-redux";
-import { signUpArtist } from "@/api/artists";
+import { signUpArtist } from "@/api/artists"; 
 import { signUpVenue } from "@/api/venues";
 import { logIn } from "../reducers/user";
 import { useRouter } from "next/router";
+
 const SignUp = ({ isOpen, onClose, wichUser }) => {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // State pour savoir si entrain de charger
 
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
+
   const handleRegister = async (type) => {
-    let data = null;
-    if (type == "artist") {
-      data = await signUpArtist(signUpEmail, signUpPassword);
+    if (!signUpEmail || !signUpPassword) {
+      setError("L'email et le mot de passe sont obligatoire.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = type === "artist"
+        ? await signUpArtist(signUpEmail, signUpPassword)
+        : await signUpVenue(signUpEmail, signUpPassword);
 
       if (data.result) {
-        dispatch(
-          logIn({
-            pseudo: signUpEmail,
-            token: data.token,
-            isConnected: true,
-            isVenue: false,
-          })
-        );
+        dispatch(logIn({
+          pseudo: signUpEmail,
+          token: data.token,
+          isConnected: true,
+          isVenue: type === "venue"
+        }));
         setSignUpEmail("");
         setSignUpPassword("");
-        router.push("/ArtistForm")
-
+        onClose(); 
+        router.push(type === "artist" ? "/ArtistForm" : "/VenueForm");
       } else {
-        document.querySelector(
-          "#alert"
-        ).innerHTML = `Login failed : ${data.error}`;
+        setError(`Registration failed: ${data.error}`);
       }
-    } else {
-      data = await signUpVenue(signUpEmail, signUpPassword);
-      if (data.result) {
-        dispatch(
-          logIn({
-            pseudo: signUpEmail,
-            token: data.token,
-            isConnected: true,
-            isVenue: true
-          })
-        );
-        setSignUpEmail("");
-        setSignUpPassword("");
-        router.push("/VenueForm"); // dirige l'user vers la page venueform
-      } else {
-        document.querySelector(
-          "#alert"
-        ).innerHTML = `Login failed : ${data.error}`;
-      }
+    } catch (err) {
+      setError(`Registration failed: ${err.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,26 +63,29 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
         <div className={styles.signUp}>
           <input
             className={styles.input}
-            type="text"
-            name="firstname"
-            placeholder="firstname..."
+            type="email"
+            name="email"
+            placeholder="Entrez votre adresse mail..."
             onChange={(e) => setSignUpEmail(e.target.value)}
             value={signUpEmail}
+            aria-label="Email"
           />
           <input
             className={styles.input}
             type="password"
             name="password"
-            placeholder="password..."
+            placeholder="Entrez votre mot de passe..."
             onChange={(e) => setSignUpPassword(e.target.value)}
             value={signUpPassword}
+            aria-label="Password"
           />
         </div>
-        <div id="alert"></div>
+        {loading ? <p>Loading...</p> : null}
+        {error && <div className={styles.alert}>{error}</div>}
         <button
           className={styles.buttonMain}
-          id="register"
           onClick={() => handleRegister(wichUser)}
+          disabled={loading} 
         >
           Sign Up
         </button>

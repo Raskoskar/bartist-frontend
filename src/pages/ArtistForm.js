@@ -5,7 +5,8 @@ import Select from "react-select";
 import { useRouter } from "next/router";
 import { updateArtist } from "@/api/artists";
 import genreOptions from "@/data/genres.json"
-
+import typeOptions from "@/data/artistType"
+import { customStyles } from "@/styles/CustomSlect";
 export default function ArtistForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -25,11 +26,6 @@ export default function ArtistForm() {
   const router = useRouter();
   const [buttonText, setButtonText] = useState('passer')
   
-  const typeOptions = [
-    { label: "DJ", value: "dj" },
-    { label: "Chanteur", value: "chanteur" },
-    { label: "groupe", value: "groupe" },
-  ];
 
   const handleGenreChange = (selectedOptions) => {
     setGenres(
@@ -53,42 +49,7 @@ export default function ArtistForm() {
   }
   // Style du Composant React Select
   // (provided) => au lieu de garder le style natif on aplique ce qui est en desous
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      backgroundColor: "transparent",
-      border: "1px solid #3F88C5",
-      borderRadius: "16px",
-      width: "300px",
-      height: "44px",
-      fontSize: "14px",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      padding: "0px",
-      fontSize: "12px",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      ...styles.option,
-      backgroundColor: state.isFocused ? "#3F88C5" : "white",
-      color: state.isSelected ? "white" : "black",
-      color: state.isFocused ? "white" : "black",
-      fontSize: "12px",
-    }),
-    multiValue: (provided) => ({
-      ...provided,
-      backgroundColor: "#3F88C5",
-      color: "white",
-    }),
-    multiValueLabel: (provided) => ({
-      ...provided,
-      color: "white",
-    }),
-    multiValueRemove: (provided) => ({
-      ...provided,
-    }),
-  };
+
 
   return (
     <div className={styles.main}>

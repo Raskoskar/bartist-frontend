@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Login.module.css";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import SignUp from "../components/SignUp";
+import SignIn from "../components/SignIn";
 import { useState } from "react";
 
 export default function Login() {

@@ -13,6 +13,11 @@
     gap: 10px;
 }
 
+.card:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 .cancel{
     background-color: rgb(212, 58, 58);
 }

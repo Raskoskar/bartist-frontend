@@ -3,5 +3,16 @@
     { "value": "Rock", "label": "Rock" },
     { "value": "Jazz", "label": "Jazz" },
     { "value": "Hip-Hop", "label": "Hip-Hop" },
-    { "value": "Classical", "label": "Classical" }
+    { "value": "Classical", "label": "Classical" },
+    { "value": "Electronic", "label": "Electronic" },
+    { "value": "Reggae", "label": "Reggae" },
+    { "value": "Country", "label": "Country" },
+    { "value": "Blues", "label": "Blues" },
+    { "value": "Soul", "label": "Soul" },
+    { "value": "Metal", "label": "Metal" },
+    { "value": "Funk", "label": "Funk" },
+    { "value": "Folk", "label": "Folk" },
+    { "value": "Disco", "label": "Disco" },
+    { "value": "R&B", "label": "R&B" },
+    { "value": "Latin", "label": "Latin" }
 ]

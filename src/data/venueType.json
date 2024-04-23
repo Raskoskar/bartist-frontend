@@ -1,0 +1,12 @@
+[
+    { "label": "BAR", "value": "BAR" },
+    { "label": "RESTAURANT", "value": "RESTAURANT" },
+    { "label": "SALLE DE CONCERT", "value": "SALLE DE CONCERT" },
+    { "label": "SALLE DE SPECTACLE", "value": "SALLE DE SPECTACLE" },
+    { "label": "CLUB", "value": "CLUB" },
+    { "label": "THÉÂTRE", "value": "THÉÂTRE" },
+    { "label": "CINÉMA", "value": "CINÉMA" },
+    { "label": "LOUNGE", "value": "LOUNGE" },
+    { "label": "CAFÉ", "value": "CAFÉ" },
+    { "label": "BRASSERIE", "value": "BRASSERIE" }
+]

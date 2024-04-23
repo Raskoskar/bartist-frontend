@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import styles from "@/styles/Profil.module.css";
 import Select from "react-select";
 import { useEffect, useState } from "react";
-import { getProfile } from "@/hooks/getProfil";
+import { getProfile } from "@/utils/getProfil";
 import { updateArtist } from "@/api/artists";
 import { updateProfilVenue } from "@/api/venues";
 import genreOptions from "@/data/genres.json";
 import { useRouter } from "next/router";
 import CreateBookingProposal from "@/components/CreateBookingProposal";
-
-
+import { customStyles } from "@/styles/CustomSlect";
+import ArtistTypeOptions from "@/data/artistType";
+import VenuTypeOptions from "@/data/venueType";
 export default function Profile() {
   // Variables d'états
   const [name, setName] = useState("");
@@ -28,48 +29,38 @@ export default function Profile() {
   const [adress, setAdress] = useState("");
   const [venueType, setVenueType] = useState("");
   const [profile, setProfile] = useState({});
+
   // Savoir si l'utilisateur est un artiste ou un établissement pour gérer l'affichage.
   const user = useSelector((state) => state.user.value);
   const isVenue = user.isVenue;
   const router = useRouter();
+
   // Récupération des informations utilisateurs en BDD :
   useEffect(() => {
-    getProfile(user.token, user.isVenue)
-      .then((response) => {
-        if (!isVenue) {
+    getProfile(user.token, user.isVenue).then((response) => {
+      if (!isVenue) {
         setProfile(response);
-        }else if (isVenue) {
-          setProfile(response.venue)
-        }else{
-          console.log("error in getProfile")
-        }
-      })
-      
+      } else if (isVenue) {
+        setProfile(response.venue);
+      } else {
+        console.log("error in getProfile");
+      }
+    });
   }, []);
 
-  // Gestion des selects
-
-  const typeOptions = [
-    { label: "DJ", value: "dj" },
-    { label: "Chanteur", value: "chanteur" },
-    { label: "groupe", value: "groupe" },
-  ];
-
-  const venueOptions = [
-    { label: "Bar", value: "bar" },
-    { label: "Restaurant", value: "restaurant" },
-    { label: "Salle de concert", value: "salle de concert" },
-    { label: "Salle de spectacle", value: "salle de spectacle" },
-  ];
-
+  // Fonction de gestion selection des genres musicals
   const handleGenreChange = (selectedOptions) => {
     setGenres(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
+
+  // Fcontion de gestion selection du type d'artiste
   const handleTypeChange = (selectedOptions) => {
     setType(selectedOptions.value);
   };
+
+  // Fonction de gestion selection du type d'établissement
   const handleVenueChange = (selectedOptions) => {
     setVenueType(selectedOptions.value);
   };
@@ -112,42 +103,6 @@ export default function Profile() {
 
   // Style du Composant React Select
   // (provided) => au lieu de garder le style natif on aplique ce qui est en desous
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      backgroundColor: "transparent",
-      border: "1px solid #3F88C5",
-      borderRadius: "16px",
-      width: "100%",
-      height: "44px",
-      fontSize: "14px",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      padding: "0px",
-      fontSize: "12px",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      ...styles.option,
-      backgroundColor: state.isFocused ? "#3F88C5" : "white",
-      color: state.isSelected ? "white" : "black",
-      color: state.isFocused ? "white" : "black",
-      fontSize: "12px",
-    }),
-    multiValue: (provided) => ({
-      ...provided,
-      backgroundColor: "#3F88C5",
-      color: "white",
-    }),
-    multiValueLabel: (provided) => ({
-      ...provided,
-      color: "white",
-    }),
-    multiValueRemove: (provided) => ({
-      ...provided,
-    }),
-  };
 
   return (
     <Layout>
@@ -187,9 +142,9 @@ export default function Profile() {
                   <Select
                     placeholder={profile.type}
                     styles={customStyles}
-                    options={typeOptions}
+                    options={ArtistTypeOptions}
                     onChange={handleTypeChange}
-                    value={typeOptions.find((option) => option.value === type)}
+                    value={ArtistTypeOptions.find((option) => option.value === type)}
                   />
                 </div>
                 <div className={styles.formElem}>
@@ -321,9 +276,9 @@ export default function Profile() {
                 <Select
                   placeholder={profile.type}
                   styles={customStyles}
-                  options={venueOptions}
+                  options={VenuTypeOptions}
                   onChange={handleVenueChange}
-                  value={venueOptions.find(
+                  value={VenuTypeOptions.find(
                     (option) => option.value === venueType
                   )}
                 />

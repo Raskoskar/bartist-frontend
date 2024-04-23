@@ -77,10 +77,6 @@
 }
 
 
-.dispos{
-
-}
-
 .buttonContainer{
     display: flex;
     gap: 20px;
@@ -90,7 +86,7 @@
     margin-top: 0px;
     height: fit-content;
     font-size: 14px;
-    background-color: yellowgreen;
+    background-color: rgb(112, 160, 16);
 }
 
 .book{
@@ -104,6 +100,7 @@
 .genres{
     display: flex;
     gap: 10px;
+    margin-left: 50px;
 }
 
 .genre{

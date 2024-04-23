@@ -1,32 +1,45 @@
-.container {
+.main{
+    margin-top: 50px;
+    width: 80%;
+    height: 100%;
+    padding: 30px;
+    border-radius: 30px;
     display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: transparent;
+    letter-spacing: 1px;
+    gap: 20px;
+}
+
+.titleContainer{
     width: 100%;
+    margin-bottom: 10px;
 }
 
-.eventTitle {
-    color: black;
+.title{
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.cardContainer {
-    /* border: solid 1px black;
-    width: 220px;
-    height: 320px;
-    margin: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
+.cardContainer{
     display: flex;
     flex-direction: row;
+    gap: 20px;
+    height: 100%;
     width: 100%;
-    gap: 10px;
-    /* background-color: aqua; */
+    overflow-x: auto;
 }
 
-/* .eventContainer {
+.noEvent{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin: 20px;
-    color: black;
-} */
+    justify-content: center;
+    margin: 200px 500px;
+}

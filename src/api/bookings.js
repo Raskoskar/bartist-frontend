@@ -79,3 +79,22 @@ export const updateBookingStatus = async (id, status) => {
     console.error("Error during booking update", error.message);
   }
 };
+
+
+export const getBookingByEventId = async (id) => {
+  try{
+    const response = await fetch(
+      `http://localhost:3000/bookings/id/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  }catch(error){
+    console.error("Error during get booking by event id", error.message);
+  }
+}

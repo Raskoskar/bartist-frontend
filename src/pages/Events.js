@@ -1,73 +1,82 @@
 import Layout from "@/components/Layout";
-import CardEvent from "@/components/CardEvent";
-import styles from '../styles/Event.module.css';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { displayEvents } from '../api/events';
-// import 'antd/dist/antd.css'; 
-// import { Button, Space, Switch } from 'antd';
+import CardEvent from "@/components/cardEvent";
+import styles from "../styles/Event.module.css";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { displayEvents, displayEventsByBooking } from "../api/events";
+import { useRouter } from "next/router";
 
- function Events() {
+function Events() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(""); 
+  const token = useSelector((state) => state.user.value.token);
+  const user = useSelector((state) => state.user.value);
+  const router = useRouter();
 
-    // const [cardEvent, setCardEvent] = useState([]);
-    //État local pour stocker les événements récupérés depuis l'api events
-    const [events, setEvents] = useState([]); 
-    // Creation const token pour recuperer le token du reducer afin de pouvoir s'en servir dans le param
-    const token = useSelector(state => state.user.value.token )
-
-    // toggle switch calendar/list
-    // const [disabled, setDisabled] = useState(true);
-    // const toggle = () => {
-    //   setDisabled(!disabled);
-    // };
-    // const card = cardEvent.map((dataCard, i) => {
-    //     return <CardEvent key={i} {...dataCard} />;
-    // })
-
-    // Recuperation des events et creation d'une fonction getEvents pour appeller displayEvents
-    const getsEvents = async () => {
-        try {
-            const dataEvent = await displayEvents(token);
-            console.log('dataEvent => ', dataEvent);
-            console.log('token => ', token);
-            if(dataEvent) {
-                // console.log('dataEvent => ', dataEvent);
-                setEvents(dataEvent);
-                return dataEvent;
-            }
-        } catch (error) {
-            console.log('error fetch dataEvent => ', error);
+  const getEvents = async () => {
+    try {
+      let data;
+      if (user.isVenue) {
+        data = await displayEvents(token);
+      } else {
+        data = await displayEventsByBooking(token);
+        if (data) {
+          data = data.events;
         }
+      }
+      if (data) {
+        setEvents(data);
+      }
+    } catch (error) {
+      setError("Erreur de récupération des événements. Réessayez plus tard.");
+      console.error("error fetch dataEvent => ", error);
+    } finally {
+      setLoading(false); // On met loading à false dès que le fetch est terminé
     }
+  };
 
-        // appel getEvents lorsqu'on appel le composant
-        useEffect(() => {
-            getsEvents()
-        }, []);
+  const handleClick = () => {
+    user.isVenue ? router.push("/CreateEvent") : router.push("/Search");
+  };
 
-    return (
-        <Layout isSelected="events">
-            {/* <Space direction="vertical">
-                <Switch disabled={disabled} defaultChecked />
-                <Button type="primary" onClick={toggle}>
-                    Toggle disabled
-                </Button>
-            </Space> */}
-            <div className={styles.container}>
-                <div className={styles.eventTitle}>
-                    <h1>Mes évènements</h1>
-                </div>
-                <div className={styles.cardContainer}>
-                    {/* map pour afficher chaque events / preferable de le faire dans le return, comme cela react ne considere pas cardEvent comme un bloc, mais comme plusieur */}
-                    { events.map(event => {
-                        console.log(event);
-                        return <CardEvent event={event} id={event._id} key={event.title}/>
-                    })}
-                </div>
-            </div>
-        </Layout>
-    )
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  return (
+    <Layout>
+      <div className={styles.main}>
+        <div className={styles.titleContainer}>
+          <span className={styles.title}>Mes évènements</span>
+        </div>
+        {/* Afficher le loading tant que tout n'est pas chargé*/}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className={styles.cardContainer}>
+            {events.length > 0 ? (
+              events.map((event) => (
+                <CardEvent
+                  event={user.isVenue ? event : event.event}
+                  id={event._id}
+                  key={event._id} 
+                />
+              ))
+            ) : (
+              <div className={styles.noEvent}>
+                <span>Pas encore d'événements à afficher.</span>
+                <button onClick={handleClick}>
+                  {user.isVenue ? "Créer un événement" : "Chercher un événement"}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+        {error && <div className={styles.error}>{error}</div>}
+      </div>
+    </Layout>
+  );
 }
 
 export default Events;
-

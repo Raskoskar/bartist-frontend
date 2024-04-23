@@ -48,7 +48,6 @@ export const displayEvents = async (token) => {
       {}
     );
     const data = await response.json();
-    console.log("data display event => ", data.event);
     return data.event;
   } catch (error) {
     console.error("Error during creation:", error.message);
@@ -122,3 +121,17 @@ export const getEvents = async () => {
       console.error("Error fetching events by venue token: ", error.message)
     }
   }
+
+
+  export const displayEventsByBooking = async (token) => {
+    try{
+      const response = await fetch(
+        `http://localhost:3000/events/token/${token}`
+      )
+      const  data = await response.json()
+      return data
+    }catch(error){
+      console.error("Error fetching events by artist token: ", error.message)
+    }
+  }
+  

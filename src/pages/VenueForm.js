@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { updateProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
-
+import venueType from "@/data/venueType"
 function VenueForm() {
 
     const [name, setName] = useState('');
@@ -45,11 +45,9 @@ function VenueForm() {
                     <input onChange={(e) => setName(e.target.value)} value={name} className={styles.input} type="text" placeholder="Nom de l'établissement" id="formName"  />
                     <input onChange={(e) => setAddress(e.target.value)} value={address} className={styles.input} type="text" placeholder="Adresse de l'établissement" id="formAddress" />
                     <select onChange={(e) => setType(e.target.value)} value={type} placeholder="Vous représentez ?" className={styles.inputSelect} name="types" id="types-select">
-                        <option value="" className={styles.option}>Vous représentez ?</option>
-                        <option value="bar" className={styles.option}>Bar</option>
-                        <option value="discotheque" className={styles.option}>Discothèque</option>
-                        <option value="restaurant" className={styles.option}>Restaurant</option>
-                        <option value="salle de concert" className={styles.option}>Salle de concert</option>
+                        {venueType.map(type => {
+                            return (<option className={styles.option} value={type.value}>{type.label}</option>)
+                        })}
                     </select>                
                     <input onChange={(e) => setDescription(e.target.value)} value={description} className={styles.inputSelect} type="text" placeholder="Quelques mots sur votre établissement..." id="formDescription"  />
                 </div>
