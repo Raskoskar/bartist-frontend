@@ -1,5 +1,5 @@
-// "use client"; // cloudinary : https://next.cloudinary.dev/nextjs-14
-// import cloudinary from 'cloudinary';
+"use client"; // cloudinary : https://next.cloudinary.dev/nextjs-14
+import cloudinary from 'cloudinary';
 
 import React from "react";
 import { useState } from "react";
