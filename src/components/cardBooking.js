@@ -35,6 +35,7 @@ function CardBooking({ booking, isReceived }) {
   const handleConfirmBooking = (event) => {
     const status = "Confirmed";
     updateBookingStatus(booking._id, status);
+    
     event.stopPropagation();
   };
 
