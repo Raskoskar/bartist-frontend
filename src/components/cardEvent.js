@@ -45,7 +45,7 @@ function CardEvent({ event }) {
   const openEventModal = () => setIsEventModalOpen(true);
   const closeEventModal = () => setIsEventModalOpen(false);
   const date = formatDate(event.date);
-
+  //const cardClass = booking.status === "Confirmed" ? ` ${styles.accepted}` : booking.status === "Refused" ? ` ${styles.cancel}` : "";
   return (
     <>
       <div className={styles.card} onClick={openEventModal}>
@@ -65,9 +65,9 @@ function CardEvent({ event }) {
           </div>
           {isVenue && <span className={styles.spanStatus}>{event.status}</span>}
           <div className={styles.bookingsList}>
-            {bookings.map((booking) => (
+            {bookings?.map((booking) => (
               <div key={booking._id} className={styles.cardArtist}>
-                <span>{booking.artistName}</span>
+                <span>{isVenue ? booking.artistName + " | " : ""} </span>
                 <span>{booking.status}</span>
               </div>
             ))}

@@ -55,7 +55,7 @@ function CardBooking({ booking, isReceived }) {
     return date.toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
   };
 
-  const dateComponents = formatDate(eventBook.date).split(" ");
+  const dateComponents = formatDate(eventBook?.date).split(" ");
   const cardClass = styles.card + (booking.status === "Confirmed" ? ` ${styles.accepted}` : booking.status === "Refused" ? ` ${styles.cancel}` : "");
 
   return (
@@ -68,8 +68,8 @@ function CardBooking({ booking, isReceived }) {
             <span className={styles.year}>{dateComponents[2]}</span>
           </div>
           <div className={styles.infos}>
-            <span className={styles.title}>{eventBook.title}</span>
-            <div className={styles.genres}>{eventBook.genres?.map((genre) => <div key={genre} className={styles.genre}><p>{genre}</p></div>)}</div>
+            <span className={styles.title}>{eventBook?.title}</span>
+            <div className={styles.genres}>{eventBook?.genres?.map((genre) => <div key={genre} className={styles.genre}><p>{genre}</p></div>)}</div>
           </div>
         </div>
         <div className={styles.venueInfosContainer}>

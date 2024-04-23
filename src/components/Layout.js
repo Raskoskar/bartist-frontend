@@ -29,16 +29,17 @@ export default function Layout({ children }) {
           <aside className={styles.sideMenu}>
             <div className={styles.logoContainer}>
               <Image
+              className={styles.logo}
                 alt="logo"
                 src="/assets/logo.png"
-                width={100}
-                height={100}
+                width={150}
+                height={150}
               />
               <h2 className={styles.logoName}>
                 <span>Bar</span>Tist
               </h2>
             </div>
-            <nav>
+            <nav className={styles.links}>
               <Link href="/Events" passHref>
                 <span
                   className={

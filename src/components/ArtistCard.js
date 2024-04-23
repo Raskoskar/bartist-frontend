@@ -36,7 +36,7 @@ function ArtistCard({ artist }) {
           </div>
           <div className={styles.infos}>
             <h3>{artist.name}</h3>
-            <h4>{artist.type}</h4>
+            <span>{artist.type}</span>
           </div>
           <div className={styles.genres}>
             {artist.genres.map(genre => (

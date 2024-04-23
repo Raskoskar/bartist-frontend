@@ -23,7 +23,10 @@ export const ArtistInfo = ({ isOpen, onClose, artist }) => {
         </div>
         <div className={styles.title}>
           <h3>{artist.name}</h3>
-          <h4>Genres</h4>
+          
+        </div>
+        <div className={styles.description}>
+        <h4>Genres</h4>
           {/* Affichage des genres de l'artiste */}
           <p>{artist.genres?.join(", ")}</p>
         </div>
@@ -61,10 +64,6 @@ export const ArtistInfo = ({ isOpen, onClose, artist }) => {
               </button>
             )}
           </div>
-        </div>
-        <div className={styles.buttonContainer}>
-          <button className={styles.contact}>Contacter</button>
-          <button className={styles.book}>Booker</button>
         </div>
       </div>
     </div>

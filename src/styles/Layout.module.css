@@ -18,9 +18,10 @@
     min-width: 250px;
     background-color: #06013f0d;
     border: 2px rgba(47, 47, 47, 0.362) solid;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 90%;
     border-radius: 0px 0px 30px;
+    padding:50px 0;
 }
 
 .center{
@@ -57,7 +58,6 @@
     flex-direction: column;
     flex: 0.50;
     justify-content: flex-start;
-    gap: 0px;
 }
 .rightContent{
     margin-top: 10px;
@@ -110,7 +110,7 @@
     box-sizing: border-box;
     box-shadow: inset 20px 0px 15px #3f89c56f;;
     width: 100%;
-    height: 100%;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,7 +119,7 @@
 
 .menuItem{
     width: 100%;
-    height: 100%;
+    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;

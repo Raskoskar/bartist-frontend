@@ -1,12 +1,12 @@
 .card {
-    width: 100%;
+    min-width: 100%;
     height: fit-content;
     padding: 10px;
     border-radius: 10px;
     background-color: #00000079;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     color: white;
     transition: 300ms;
