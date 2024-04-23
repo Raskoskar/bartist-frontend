@@ -3,6 +3,7 @@ import styles from "@/styles/Propositions.module.css";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import CardBooking from "@/components/cardBooking";
+import CreateBookingProposal from "@/components/CreateBookingProposal";
 import { displayBookings } from "../api/bookings";
 
 export default function Propositions() {
@@ -14,7 +15,6 @@ export default function Propositions() {
   useEffect(() => {
     displayBookings(user.token, user.isVenue).then((data) => {
       setBookings(data.dataBookings);
-      console.log("data", data.dataBookings);
       setVenueBookings(
         data.dataBookings.filter((booking) => booking.creatorIsVenue)
       );
@@ -30,6 +30,7 @@ export default function Propositions() {
         <div className={styles.titleContainer}>
           <span className={styles.title}>Propositions</span>
         </div>
+        <CreateBookingProposal />
         <div className={styles.bookings}>
           <div>
             <div className={styles.bookingsTitleContainer}>
@@ -40,7 +41,7 @@ export default function Propositions() {
                   <span>Event</span>
                 </div>
                 <div className={styles.hint}>
-                  <span>Etablissement</span>
+                  <span>Etablissement <br/> Adresse</span>
                 </div>
                 <div className={styles.hint}>
                   <span>Heure arrivée <br/>Nombre d'heures</span>
@@ -49,7 +50,7 @@ export default function Propositions() {
                   <span>Tarif</span>
                 </div>
                 <div className={styles.hint}>
-                  <span> </span>
+                  <span>Status</span>
                 </div>
               </div>
             {user.isVenue

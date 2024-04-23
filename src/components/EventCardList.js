@@ -4,9 +4,12 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { EventInfo } from "./EventInfo";
 import { getVenueById } from "@/api/venues";
+import CreateBookingProposal from "./CreateBookingProposal";
 function EventCardList({ event }) {
   const [venue, setVenue] = useState([]);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+
 
   useEffect(() => {
     try {
@@ -25,13 +28,24 @@ function EventCardList({ event }) {
   }, []);
 
   // Fonction pour ouvrir les modals
-  const openEventModal = () => {
+  const openEventModal = (event) => {
     setIsEventModalOpen(true);
+    event.stopPropagation();
+  };
+
+  const openBookingModal = (event) => {
+    setIsBookingModalOpen(true);
+    event.stopPropagation();
+
   };
 
   // Fonction pour fermer le modal
   const closeEventModal = () => {
     setIsEventModalOpen(false);
+  };
+
+  const closeBookingModal = () => {
+    setIsBookingModalOpen(false);
   };
 
   // Découpage de la date de l'événement
@@ -50,7 +64,7 @@ function EventCardList({ event }) {
 // ----------------------------------------- //
   return (
     <>
-      <div className={styles.card} onClick={() => openEventModal()}>
+      <div className={styles.card} onClick={(e) => openEventModal(e)}>
         <div className={styles.leftContent}>
           <div className={styles.dateContainer}>
             <span className={styles.day}>{day}</span>
@@ -63,7 +77,7 @@ function EventCardList({ event }) {
             <span className={styles.venue}>{venue.name}</span>
           </div>
           <div className={styles.genres}>
-            {event.genres.map((genre) => {
+            {event.genres?.map((genre) => {
               return (
                 <div key={genre} className={styles.genre}>
                   <p>{genre}</p>
@@ -75,7 +89,7 @@ function EventCardList({ event }) {
         <div className={styles.dispos}>?</div>
         <div className={styles.buttonContainer}>
           <button className={styles.contact}>Contacter</button>
-          <button className={styles.book}>Se proposer</button>
+          <button className={styles.book} onClick={(e) => openBookingModal(e)}>Se proposer</button>
         </div>
       </div>
       <EventInfo
@@ -84,6 +98,7 @@ function EventCardList({ event }) {
         event={event}
         venue={venue}
       />
+      <CreateBookingProposal isOpen={isBookingModalOpen} onClose={closeBookingModal} event={event}/>
     </>
   );
 }

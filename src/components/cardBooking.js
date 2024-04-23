@@ -1,5 +1,6 @@
 import styles from "../styles/CardBooking.module.css";
 import Image from "next/image";
+import {BookingInfo} from "./BookingInfo";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,48 +8,52 @@ import {
   faWindowClose,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { updateBookingStatus } from "../api/bookings";
 import { getArtistById } from "@/api/artists";
 import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
 
-export default function CardBooking({ booking, isReceived }) {
+function CardBooking({ booking, isReceived }) {
   //État local pour stocker les événements récupérés depuis l'api bookings
-  const [artistBook, setArtistBook] = useState(null);
-  const [venueBook, setVenueBook] = useState(null);
-  const [eventBook, setEventBook] = useState(null);
+  const [artistBook, setArtistBook] = useState({});
+  const [venueBook, setVenueBook] = useState({});
+  const [eventBook, setEventBook] = useState({});
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
   useEffect(() => {
     getArtistById(booking.artist).then((dataA) => {
-      setArtistBook(dataA);
+      setArtistBook(dataA.artist);
     });
     getVenueById(booking.venue).then((dataV) => {
-      setVenueBook(dataV);
+      setVenueBook(dataV.venue);
     });
     getEventById(booking.event).then((dataE) => {
-      setEventBook(dataE);
+      setEventBook(dataE.event);
     });
   }, []);
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = (event) => {
     const status = "Confirmed";
-    props.updateBookingStatus(status);
+    updateBookingStatus(booking._id, status);
+    event.stopPropagation();
   };
 
-  const handleRefuseBooking = () => {
+  const handleRefuseBooking = (event) => {
     const status = "Refused";
-    props.updateBookingStatus(status);
+    updateBookingStatus(booking._id, status);
+    event.stopPropagation();
+
   };
 
   const buttons = (
     <div className={styles.btnContainer}>
       <FontAwesomeIcon
-        onClick={() => handleConfirmBooking()}
+        onClick={(e) => handleConfirmBooking(e)}
         icon={faCheck}
         className={styles.btnAccept}
       />
       <FontAwesomeIcon
-        onClick={() => handleRefuseBooking()}
+        onClick={(e) => handleRefuseBooking(e)}
         icon={faXmark}
         className={styles.btnDecline}
       />
@@ -69,42 +74,83 @@ export default function CardBooking({ booking, isReceived }) {
   const month = parts[1];
   const year = parts[2];
   // ----------------------------------------- //
+
+
+  // Fonction pour ouvrir les modals
+  const openEventModal = (event) => {
+    setIsEventModalOpen(true);
+    event.stopPropagation();
+
+  };
+
+  // Fonction pour fermer le modal
+  const closeEventModal = (event) => {
+    setIsEventModalOpen(false);
+    event.stopPropagation();
+
+  };
+
+
+  const cardClass = () => {
+    let baseClass = styles.card;
+    if (booking.status === "Confirmed") {
+      return `${baseClass} ${styles.accepted}`;
+    } else if (booking.status === "Refused") {
+      return `${baseClass} ${styles.cancel}`;
+    }
+    return baseClass;
+  };
+
   return (
-    <div className={styles.card}>
-      <div className={styles.leftContent}>
-        <div className={styles.dateContainer}>
-          <span className={styles.day}>{/*day*/}19</span>
-          <span className={styles.month}>{/*month*/}avril</span>
-          <span className={styles.year}>{year}2024</span>
-        </div>
-        <div className={styles.imgContainer}></div>
-        <div className={styles.infos}>
-          <span className={styles.title}>{eventBook?.title}Event Title</span>
-          <div className={styles.genres}>
-            {/*eventBook?.genres?.map((genre) => {
-              return (
-                <div key={genre} className={styles.genre}>
-                  <p>{genre}</p>
-                </div>
-              );
-            })*/}
-            RAP
+    <>
+      <div className={cardClass()} onClick={(e) => openEventModal(e)}>
+        <div className={styles.leftContent}>
+          <div className={styles.dateContainer}>
+            <span className={styles.day}>{day}</span>
+            <span className={styles.month}>{month}</span>
+            <span className={styles.year}>{year}</span>
+          </div>
+          <div className={styles.infos}>
+            <span className={styles.title}>{eventBook.title}</span>
+            <div className={styles.genres}>
+              {eventBook.genres?.map((genre) => {
+                return (
+                  <div key={genre} className={styles.genre}>
+                    <p>{genre}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
+        <div className={styles.venueInfosContainer}>
+          <span>{venueBook.name}</span>
+          <span>{venueBook.address}</span>
+        </div>
+        <div className={styles.hoursContainer}>
+          <span>{booking.hour_start}</span>
+          <span>{booking.duration} heures</span>
+        </div>
+        <div className={styles.tarifContainer}>
+          {booking.rate / booking.duration}/heure
+        </div>
+
+        {booking.status === "Pending" && isReceived == true && buttons}
+        {(booking.status === "Confirmed" || booking.status === "Refused" || isReceived == false) && (
+          <div className={styles.statusContainer}>
+            <span>{booking.status}</span>
+          </div>
+        )}
       </div>
-      <div className={styles.venueInfosContainer}>
-            <span>Venue Name</span>
-            <span>Venue Address</span>
-      </div>
-      <div className={styles.hoursContainer}>
-        <span>19h00</span>
-        <span>4H</span>
-      </div>
-      <div className={styles.tarifContainer}>190€/h</div>
-      {(booking.status === "Pending" && isReceived == true) && buttons}
-      {(booking.status === "Confirmed" || booking.status === "Refused") && (
-        <span>{booking.status}</span>
-      )}
-    </div>
+      <BookingInfo
+        isOpen={isEventModalOpen}
+        onClose={closeEventModal}
+        event={eventBook}
+        venue={venueBook}
+        booking={booking}
+      />
+      </>
   );
 }
+
+export default CardBooking

@@ -6,21 +6,26 @@
     background-color: #00000079;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     color: white;
     transition: 300ms;
+    gap: 10px;
 }
 
+.cancel{
+    background-color: rgb(212, 58, 58);
+}
 
+.accepted{
+    background-color: green;
+}
 
 .leftContent{
     grid-column: 1;
     display: flex;
     letter-spacing: 0.5px;
-    gap: 20px;
     align-items: center;
-    width: 300px
 }
 
 
@@ -51,12 +56,7 @@
     font-size: 14px;
 }
 
-.imgContainer{
-    width: 50px;
-    height: 50px;
-    background-color: black;
-    border-radius: 10px;
-}
+
 
 .infos{
     display: flex;
@@ -77,7 +77,6 @@
 
 .venueInfosContainer{
     grid-column: 2;
-    width: 200px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -85,23 +84,22 @@
 
 .hoursContainer{
     grid-column: 3;
-    width: 200px;
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-.tarifsContainer{
+.tarifContainer{
     grid-column: 4;
-    width: 200px;
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
 .btnContainer{
-    grid-column: 6;
+    grid-column: 5;
     display: flex;
+    justify-content: center;
     gap: 20px
 }
 
@@ -130,3 +128,13 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.statusContainer{
+    grid-column: 5;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+  
