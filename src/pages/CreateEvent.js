@@ -1,3 +1,6 @@
+"use client"; // cloudinary : https://next.cloudinary.dev/nextjs-14
+import cloudinary from 'cloudinary';
+
 import React from "react";
 import { useState } from "react";
 import Layout from "@/components/Layout"
@@ -26,9 +29,6 @@ export default function CreateEvent() {
 
     const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
     const router = useRouter();
-
-
-   
 
     const handleGenreChange = (selectedOptions) => {
         setGenres(
