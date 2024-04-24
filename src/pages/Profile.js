@@ -12,6 +12,8 @@ import CreateBookingProposal from "@/components/CreateBookingProposal";
 import { customStyles } from "@/styles/CustomSlect";
 import ArtistTypeOptions from "@/data/artistType";
 import VenuTypeOptions from "@/data/venueType";
+import { uploadFile } from "@/api/upload";
+
 export default function Profile() {
   // Variables d'états
   const [name, setName] = useState("");
@@ -65,6 +67,13 @@ export default function Profile() {
     setVenueType(selectedOptions.value);
   };
 
+  const handleFileUpload = async (event) => {
+    console.log("event", event);
+    const data = await uploadFile(event); // Récupère le fichier sélectionné par l'utilisateur
+    console.log("data", data);
+    setPicture(data.imageUrl); // recupere l'url du fichier sur cloudinary
+  };
+
   // Fonction de mise à jour du profil utilisateur:
   const handleUpdateProfil = async () => {
     let data = null;
@@ -112,7 +121,6 @@ export default function Profile() {
             Mon Profil {isVenue ? "établissement" : "artiste"}
           </span>
         </div>
-        <CreateBookingProposal />
         <div
           className={`${styles.formContainer} ${
             !isVenue ? styles.twoColumns : ""
@@ -144,7 +152,9 @@ export default function Profile() {
                     styles={customStyles}
                     options={ArtistTypeOptions}
                     onChange={handleTypeChange}
-                    value={ArtistTypeOptions.find((option) => option.value === type)}
+                    value={ArtistTypeOptions.find(
+                      (option) => option.value === type
+                    )}
                   />
                 </div>
                 <div className={styles.formElem}>
@@ -180,6 +190,16 @@ export default function Profile() {
                     placeholder={profile.medias?.join(", ")}
                     onChange={(e) => setMedias(e.target.value.split(","))}
                     value={medias.join(", ")}
+                  />
+                </div>
+                <div className={styles.formElem}>
+                  {" "}
+                  <input
+                    type="file"
+                    onChange={handleFileUpload}
+                    accept="image/*" // Limite le type de fichiers acceptés aux images
+                    className={styles.inputFile}
+                    name="image"
                   />
                 </div>
               </div>
@@ -291,6 +311,15 @@ export default function Profile() {
                   placeholder={profile.description}
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
+                />
+              </div>
+              <div className={styles.formElem}>
+                <input
+                  type="file"
+                  onChange={handleFileUpload}
+                  accept="image/*" // Limite le type de fichiers acceptés aux images
+                  className={styles.inputFile}
+                  name="image"
                 />
               </div>
             </div>

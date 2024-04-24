@@ -1,6 +1,6 @@
 import styles from "../styles/BookingInfo.module.css";
 import PropTypes from 'prop-types';
-
+import Image from "next/image";
 export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
   if (!isOpen) return null; // Ne rien rendre si la modal n'est pas ouverte
 
@@ -21,7 +21,12 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
     <div onClick={handleClose} className={styles.container}>
       <div onClick={handleWrapper} className={styles.wrapper}>
         <div className={styles.content}>
-          <div className={styles.imgContainer}></div> {/* Emplacement pour une image, si nécessaire */}
+          <Image 
+                    alt="profil image"
+                    className={styles.logo}
+                    src= {event.picture}
+                    width={350}
+                    height={350}/>
           <div className={styles.eventInfo}>
             <div className={styles.infoLeft}>
               <span className={styles.title}>{event.title}</span>

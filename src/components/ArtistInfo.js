@@ -17,10 +17,8 @@ export const ArtistInfo = ({ isOpen, onClose, artist }) => {
   return (
     <div onClick={onClose} className={`${styles.container} ${isOpen ? styles.open : ''}`}>
       <div onClick={e => e.stopPropagation()} className={styles.wrapper}>
-        <div className={styles.imgContainer}>
           {/* Utilisation du composant Image de Next.js pour afficher l'image de l'artiste */}
-          {artist.imageUrl && <Image src={artist.imageUrl} alt={artist.name} layout="fill" objectFit="cover" />}
-        </div>
+          {artist.picture && <Image src={artist.picture} alt={artist.name} width={250} height={250}/>}
         <div className={styles.title}>
           <h3>{artist.name}</h3>
           

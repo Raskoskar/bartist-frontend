@@ -49,9 +49,9 @@ function EventCardList({ event }) {
             <span className={styles.year}>{date.year}</span>
           </div>
           <div className={styles.imgContainer}>
-            {/*event.picture && (
-              {<Image src={event.picture} alt={event.title} width={100} height={100} layout="fill" objectFit="cover" />}
-            )*/}
+            {event.picture && (
+              <Image src={event.picture} alt={event.title} width={50} height={50} className={styles.img}/>
+            )}
           </div>
           <div className={styles.infos}>
             <span className={styles.title}>{event.title}</span>

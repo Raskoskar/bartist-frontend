@@ -35,7 +35,6 @@ export default function Login() {
       </Head>
       <main className={styles.main}>
         <div className={styles.header}>
-          <img></img>
           <button onClick={openSignInModal}>Se connecter</button>
         </div>
         <div className={styles.title}>

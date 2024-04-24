@@ -4,8 +4,10 @@ import { deleteEvents, updateEventStatus } from '../api/events';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose, faCheck } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 
 function CardEventInfo({ isOpen, onClose, event }) {
+    const isVenue = useSelector((state) => state.user.value.isVenue)
     const [isDelete, setIsDelete] = useState(false); // État pour gérer si l'événement est supprimé
 
     if (!isOpen) return null; // Ne rien rendre si le modal n'est pas ouvert
@@ -42,8 +44,8 @@ function CardEventInfo({ isOpen, onClose, event }) {
                     className={styles.pictureEvent}
                     src={event.picture}
                     alt={event.title}
-                    width={200}
-                    height={100}
+                    width={350}
+                    height={350}
                 />
                 <div className={styles.cardModalInfo}>
                     <div className={styles.title}>
@@ -54,11 +56,11 @@ function CardEventInfo({ isOpen, onClose, event }) {
                         <h4>Description :</h4>
                         <p>{event.description}</p>
                     </div>
-                </div>
-                <div className={styles.cardBtns}>
+                </div>{isVenue ?  <div className={styles.cardBtns}>
                     <FontAwesomeIcon onClick={handleDeleteEvent} icon={faWindowClose} className={styles.deleteIcon} size='2xl' />
                     {event.status === 'Draft' && <FontAwesomeIcon onClick={handleChangeStatus} icon={faCheck} className={styles.publishIcon} size='2xl' />}
-                </div>
+                </div> : <></> }
+               
             </div>
         </div>
     );

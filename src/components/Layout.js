@@ -35,8 +35,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     getImg().then(data => {
-      console.log("dataImgProfil =>", data);
-      setProfilImg(user.isVenue ? data.venue.picture : data.artist.picture)
+      setProfilImg(user.isVenue ? data.venue.picture : data.picture)
     });
   }, [])
 
@@ -151,8 +150,8 @@ export default function Layout({ children }) {
                     alt="logo"
                     className={styles.logo}
                     src= {profilImg}
-                    width={200}
-                    height={200}
+                    width={50}
+                    height={50}
                   />                
                 <div className={styles.userInfo}>
                   <p className={styles.name}>{user.pseudo}</p>

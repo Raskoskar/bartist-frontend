@@ -8,7 +8,6 @@ import CreateBookingProposal from "./CreateBookingProposal";
 function ArtistCard({ artist }) {
   const [isArtistModalOpen, setIsArtistModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-
   // Gère l'ouverture des modals
   const handleOpenModal = (type) => {
     if (type === 'artist') {
@@ -27,13 +26,21 @@ function ArtistCard({ artist }) {
     }
   };
 
+  
+
+  
+
   return (
     <React.Fragment>
       <div className={styles.card} onClick={() => handleOpenModal('artist')}>
         <div className={styles.leftContent}>
-          <div className={styles.imgContainer}>
-            {artist.image && <Image src={artist.image} alt={artist.name} layout="fill" objectFit="cover" />}
-          </div>
+            {artist.picture && <Image 
+                    alt="profil image"
+                    className={styles.logo}
+                    src= {artist.picture}
+                    width={75}
+                    height={75}
+                  />   }
           <div className={styles.infos}>
             <h3>{artist.name}</h3>
             <span>{artist.type}</span>

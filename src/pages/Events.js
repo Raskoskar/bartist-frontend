@@ -26,6 +26,7 @@ function Events() {
         }
       }
       if (data) {
+        console.log(data)
         setEvents(data);
       }
     } catch (error) {

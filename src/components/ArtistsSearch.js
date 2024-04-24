@@ -27,7 +27,7 @@ export default function ArtistsSearch() {
     }, []);
 
     const filteredArtists = useMemo(() => artists.filter(artist => {
-        const nameMatch = artist.name.toLowerCase().includes(searchTerm);
+        const nameMatch = artist?.name?.toLowerCase().includes(searchTerm);
         const genreMatch = selectedGenres.length === 0 || selectedGenres.some(genre =>
             artist.genres.includes(genre.value)
         );

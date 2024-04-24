@@ -18,7 +18,8 @@ function CardEvent({ event }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    getBookingByEventId(event._id)
+    console.log("eventcard: " ,event)
+    getBookingByEventId(event?._id)
       .then((data) => {
         if (data) {
           setBookings(data.bookings);
@@ -27,10 +28,10 @@ function CardEvent({ event }) {
       .catch((error) => {
         console.error("Erreur lors de la récupération des données de réservation:", error);
       });
-  }, [event._id]);
+  }, [event?._id]);
 
   const handleChangeStatus = () => {
-    updateEventStatus("Published", event._id)
+    updateEventStatus("Published", event?._id)
       .catch((error) => console.error("Erreur lors de la mise à jour du statut de l'événement:", error));
   };
 
@@ -44,26 +45,30 @@ function CardEvent({ event }) {
 
   const openEventModal = () => setIsEventModalOpen(true);
   const closeEventModal = () => setIsEventModalOpen(false);
-  const date = formatDate(event.date);
+  const date = formatDate(event?.date);
   //const cardClass = booking.status === "Confirmed" ? ` ${styles.accepted}` : booking.status === "Refused" ? ` ${styles.cancel}` : "";
   return (
     <>
       <div className={styles.card} onClick={openEventModal}>
-        <div className={styles.imgContainer}>
-          <Image src={event.picture} alt={event.title} width={200} height={100} className={styles.pictureEvent} />
-        </div>
+        <Image 
+                    alt="logo"
+                    className={styles.logo}
+                    src= {event?.picture}
+                    width={250}
+                    height={220}
+                  /> 
         <div className={styles.cardInfo}>
-          <h3 className={styles.title}>{event.title}</h3>
+          <h3 className={styles.title}>{event?.title}</h3>
           <div className={styles.dateContainer}>
             <span>{date.day}</span>
             <span>{date.month}</span>
             <span>{date.year}</span>
-            <span>{event.hour_start}</span>
+            <span>{event?.hour_start}</span>
           </div>
           <div className={styles.genres}>
-            {event.genres.map((genre, index) => <div key={genre + index} className={styles.genre}><p>{genre}</p></div>)}
+            {event?.genres.map((genre, index) => <div key={genre + index} className={styles.genre}><p>{genre}</p></div>)}
           </div>
-          {isVenue && <span className={styles.spanStatus}>{event.status}</span>}
+          {isVenue && <span className={styles.spanStatus}>{event?.status}</span>}
           <div className={styles.bookingsList}>
             {bookings?.map((booking) => (
               <div key={booking._id} className={styles.cardArtist}>

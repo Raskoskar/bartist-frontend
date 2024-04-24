@@ -37,6 +37,7 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
+    align-items: center;
     width: 100%;
     gap: 10px;
 }
@@ -49,6 +50,7 @@
 }
 
 .eventInfo{
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -99,6 +101,7 @@
 }
 
 .addressContainer{
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -123,6 +126,7 @@
 }
 
 .partContainer{
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
