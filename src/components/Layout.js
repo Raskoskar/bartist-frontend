@@ -147,13 +147,13 @@ export default function Layout({ children }) {
                 )}
               </>
               <div className={styles.rightContent}>
-                <Image
-                  src="/assets/user-icon.png"
-                  alt="Profil"
-                  width={40}
-                  height={40}
-                  onClick={() => router.push("/Profile")}
-                />
+                <Image 
+                    alt="logo"
+                    className={styles.logo}
+                    src= {profilImg}
+                    width={200}
+                    height={200}
+                  />                
                 <div className={styles.userInfo}>
                   <p className={styles.name}>{user.pseudo}</p>
                 </div>
