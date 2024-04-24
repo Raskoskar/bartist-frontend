@@ -8,10 +8,12 @@ export const customStyles = {
       width: "100%",
       height: "44px",
       fontSize: "14px",
+      color: "white",
     }),
     menu: (provided) => ({
       ...provided,
       padding: "0px",
+      color: "white",
       fontSize: "12px",
     }),
     option: (provided, state) => ({

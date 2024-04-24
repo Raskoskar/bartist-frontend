@@ -159,7 +159,7 @@ export default function Profile() {
                 </div>
                 <div className={styles.formElem}>
                   <label>
-                    Genre musical <span>*</span>
+                    Genre(s)<span>*</span>
                   </label>
                   <Select
                     placeholder={profile.genres?.join(", ")}
@@ -173,7 +173,7 @@ export default function Profile() {
                   />
                 </div>
                 <div className={styles.formElem}>
-                  <label>Votre groupe comporte combien de musiciens ?</label>
+                  <label>Combien de musiciens comporte votre groupe ?</label>
                   <input
                     className={styles.input}
                     type="text"
@@ -182,7 +182,7 @@ export default function Profile() {
                     value={members}
                   />
                 </div>
-                <div className={styles.formElem}>
+                {/*<div className={styles.formElem}>
                   <label>Medias</label>
                   <input
                     className={styles.input}
@@ -191,14 +191,14 @@ export default function Profile() {
                     onChange={(e) => setMedias(e.target.value.split(","))}
                     value={medias.join(", ")}
                   />
-                </div>
+                    </div>*/}
                 <div className={styles.formElem}>
-                  {" "}
+                  <label>Photo de profil</label>
                   <input
                     type="file"
                     onChange={handleFileUpload}
                     accept="image/*" // Limite le type de fichiers acceptés aux images
-                    className={styles.inputFile}
+                    className={styles.input}
                     name="image"
                   />
                 </div>

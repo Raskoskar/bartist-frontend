@@ -66,7 +66,7 @@ function EventCardList({ event }) {
           </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.contact}>Contacter</button>
+          {/*<button className={styles.contact} disabled={true}>Contacter</button>*/}
           <button className={styles.book} onClick={(e) => toggleModal(setIsBookingModalOpen, e)}>Se proposer</button>
         </div>
       </div>

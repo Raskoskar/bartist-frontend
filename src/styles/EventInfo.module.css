@@ -36,6 +36,7 @@
 .content{
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: fit-content;
     width: 100%;
     gap: 10px;
@@ -49,6 +50,7 @@
 }
 
 .eventInfo{
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -62,7 +64,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #2640c2;
-    padding: 5px;
+    padding: 5px 15px;
     border-radius: 10px;
 }
 
@@ -87,6 +89,8 @@
 }
 
 .genres{
+    margin-top: 10px;
+    gap: 10px;
     display: flex;
     align-items: center;
 
@@ -102,6 +106,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
     background-color: #0c0c0c;
     padding: 10px;
     border-radius: 10px;

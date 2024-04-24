@@ -42,24 +42,24 @@
     gap: 10px;
 }
 
-.imgContainer{
-    min-width: 100%;
-    min-height: 200px;
-    background-color: #fff;
-    border-radius: 5px;
+.infoLeft{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .eventInfo{
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: bottom;
     justify-content: space-between;
     padding: 0px 10px;
     gap: 10px;
 }
 
 .date{
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,15 +86,19 @@
     font-size: 24px;
     letter-spacing: 0.5px;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .genres{
+    gap: 10px;
     display: flex;
     align-items: center;
+    flex-direction: row;
 
 }
 
 .genre{
+    width: fit-content ;
     background-color: black;
     padding: 5px 15px;
     border-radius: 5px;

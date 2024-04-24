@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import CardBooking from "@/components/cardBooking";
 import CreateBookingProposal from "@/components/CreateBookingProposal";
 import { displayBookings } from "../api/bookings";
+import sortByDate from "@/utils/sortByDate";
 
 // Composant principal pour la gestion des propositions de réservation
 export default function Propositions() {
@@ -46,11 +47,10 @@ export default function Propositions() {
         {loading ? <p>Chargement...</p> : (
           <>
             <div className={styles.titleContainer}>
-              <span className={styles.title}>Propositions</span>
+              <span className={styles.title}>Propositions de Booking</span>
             </div>
-            <CreateBookingProposal />
-            <BookingList title="Bookings Reçues" bookings={getBookings(true)} isReceived={true} />
-            <BookingList title="Bookings Envoyées" bookings={getBookings(false)} isReceived={false} />
+            <BookingList title="Reçues" bookings={getBookings(true)} isReceived={true} />
+            <BookingList title="Envoyées" bookings={getBookings(false)} isReceived={false} />
           </>
         )}
       </div>

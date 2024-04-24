@@ -63,7 +63,6 @@ function VenueForm() {
                         // width={50}
                         // height={50}
                         /> */}
-                    {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />*/}
                     <input
                         type="file"
                         onChange={handleFileUpload}

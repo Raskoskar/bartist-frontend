@@ -12,6 +12,7 @@
 
 .card{
     display: flex;
+    height: 100%;
     flex-direction: column;
     min-height: 550px;
     max-height: 800px;
@@ -37,8 +38,11 @@
 }
 
 .form{
+    height: 100%;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 25px
 }
 .form > h3{
@@ -74,3 +78,10 @@
     justify-content: space-between;
 }
 
+.container2{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

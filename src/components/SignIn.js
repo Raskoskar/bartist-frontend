@@ -58,21 +58,25 @@ const SignIn = ({ isOpen, onClose }) => {
         >
           ×
         </button>
-        <h3>Log in into your account</h3>
-        <select
+        <h3>Connectez-vous à votre profil</h3>
+        <div className={styles.selectContainer}>
+        <label>Je suis :</label>
+        <select className={styles.select}
           aria-label="Choisissez votre type de profil"
           onChange={(e) => setAccountType(e.target.value)}
           value={accountType}
         >
-          <option value="artist">Artist</option>
-          <option value="venue">Venue</option>
+          <option value="artist">Artiste</option>
+          <option value="venue">Etablissement</option>
         </select>
+        </div>
+        
         <div className={styles.signUp}>
           <input
             className={styles.input}
             type="email"
             name="email"
-            placeholder="Entrez votre adresse mail..."
+            placeholder="Entrez votre adresse Email..."
             onChange={(e) => setSignInEmail(e.target.value)}
             value={signInEmail}
             aria-label="Email Address"
@@ -93,7 +97,7 @@ const SignIn = ({ isOpen, onClose }) => {
           onClick={handleSignIn}
           disabled={loading}
         >
-          {loading ? 'Signing In...' : 'Sign In'}
+          {loading ? 'Se connecter...' : 'Se connecter'}
         </button>
       </div>
     </div>

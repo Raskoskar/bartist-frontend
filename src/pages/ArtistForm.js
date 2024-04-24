@@ -7,6 +7,8 @@ import { updateArtist } from "@/api/artists";
 import genreOptions from "@/data/genres.json"
 import typeOptions from "@/data/artistType"
 import { customStyles } from "@/styles/CustomSlect";
+import { uploadFile } from '@/api/upload';
+
 export default function ArtistForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -24,8 +26,8 @@ export default function ArtistForm() {
   const [firstStep, SetFirstStep] = useState(1);
   const artist = useSelector((state) => state.user.value);
   const router = useRouter();
-  const [buttonText, setButtonText] = useState('passer')
-  
+  const [buttonText, setButtonText] = useState('Suivant')
+  const [loading, setLoading] = useState(false)
 
   const handleGenreChange = (selectedOptions) => {
     setGenres(
@@ -37,7 +39,6 @@ export default function ArtistForm() {
   };
   const handleSubmit = async () => {
     const data = await updateArtist(artist.token, name, type, description, members, picture, genres, medias, youtube, souncloud, facebook, deezer, spotify);
-    console.log(data)
 
     if (data.result){
       router.push("/Search")
@@ -47,8 +48,13 @@ export default function ArtistForm() {
       ).innerHTML = `Login failed : ${data.error}`;
     }
   }
-  // Style du Composant React Select
-  // (provided) => au lieu de garder le style natif on aplique ce qui est en desous
+
+  const handleFileUpload = async (event) => {
+    setLoading(true)
+    const data = await uploadFile(event); // Récupère le fichier sélectionné par l'utilisateur
+    setPicture(data.imageUrl); // recupere l'url du fichier sur cloudinary 
+    setLoading(false)
+};
 
 
   return (
@@ -81,7 +87,7 @@ export default function ArtistForm() {
                 />
               </div>
               <div className={styles.formElem}>
-                <label>description</label>
+                <label>Description</label>
                 <input
                   className={styles.input}
                   type="text"
@@ -92,7 +98,7 @@ export default function ArtistForm() {
               </div>
               <div className={styles.formElem}>
                 <label>
-                  Genre <span>*</span>
+                  Genre(s) <span>*</span>
                 </label>
                 <Select
                   isMulti // permet la selection multiple
@@ -106,29 +112,29 @@ export default function ArtistForm() {
                   Votre groupe comporte combien de musiciens ? <span>*</span>
                 </label>
                 <input
-                  className={styles.input}
                   type="text"
                   placeholder="Nombre de membres..."
                   onChange={(e) => setMembers(e.target.value)}
                   value={members}
+                  className={styles.input}
                 />
               </div>
               <button onClick={() => SetFirstStep(firstStep + 1)}>Suivant</button> 
             </> // ^ variable d'etat pour passer de page en page.
           ) : firstStep == 2 ? (
             <>
+            <div className={styles.container2}>
             <div className={styles.formElem}>
                 <label>
-                  Picture
+                  Photo de profil
                 </label>
                 <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Ajouter une photo de profil..."
-                  onChange={(e) => {setPicture(e.target.value)
-                  setButtonText("Suivant")}}
-                  value={picture}
-                />
+                        type="file"
+                        onChange={handleFileUpload}
+                        accept="image/*" // Limite le type de fichiers acceptés aux images
+                        className={styles.inputFile}
+                        name="image"
+                    />
               </div>
               <div className={styles.formElem}>
                 <label>
@@ -137,21 +143,23 @@ export default function ArtistForm() {
                 <input
                   className={styles.input}
                   type="text"
-                  placeholder="Ajouter des images ou vidéos de vos prestations..."
+                  placeholder="Ajoutez des images ou vidéos de vos prestations..."
                   onChange={(e) => {setMedias(e.target.value)
                   setButtonText("Suivant")}}
                   value={medias}
                 />
               </div>
+            </div>
+            
               <div className={styles.btnDiv}>
               <button type="button" onClick={() => SetFirstStep(firstStep - 1)}>Précédent</button>
-              <button type="button" onClick={() => SetFirstStep(firstStep + 1)}>{buttonText}</button>
+              <button disabled={loading ? true : false} type="button" onClick={() => SetFirstStep(firstStep + 1)}>{loading ? "Chargement..." : buttonText}</button>
               </div>
             
               </>
           ) : (
             <>
-              <h3>Ajouter vos réseaux</h3>
+              <h3>Ajoutez vos réseaux</h3>
               <div className={styles.formElem}>
                 <label>
                   Youtube 

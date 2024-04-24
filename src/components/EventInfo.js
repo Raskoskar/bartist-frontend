@@ -1,7 +1,7 @@
 import styles from "../styles/EventInfo.module.css";
 import formatDate from "@/utils/dateFormater"; 
-
-export const EventInfo = ({ isOpen, onClose, event, venue }) => {
+import Image from "next/image";
+export const EventInfo = ({ isOpen, onClose, event, venue, booking }) => {
   if (!isOpen) return null;
 
   const handleClose = () => {
@@ -24,12 +24,10 @@ export const EventInfo = ({ isOpen, onClose, event, venue }) => {
     <div onClick={handleClose} className={styles.container}>
       <div onClick={handleWrapper} className={styles.wrapper}>
         <div className={styles.content}>
-          <div className={styles.imgContainer}>
             {/* Ajoutez l'image de l'événement si disponible */}
             {event.picture && (
-              <img src={event.picture} alt={event.title} className={styles.eventImage} />
+              <Image src={event.picture} width={400} height={400} alt={event.title} className={styles.eventImage} />
             )}
-          </div>
           <div className={styles.eventInfo}>
             <div className={styles.infoLeft}>
               <span className={styles.title}>{event.title}</span>
@@ -47,13 +45,11 @@ export const EventInfo = ({ isOpen, onClose, event, venue }) => {
               <span className={styles.year}>{year}</span>
             </div>
           </div>
-          <hr />
           <div className={styles.addressContainer}>
             <span className={styles.exp}>Établissement :</span>
             <span className={styles.venue}>{venue.name.toUpperCase()}</span>
             <span className={styles.address}>{venue.address}</span>
           </div>
-          <hr />
           <div className={styles.partContainer}>
             <span className={styles.exp}>Description de l'événement :</span>
             <span>{event.description}</span>

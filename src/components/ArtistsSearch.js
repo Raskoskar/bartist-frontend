@@ -43,7 +43,7 @@ export default function ArtistsSearch() {
             <input
                 className={styles.input}
                 type="text"
-                placeholder="Rechercher un artiste..."
+                placeholder="Chercher un artiste..."
                 value={searchTerm}
                 onChange={handleSearchChange}
                 aria-label="Chercher un artiste"

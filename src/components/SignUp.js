@@ -59,16 +59,19 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
         >
           ×
         </button>
-        <h3>Create your {wichUser} account</h3>
+        <h3>Créez votre compte {wichUser == 'artist' ? "artiste" : "établissement"}</h3>
         <div className={styles.signUp}>
           <input
             className={styles.input}
             type="email"
             name="email"
-            placeholder="Entrez votre adresse mail..."
+            placeholder="Entrez votre adresse Email..."
             onChange={(e) => setSignUpEmail(e.target.value)}
             value={signUpEmail}
             aria-label="Email"
+            required
+  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+  title="Veuillez entrer une adresse email valide. Exemple: exemple@domaine.com"
           />
           <input
             className={styles.input}
@@ -87,7 +90,7 @@ const SignUp = ({ isOpen, onClose, wichUser }) => {
           onClick={() => handleRegister(wichUser)}
           disabled={loading} 
         >
-          Sign Up
+          S'inscrire
         </button>
       </div>
     </div>

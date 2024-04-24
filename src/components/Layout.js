@@ -123,7 +123,7 @@ export default function Layout({ children }) {
               </Link>
             </nav>
             <button onClick={handleLogOut} className={styles.logoutButton}>
-              Log out
+              Se déconnecter
             </button>
           </aside>
           <div className={styles.center}>
@@ -136,13 +136,13 @@ export default function Layout({ children }) {
                   >
                     Créer un évènement
                   </button>
-                ) : (
-                  <button
-                    onClick={() => router.push("/Search")}
-                    className={styles.button}
-                  >
-                    Chercher un évènement
-                  </button>
+                ) : (<>{router.pathname === "/Search" ? <></> : <button
+                onClick={() => router.push("/Search")}
+                className={styles.button}
+              >
+                Chercher un évènement
+              </button> }</>
+                  
                 )}
               </>
               <div className={styles.rightContent}>

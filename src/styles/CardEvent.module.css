@@ -1,8 +1,8 @@
 
 .card {
     width: 300px;
-    height: 400px;
-    padding: 10px;
+    height: fit-content;
+    padding: 20px;
     border-radius: 10px;
     background-color: #06013f86;
     display: flex;
@@ -20,26 +20,16 @@
     border: 1px solid #007bff
 }
 
-.imgContainer{
-    width: 100%;
-    background-color: #fff;
-    height: 200px;
-}
 
 
-.pictureEvent {
-    object-fit: contain;
-    width: 100%;
-    border: 50%;
-    margin-top: 5px;
-}
 
 .cardInfo {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 
@@ -81,6 +71,7 @@
 .title{
     font-size: 20px;
     font-weight: 400;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 

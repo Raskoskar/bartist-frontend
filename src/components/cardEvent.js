@@ -18,7 +18,7 @@ function CardEvent({ event }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    console.log("eventcard: " ,event)
+    console.log("eventcard: ", event);
     getBookingByEventId(event?._id)
       .then((data) => {
         if (data) {
@@ -26,19 +26,28 @@ function CardEvent({ event }) {
         }
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des données de réservation:", error);
+        console.error(
+          "Erreur lors de la récupération des données de réservation:",
+          error
+        );
       });
   }, [event?._id]);
 
   const handleChangeStatus = () => {
-    updateEventStatus("Published", event?._id)
-      .catch((error) => console.error("Erreur lors de la mise à jour du statut de l'événement:", error));
+    updateEventStatus("Published", event?._id).catch((error) =>
+      console.error(
+        "Erreur lors de la mise à jour du statut de l'événement:",
+        error
+      )
+    );
   };
 
   const handleDeleteEvent = () => {
     deleteEvents(event._id)
       .then(() => setIsDelete(true))
-      .catch((error) => console.error("Erreur lors de la suppression de l'événement:", error));
+      .catch((error) =>
+        console.error("Erreur lors de la suppression de l'événement:", error)
+      );
   };
 
   if (isDelete) return null;
@@ -50,13 +59,13 @@ function CardEvent({ event }) {
   return (
     <>
       <div className={styles.card} onClick={openEventModal}>
-        <Image 
-                    alt="logo"
-                    className={styles.logo}
-                    src= {event?.picture}
-                    width={250}
-                    height={220}
-                  /> 
+        <Image
+          alt="logo"
+          className={styles.logo}
+          src={event?.picture}
+          width={250}
+          height={250}
+        />
         <div className={styles.cardInfo}>
           <h3 className={styles.title}>{event?.title}</h3>
           <div className={styles.dateContainer}>
@@ -66,26 +75,48 @@ function CardEvent({ event }) {
             <span>{event?.hour_start}</span>
           </div>
           <div className={styles.genres}>
-            {event?.genres.map((genre, index) => <div key={genre + index} className={styles.genre}><p>{genre}</p></div>)}
-          </div>
-          {isVenue && <span className={styles.spanStatus}>{event?.status}</span>}
-          <div className={styles.bookingsList}>
-            {bookings?.map((booking) => (
-              <div key={booking._id} className={styles.cardArtist}>
-                <span>{isVenue ? booking.artistName + " | " : ""} </span>
-                <span>{booking.status}</span>
+            {event?.genres.map((genre, index) => (
+              <div key={genre + index} className={styles.genre}>
+                <p>{genre}</p>
               </div>
             ))}
           </div>
           {isVenue && (
+            <span className={styles.spanStatus}>{event?.status}</span>
+          )}
+          <div className={styles.bookingsList}>
+            {bookings?.map((booking) => ( booking.status == "Refused" ? <></> : <div key={booking._id} className={styles.cardArtist}>
+                <span>{isVenue ? booking.artistName + " | " : ""} </span>
+                <span>{booking.status}</span>
+              </div>
+              
+            ))}
+          </div>
+          {isVenue && (
             <div className={styles.cardBtns}>
-              <FontAwesomeIcon icon={faWindowClose} onClick={handleDeleteEvent} className={styles.deleteIcon} size="2xl" />
-              {event.status === "Draft" && <FontAwesomeIcon icon={faCheck} onClick={handleChangeStatus} className={styles.publishIcon} size="2xl" />}
+              <FontAwesomeIcon
+                icon={faWindowClose}
+                onClick={handleDeleteEvent}
+                className={styles.deleteIcon}
+                size="2xl"
+              />
+              {event.status === "Draft" && (
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  onClick={handleChangeStatus}
+                  className={styles.publishIcon}
+                  size="2xl"
+                />
+              )}
             </div>
           )}
         </div>
       </div>
-      <CardEventInfo isOpen={isEventModalOpen} onClose={closeEventModal} event={event} />
+      <CardEventInfo
+        isOpen={isEventModalOpen}
+        onClose={closeEventModal}
+        event={event}
+      />
     </>
   );
 }

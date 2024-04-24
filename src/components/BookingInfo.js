@@ -30,9 +30,11 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
           <div className={styles.eventInfo}>
             <div className={styles.infoLeft}>
               <span className={styles.title}>{event.title}</span>
+              <div className={styles.genres}>
               {event.genres && event.genres.map((genre) => (
                 <span key={genre} className={styles.genre}>{genre}</span> // Afficher chaque genre de l'événement
               ))}
+              </div>
             </div>
             <div className={styles.date}>{formattedDate}</div> 
           </div>
@@ -49,13 +51,13 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
             <span className={styles.exp}>Nombre d'heures payées :</span>
             <span>{booking.duration} heures</span>
             <span className={styles.exp}>Tarif :</span>
-            <span>{booking.rate / booking.duration}€/heure</span>
+            <span>{booking.rate / booking.duration}€/heure (total : {booking.rate}€)</span>
             <span className={styles.exp}>Statut de la proposition :</span>
             <span>{booking.status}</span>
           </div>
         </div>
         <div className={styles.btnContainer}>
-          <button>Contacter</button> 
+          {/*<button>Contacter</button>*/} 
         </div>
       </div>
     </div>

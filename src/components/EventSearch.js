@@ -45,7 +45,6 @@ export default function EventSearch() {
 
   return (
     <>
-      <label htmlFor="search-input" className={styles.label}>Rechercher un événement :</label>
       <input
         id="search-input"
         className={styles.input}
