@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { updateProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
+import { uploadFile } from '@/api/upload';
 import venueType from "@/data/venueType"
 function VenueForm() {
 
@@ -13,7 +14,7 @@ function VenueForm() {
     const [address, setAddress] = useState('');
     const [type, setType] = useState('');
     const [description, setDescription] = useState('');
-    const [picture, setPicture] = useState('testpicture');
+    const [picture, setPicture] = useState('');
 
     const user = useSelector((state) => state.user.value);// Pour utiliser le token du reducer venue
 
@@ -32,8 +33,11 @@ function VenueForm() {
     }
 
     //upload img
-    const handleFileUpload = (e) => {
-        setPicture(e.target.value); // Récupère le fichier sélectionné par l'utilisateur
+    const handleFileUpload = async (event) => {
+        console.log("event", event);
+        const data = await uploadFile(event); // Récupère le fichier sélectionné par l'utilisateur
+        console.log("data", data);
+        setPicture(data.imageUrl); // recupere l'url du fichier sur cloudinary 
     };
 
   return (
@@ -62,9 +66,10 @@ function VenueForm() {
                     {/* <input onChange={(e) => setPicture(e.target.value)} id="addPicture" value={picture} className={styles.inputPicture} type="text" placeholder='photo de profil' />*/}
                     <input
                         type="file"
-                        onChange={(e) => handleFileUpload(e)}
+                        onChange={handleFileUpload}
                         accept="image/*" // Limite le type de fichiers acceptés aux images
                         className={styles.inputFile}
+                        name="image"
                     />
                 </div>
             </div>

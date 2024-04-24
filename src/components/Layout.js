@@ -5,8 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logOut } from "@/reducers/user";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getVenueByToken } from "@/api/venues";
+import { getArtist } from "@/api/artists";
 
 export default function Layout({ children }) {
+
+  const [profilImg, setProfilImg] = useState("");
+
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -16,6 +23,22 @@ export default function Layout({ children }) {
     dispatch(logOut());
     router.push("/");
   };
+
+  const handleProfil = () => {
+    router.push("/Profil")
+  }
+
+  const getImg = async () => {
+    const data =  user.isVenue ? await getVenueByToken(user.token) : await getArtist(user.token);
+    return data;
+  }
+
+  useEffect(() => {
+    getImg().then(data => {
+      console.log("dataImgProfil =>", data);
+      setProfilImg(user.isVenue ? data.venue.picture : data.artist.picture)
+    });
+  }, [])
 
   return (
     <>

@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function App() {
   const user = useSelector(state => state.user.value)
   const router = useRouter()

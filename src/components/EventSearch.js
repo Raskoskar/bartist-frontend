@@ -9,6 +9,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { customStyles } from "@/styles/CustomSlect";
 
+
 export default function EventSearch() {
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
