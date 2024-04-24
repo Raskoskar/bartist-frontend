@@ -127,14 +127,9 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
             <label>
              {isVenue ? "à l'artiste" : "Pour l'événement"}<span></span>
             </label>
-            <span>{isVenue ? artist.name : event.title}</span>
+            <span className={styles.title}>{isVenue ? artist.name : event.title}</span>
           </div>
-          <div className={styles.formElem}>
-            <label>
-              {isVenue ?"Etablissement" : "Artiste"}<span></span>
-            </label>
-            <span>{user.pseudo}</span>
-          </div> {isVenue ? <Select
+          {isVenue ? <Select
                     placeholder="choisissez un évènement"
                     styles={customStyles}
                     options={eventsInfos}
@@ -150,20 +145,15 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
               onChange={(e) => setHour_start(e)} 
               value={hour_start}
               minutesStep={15}
+              className={styles.input}
             />
           </div>
           <div className={styles.formElem}>
             <label>
-              Durée de la prestation <span>*</span>
+              Durée de la prestation (H)<span>*</span>
             </label>
-            <NumberInput
-              placeholder="Entrer un nombre…"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-              min={1}
-              max={12}
-              step={0.5}
-            />
+            <input type="number" onChange={(e) => setDuration(e.target.value)} value={duration} className={styles.input}>
+            </input>
           </div>
           <div className={styles.formElem}>
             <label>
