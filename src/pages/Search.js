@@ -4,6 +4,7 @@ import EventSearch from "@/components/EventSearch";
 import styles from "@/styles/Search.module.css";
 import { useSelector } from "react-redux";
 
+
 export default function Search() {
     const user = useSelector(state => state.user.value);
     

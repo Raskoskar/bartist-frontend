@@ -6,8 +6,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logOut } from "@/reducers/user";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getVenueByToken } from "@/api/venues";
+import { getArtist } from "@/api/artists";
 
 export default function Layout({ children }) {
+
+  const [profilImg, setProfilImg] = useState("");
+
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -20,6 +27,19 @@ export default function Layout({ children }) {
   const handleProfil = () => {
     router.push("/Profil")
   }
+
+  const getImg = async () => {
+    const data =  user.isVenue ? await getVenueByToken(user.token) : await getArtist(user.token);
+    return data;
+  }
+
+  useEffect(() => {
+    getImg().then(data => {
+      console.log("dataImgProfil =>", data);
+      setProfilImg(user.isVenue ? data.venue.picture : data.artist.picture)
+    });
+  }, [])
+
   return (
     <>
       <Head>
@@ -111,7 +131,15 @@ export default function Layout({ children }) {
             <>{isVenue ? <button onClick={() => router.push('/CreateEvent')} className={styles.button}>Créer un évènement</button> : <button onClick={() => router.push('/Search')} className={styles.button}>Chercher un évènement</button> }</>
             
             <div className={styles.rightContent}>
-              <div className={styles.imgContainer} onClick={() => handleProfil()}></div>
+              <div className={styles.imgContainer} onClick={() => handleProfil()}>
+                <Image 
+                  alt="logo"
+                  className={styles.logo}
+                  src= {profilImg}
+                  width={200}
+                  height={200}
+                />
+              </div>
               <div className={styles.userInfo}>
                 <p className={styles.name}>{user.pseudo}</p>
               </div>

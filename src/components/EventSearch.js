@@ -8,6 +8,7 @@ import { getEvents } from "@/api/events";
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 export default function EventSearch() {
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

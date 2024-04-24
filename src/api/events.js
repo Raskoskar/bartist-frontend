@@ -1,6 +1,5 @@
 import moment from 'moment'
 
-
 export const createEvent = async (
     token,
     title,
@@ -14,6 +13,7 @@ export const createEvent = async (
     instagram,
   ) => {
     try {
+
       const response = await fetch(`http://localhost:3000/events/createEvent`, {
         method: "POST",
         headers: {

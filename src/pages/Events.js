@@ -28,8 +28,8 @@ import { displayEvents } from '../api/events';
     const getsEvents = async () => {
         try {
             const dataEvent = await displayEvents(token);
-            console.log('dataEvent => ', dataEvent);
-            console.log('token => ', token);
+            // console.log('dataEvent => ', dataEvent);
+            // console.log('token => ', token);
             if(dataEvent) {
                 // console.log('dataEvent => ', dataEvent);
                 setEvents(dataEvent);
@@ -60,7 +60,7 @@ import { displayEvents } from '../api/events';
                 <div className={styles.cardContainer}>
                     {/* map pour afficher chaque events / preferable de le faire dans le return, comme cela react ne considere pas cardEvent comme un bloc, mais comme plusieur */}
                     { events.map(event => {
-                        console.log(event);
+                        {/* console.log(event); */}
                         return <CardEvent event={event} id={event._id} key={event.title}/>
                     })}
                 </div>

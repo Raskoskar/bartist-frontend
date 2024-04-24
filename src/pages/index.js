@@ -8,6 +8,7 @@ import Search from "./Search";
 import { useRef } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function App() {
   const user = useSelector(state => state.user.value)
   return (
