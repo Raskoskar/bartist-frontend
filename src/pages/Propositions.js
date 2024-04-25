@@ -72,7 +72,7 @@ function BookingList({ title, bookings, isReceived }) {
               </div>
               <div className={styles.hint}>
                 <span>
-                  Etablissement <br /> Adresse
+                  {user.isVenue ? "Etablissement <br /> Adresse" : "Artiste"}
                 </span>
               </div>
               <div className={styles.hint}>
