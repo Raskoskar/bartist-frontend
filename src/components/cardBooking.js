@@ -33,12 +33,12 @@ function CardBooking({ booking, isReceived }) {
 
   const handleConfirmBooking = (event) => {
     event.stopPropagation();
-    updateBookingStatus(booking._id, "Confirmed");
+    updateBookingStatus(booking._id, "Confirmée");
   };
 
   const handleRefuseBooking = (event) => {
     event.stopPropagation();
-    updateBookingStatus(booking._id, "Refused");
+    updateBookingStatus(booking._id, "Refusée");
   };
 
   const openEventModal = (event) => {
@@ -56,7 +56,7 @@ function CardBooking({ booking, isReceived }) {
   };
 
   const dateComponents = formatDate(eventBook?.date).split(" ");
-  const cardClass = styles.card + (booking.status === "Confirmed" ? ` ${styles.accepted}` : booking.status === "Refused" ? ` ${styles.cancel}` : "");
+  const cardClass = styles.card + (booking.status === "Confirmée" ? ` ${styles.accepted}` : booking.status === "Refusée" ? ` ${styles.cancel}` : "");
 
   return (
     <>
@@ -83,13 +83,13 @@ function CardBooking({ booking, isReceived }) {
         <div className={styles.tarifContainer}>
           {booking.rate / booking.duration}€/heure
         </div>
-        {booking.status === "Pending" && isReceived && (
+        {booking.status === "En attente" && isReceived && (
           <div className={styles.btnContainer}>
             <FontAwesomeIcon icon={faCheck} onClick={handleConfirmBooking} className={styles.btnAccept} />
             <FontAwesomeIcon icon={faXmark} onClick={handleRefuseBooking} className={styles.btnDecline} />
           </div>
         )}
-        {(booking.status === "Confirmed" || booking.status === "Refused" || !isReceived) && <div className={styles.statusContainer}><span>{booking.status}</span></div>}
+        {(booking.status === "Confirmée" || booking.status === "Refusée" || !isReceived) && <div className={styles.statusContainer}><span>{booking.status}</span></div>}
       </div>
       <BookingInfo isOpen={isEventModalOpen} onClose={closeEventModal} event={eventBook} venue={venueBook} booking={booking} />
     </>

@@ -34,7 +34,7 @@ function CardEvent({ event }) {
   }, [event?._id]);
 
   const handleChangeStatus = () => {
-    updateEventStatus("Published", event?._id).catch((error) =>
+    updateEventStatus("Publié", event?._id).catch((error) =>
       console.error(
         "Erreur lors de la mise à jour du statut de l'événement:",
         error
@@ -55,7 +55,7 @@ function CardEvent({ event }) {
   const openEventModal = () => setIsEventModalOpen(true);
   const closeEventModal = () => setIsEventModalOpen(false);
   const date = formatDate(event?.date);
-  //const cardClass = booking.status === "Confirmed" ? ` ${styles.accepted}` : booking.status === "Refused" ? ` ${styles.cancel}` : "";
+  //const cardClass = booking.status === "Confirmée" ? ` ${styles.accepted}` : booking.status === "Refusée" ? ` ${styles.cancel}` : "";
   return (
     <>
       <div className={styles.card} onClick={openEventModal}>
@@ -85,7 +85,7 @@ function CardEvent({ event }) {
             <span className={styles.spanStatus}>{event?.status}</span>
           )}
           <div className={styles.bookingsList}>
-            {bookings?.map((booking) => ( booking.status == "Refused" ? <></> : <div key={booking._id} className={styles.cardArtist}>
+            {bookings?.map((booking) => ( booking.status == "Refusée" ? <></> : <div key={booking._id} className={styles.cardArtist}>
                 <span>{isVenue ? booking.artistName + " | " : ""} </span>
                 <span>{booking.status}</span>
               </div>
@@ -100,7 +100,7 @@ function CardEvent({ event }) {
                 className={styles.deleteIcon}
                 size="2xl"
               />
-              {event.status === "Draft" && (
+              {event.status === "Brouillon" && (
                 <FontAwesomeIcon
                   icon={faCheck}
                   onClick={handleChangeStatus}

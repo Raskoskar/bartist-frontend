@@ -18,7 +18,7 @@ function CardEventInfo({ isOpen, onClose, event }) {
 
     const handleChangeStatus = async () => {
         try {
-            await updateEventStatus('Published', event._id);
+            await updateEventStatus('Publié', event._id);
         } catch (error) {
             console.error("Erreur lors de la mise à jour du statut:", error);
         }
@@ -58,7 +58,7 @@ function CardEventInfo({ isOpen, onClose, event }) {
                     </div>
                 </div>{isVenue ?  <div className={styles.cardBtns}>
                     <FontAwesomeIcon onClick={handleDeleteEvent} icon={faWindowClose} className={styles.deleteIcon} size='2xl' />
-                    {event.status === 'Draft' && <FontAwesomeIcon onClick={handleChangeStatus} icon={faCheck} className={styles.publishIcon} size='2xl' />}
+                    {event.status === 'Brouillon' && <FontAwesomeIcon onClick={handleChangeStatus} icon={faCheck} className={styles.publishIcon} size='2xl' />}
                 </div> : <></> }
                
             </div>
