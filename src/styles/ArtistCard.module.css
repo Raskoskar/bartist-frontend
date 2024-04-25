@@ -27,14 +27,8 @@
     align-items: center;
 }
 
-.imgContainer{
-    width: 40px;
-    height: 40px;
-    background-color: black;
-    border-radius: 50%;
-}
-
 .infos{
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -63,6 +57,7 @@
 }
 
 .genres{
+    width: 200px;
     display: flex;
     gap: 10px;
 }

@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Trouvez votre évènement</title>
+        <title>Bartist - Trouvez votre évènement</title>
         <meta name="description" content="Hey" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -38,7 +38,11 @@ export default function Login() {
         <div className={styles.header}>
           <button onClick={openSignInModal}>Se connecter</button>
         </div>
+        <h2 className={styles.logoName}>
+                <span>Bar</span>Tist
+              </h2>
         <div className={styles.title}>
+          
           <h2>
             Êtes-vous le maestro de la mélodie ou la scène qui attend son
             spectacle ?

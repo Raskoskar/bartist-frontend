@@ -1,57 +1,63 @@
-.main{
+.main {
     color: white;
     width: 100%;
-    height: 100%; /* Changed from 92vh to auto for dynamic height */
+    height: 100%;
+    /* Changed from 92vh to auto for dynamic height */
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: left;
     justify-content: center;
+    border-radius: 30px;
+    background-color: #31313149;
 }
 
-.form{
+.form {
     margin-top: 50px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around; 
-    gap: 50px; 
+    justify-content: space-around;
+    gap: 50px;
 }
 
-.column{
+.column {
     display: flex;
     flex-direction: column;
     width: 45%;
     gap: 25px;
 }
 
-.formElem{
+.formElem {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.input{
+.input {
     background-color: transparent;
     border: 1px solid #3F88C5;
     padding: 15px 10px;
-    width: 100%; /* Adjust width to be full within the column */
+    width: 100%;
+    /* Adjust width to be full within the column */
     border-radius: 16px;
     color: white;
 }
 
-.input:focus{
+.input:focus {
     outline: none;
     border: 1px solid #D1D5DB;
 }
 
-.btnContainer{
+.btnContainer {
     display: flex;
     justify-content: right;
     gap: 10px;
-    width: 100%; /* Full width to spread buttons across */
+    width: 100%;
+    /* Full width to spread buttons across */
 }
 
-.btnDiv{
-    flex: 1; /* Each button div takes up equal space */
+.btnDiv {
+    flex: 1;
+    /* Each button div takes up equal space */
 }

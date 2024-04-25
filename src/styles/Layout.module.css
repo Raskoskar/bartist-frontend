@@ -1,8 +1,9 @@
-.blurBg{
+.blurBg {
     background-size: cover;
     background-image: url("../../public/assets/background.png");
 }
-.main{
+
+.main {
     z-index: 2;
     display: flex;
     height: 100vh;
@@ -12,7 +13,7 @@
 }
 
 
-.sideMenu{
+.sideMenu {
     display: flex;
     flex-direction: column;
     min-width: 250px;
@@ -21,10 +22,10 @@
     justify-content: space-between;
     height: 90%;
     border-radius: 0px 0px 30px;
-    padding:50px 0;
+    padding: 50px 0;
 }
 
-.center{
+.center {
     display: flex;
     flex: 0.95;
     flex-direction: column;
@@ -33,7 +34,7 @@
 
 }
 
-.header{
+.header {
     display: flex;
     flex: 0.05;
     flex-direction: row;
@@ -44,7 +45,7 @@
     padding-bottom: 10px;
 }
 
-.content{
+.content {
     width: 100%;
     max-height: 100%;
     display: flex;
@@ -53,13 +54,14 @@
     background-color: transparent;
 }
 
-.links{
+.links {
     display: flex;
     flex-direction: column;
     flex: 0.50;
     justify-content: flex-start;
 }
-.rightContent{
+
+.rightContent {
     margin-top: 10px;
     margin-right: 20px;
     display: flex;
@@ -68,56 +70,68 @@
     align-items: center;
     gap: 10px;
 }
-.userInfo{
+
+.userInfo {
     display: flex;
     flex: 1;
 }
-.name{
+
+.name {
     font-size: 12px;
-    color: black
+    color: white
 }
 
-.button{
+.button {
     padding: 5px 10px;
     height: 40px;
     font-size: 12px;
 }
-.logoContainer{
+
+.logoContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.logoName{
+
+.logoName {
     font-size: 32px;
     text-align: center;
     letter-spacing: 5px;
 }
-.logoName > span{
+
+.logoName>span {
     color: #3F88C5
 }
 
-.logo{
+.logo {
     border-radius: 50%;
 }
-.imgContainer{
+
+.imgContainer {
     min-width: 40px;
     min-height: 40px;
     background-color: black;
     border-radius: 50%;
 }
 
-.selected{
+.selected {
     box-sizing: border-box;
-    box-shadow: inset 20px 0px 15px #3f89c56f;;
+    box-shadow: inset 20px 0px 15px #3f89c56f;
+    ;
     width: 100%;
-    height: 50px;
+    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
 
-.menuItem{
+.logoutButton {
+    align-self: center;
+    width: fit-content;
+}
+
+.menuItem {
     width: 100%;
     height: 75px;
     display: flex;
@@ -125,6 +139,7 @@
     align-items: center;
 }
 
-.button{
+.button {
     background-color: #d13cf6;
+    width: fit-content;
 }

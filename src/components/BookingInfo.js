@@ -24,7 +24,7 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
           <Image 
                     alt="profil image"
                     className={styles.logo}
-                    src= {event.picture}
+                    src={event.picture != "" ? event.picture : '/assets/noevent.png'}
                     width={350}
                     height={350}/>
           <div className={styles.eventInfo}>

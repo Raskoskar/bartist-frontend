@@ -62,7 +62,7 @@ function CardEvent({ event }) {
         <Image
           alt="logo"
           className={styles.logo}
-          src={event?.picture}
+          src={event?.picture != "" ? event.picture : '/assets/noevent.png'}
           width={250}
           height={250}
         />
