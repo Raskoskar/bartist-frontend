@@ -16,12 +16,15 @@ function CardEvent({ event }) {
   const [isDelete, setIsDelete] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [bookings, setBookings] = useState([]);
-
+  const [refused, setRefused] = useState(false)
   useEffect(() => {
     console.log("eventcard: ", event);
     getBookingByEventId(event?._id)
       .then((data) => {
         if (data) {
+          data.bookings.map(booking => {
+            booking.status === "Refusée" && setRefused(true)
+          })
           setBookings(data.bookings);
         }
       })
@@ -50,8 +53,10 @@ function CardEvent({ event }) {
       );
   };
 
-  if (isDelete) return null;
-
+  
+  
+  
+  if (isDelete || refused) return null;
   const openEventModal = () => setIsEventModalOpen(true);
   const closeEventModal = () => setIsEventModalOpen(false);
   const date = formatDate(event?.date);
@@ -89,7 +94,6 @@ function CardEvent({ event }) {
                 <span>{isVenue ? booking.artistName + " | " : ""} </span>
                 <span>{booking.status}</span>
               </div>
-              
             ))}
           </div>
           {isVenue && (

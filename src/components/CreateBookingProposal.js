@@ -145,7 +145,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
           
           <div className={styles.formElem}>
             <label>
-              Heure de début de l'événement <span>*</span>
+              Heure de début de la prestation <span>*</span>
             </label>
             <MobileTimePicker
               onChange={(e) => setHour_start(e)} 
