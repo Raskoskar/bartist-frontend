@@ -9,6 +9,7 @@ import { getArtistById } from "@/api/artists";
 import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 function CardBooking({ booking, isReceived }) {
   // État local pour stocker les informations de réservation
   const [artistBook, setArtistBook] = useState({});
@@ -16,6 +17,7 @@ function CardBooking({ booking, isReceived }) {
   const [eventBook, setEventBook] = useState({});
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const user = useSelector(state => state.user.value)
+  const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,11 +37,13 @@ function CardBooking({ booking, isReceived }) {
   const handleConfirmBooking = (event) => {
     event.stopPropagation();
     updateBookingStatus(booking._id, "Confirmée");
+    router.reload()
   };
 
   const handleRefuseBooking = (event) => {
     event.stopPropagation();
     updateBookingStatus(booking._id, "Refusée");
+    router.reload()
   };
 
   const openEventModal = (event) => {
@@ -82,7 +86,7 @@ function CardBooking({ booking, isReceived }) {
           <span>{booking.duration} heures</span>
         </div>
         <div className={styles.tarifContainer}>
-          {booking.rate / booking.duration}€/heure
+          {Math.round(booking.rate / booking.duration)}€/heure
         </div>
         {booking.status === "En attente" && isReceived && (
           <div className={styles.btnContainer}>

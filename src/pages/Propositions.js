@@ -49,9 +49,9 @@ export default function Propositions() {
             <div className={styles.titleContainer}>
               <span className={styles.title}>Propositions de Booking</span>
             </div>
-            <BookingList title="Reçues" bookings={getBookings(true)} isReceived={true} />
+            <BookingList user={user} title="Reçues" bookings={getBookings(true)} isReceived={true} />
 
-            <BookingList title="Envoyées" bookings={getBookings(false)} isReceived={false} />
+            <BookingList user={user} title="Envoyées" bookings={getBookings(false)} isReceived={false} />
           </>
         )}
       </div>
@@ -60,7 +60,7 @@ export default function Propositions() {
 }
 
 // Composant pour afficher la liste des réservations
-function BookingList({ title, bookings, isReceived }) {
+function BookingList({ title, bookings, isReceived, user }) {
   return (
     <div className={styles.bookingList}>
       <div className={styles.bookingsTitleContainer}>
@@ -68,11 +68,11 @@ function BookingList({ title, bookings, isReceived }) {
       </div>
       <div className={styles.hints}>
               <div className={styles.hint}>
-                <span>Event</span>
+                <span>Événement</span>
               </div>
               <div className={styles.hint}>
                 <span>
-                  {user.isVenue ? "Etablissement <br /> Adresse" : "Artiste"}
+                  {!user.isVenue ? "Établissement" : "Artiste"}
                 </span>
               </div>
               <div className={styles.hint}>
@@ -85,7 +85,7 @@ function BookingList({ title, bookings, isReceived }) {
                 <span>Tarif</span>
               </div>
               <div className={styles.hint}>
-                <span>Status</span>
+                <span>Statut</span>
               </div>
             </div>
       {bookings.length > 0 ? bookings.map((booking) => (
