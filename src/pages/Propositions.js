@@ -50,6 +50,7 @@ export default function Propositions() {
               <span className={styles.title}>Propositions de Booking</span>
             </div>
             <BookingList title="Reçues" bookings={getBookings(true)} isReceived={true} />
+
             <BookingList title="Envoyées" bookings={getBookings(false)} isReceived={false} />
           </>
         )}
@@ -65,13 +66,35 @@ function BookingList({ title, bookings, isReceived }) {
       <div className={styles.bookingsTitleContainer}>
         <span className={styles.bookingTitle}>{title}</span>
       </div>
-      {bookings.map((booking) => (
+      <div className={styles.hints}>
+              <div className={styles.hint}>
+                <span>Event</span>
+              </div>
+              <div className={styles.hint}>
+                <span>
+                  Etablissement <br /> Adresse
+                </span>
+              </div>
+              <div className={styles.hint}>
+                <span>
+                  Heure arrivée <br />
+                  Nombre d'heures
+                </span>
+              </div>
+              <div className={styles.hint}>
+                <span>Tarif</span>
+              </div>
+              <div className={styles.hint}>
+                <span>Status</span>
+              </div>
+            </div>
+      {bookings.length > 0 ? bookings.map((booking) => (
         <CardBooking
           key={booking.id}
           booking={booking}
           isReceived={isReceived}
         />
-      ))}
+      )) : <span className={styles.bookStatus}> Pas encore de propositions de bookings</span>}
     </div>
   );
 }
