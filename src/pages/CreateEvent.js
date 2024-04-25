@@ -57,7 +57,7 @@ export default function CreateEvent() {
       router.push("/Events");
     } catch (e) {
       setError(
-        `Failed to ${status === "Draft" ? "save" : "publish"} the event: ${
+        `Failed to ${status === "Brouillon" ? "save" : "publish"} the event: ${
           e.message
         }`
       );
@@ -161,10 +161,10 @@ export default function CreateEvent() {
             </div>
           </div>
           <div className={styles.btnContainer}>
-            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Draft")}>
+            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Brouillon")}>
             {loading ? "Chargement" : "Enregister le brouillon"}
             </button>
-            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Published")}>
+            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Publié")}>
               {loading ? "Chargement" : "Publier"}
             </button>
           </div>

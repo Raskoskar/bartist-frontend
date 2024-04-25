@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import { createBooking } from "../api/bookings";
 import { getEventsByVenueToken } from "../api/events" // api pour récupérer les events du venue
+import formatDate from '../utils/dateFormater'
 
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker'; // Pour saisir une heure de début sur une horloge
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput'; // Pour saisir un nombre d'heures
@@ -28,6 +29,9 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
     const [events, setEvents] = useState([]) // Liste  des events
     const [eventBooking, setEventBooking] = useState("") // event selectionné pour le booking
     const [artistBook, setArtistBook] = useState("") // artist selectionné pour le booking
+
+    
+
     useEffect(() => {
       if(user.isVenue){
         getVenueByToken(user.token).then(data => {
@@ -47,7 +51,9 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
     }, []);
 
     const eventsInfos = events.map(eventOne => {
-      return {label: `${eventOne.title} ${eventOne.date}`, value: eventOne._id }
+        // Utilisation de la fonction formatDate pour obtenir les éléments de la date
+  const { day, month, year } = formatDate(eventOne.date);
+      return {label: `${eventOne.title} ${day} ${month} ${year}`, value: eventOne._id }
     })
 
     const handleEventChange = (selectedOptions) => {
@@ -64,7 +70,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
 
    
     const handleSubmit = async () => {
-      const status = 'Pending';
+      const status = 'En attente';
       if(user.isVenue){
          await createBooking(user.token, user.isVenue, artist._id , venue, eventBooking, hour_start, Number(duration), Number(rate), status, description)
          router.push("/Propositions")
@@ -130,7 +136,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
             <span className={styles.title}>{isVenue ? artist.name : event.title}</span>
           </div>
           {isVenue ? <Select
-                    placeholder="choisissez un évènement"
+                    placeholder="Choisissez un événement"
                     styles={customStyles}
                     options={eventsInfos}
                     onChange={handleEventChange}
@@ -146,13 +152,18 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
               value={hour_start}
               minutesStep={15}
               className={styles.input}
+              sx={{
+                color: 'white',
+                // backgroundColor: 'red',
+                borderColor: '#3F88C5',
+              }}
             />
           </div>
           <div className={styles.formElem}>
             <label>
-              Durée de la prestation (H)<span>*</span>
+              Durée de la prestation (h)<span>*</span>
             </label>
-            <input type="number" onChange={(e) => setDuration(e.target.value)} value={duration} className={styles.input}>
+            <input type="number" onChange={(e) => setDuration(e.target.value)} value={duration} className={styles.input} min={'1'}>
             </input>
           </div>
           <div className={styles.formElem}>
