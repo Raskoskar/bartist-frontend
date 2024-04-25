@@ -16,6 +16,7 @@ export default function App() {
   return (
     <>
       <Head>
+        <link rel="icon" href="/assets/logo.png" />
         <title>Bartist</title>
         <meta name="description" content="mise en relation artiste & lieux de représentations" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
