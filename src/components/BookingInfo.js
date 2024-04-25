@@ -1,7 +1,7 @@
 import styles from "../styles/BookingInfo.module.css";
 import PropTypes from 'prop-types';
 import Image from "next/image";
-export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
+export const BookingInfo = ({ isOpen, onClose, booking, event, venue, artist, user }) => {
   if (!isOpen) return null; // Ne rien rendre si la modal n'est pas ouverte
 
   const handleClose = () => {
@@ -24,7 +24,7 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
           <Image 
                     alt="profil image"
                     className={styles.logo}
-                    src= {event.picture}
+                    src={event.picture != "" ? event.picture : '/assets/noevent.png'}
                     width={350}
                     height={350}/>
           <div className={styles.eventInfo}>
@@ -39,9 +39,9 @@ export const BookingInfo = ({ isOpen, onClose, booking, event, venue }) => {
             <div className={styles.date}>{formattedDate}</div> 
           </div>
           <div className={styles.addressContainer}>
-            <span className={styles.exp}>Établissement :</span>
-            <span className={styles.venue}>{venue.name.toUpperCase()}</span>
-            <span className={styles.address}>{venue.address}</span>
+            <span className={styles.exp}>{!user.isVenue ? "Établissement" : "Artiste"}</span>
+            <span className={styles.venue}>{!user.isVenue ? venue.name.toUpperCase() : artist.name.toUpperCase()}</span>
+            <span className={styles.address}>{user.isVenue ? venue.address : ""}</span>
           </div>
           <div className={styles.partContainer}>
             <span className={styles.exp}>Description de la proposition :</span>

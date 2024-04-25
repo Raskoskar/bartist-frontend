@@ -75,7 +75,7 @@ export default function CreateEvent() {
   return (
     <Layout>
       <div className={styles.main}>
-        <h1>Créez un événement</h1>
+        <h1>Créer un événement</h1>
         <form className={styles.form}>
           <div className={styles.column}>
             <div className={styles.formElem}>
@@ -102,18 +102,19 @@ export default function CreateEvent() {
                 type="file"
                 onChange={handleFileUpload}
                 accept="image/*" // Limite le type de fichiers acceptés aux images
-                className={styles.inputFile}
+                className={styles.input}
                 name="image"
               />
             </div>
             <div className={styles.formElem}>
-              <label>Instagram</label>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Lien vers un post Instagram..."
-                onChange={(e) => setInstagram(e.target.value)}
-                value={instagram}
+              <label>
+                Genres musicaux <span>*</span>
+              </label>
+              <Select
+                isMulti
+                styles={customStyles}
+                options={genreOptions}
+                onChange={handleGenreChange}
               />
             </div>
           </div>
@@ -139,14 +140,13 @@ export default function CreateEvent() {
               />
             </div>
             <div className={styles.formElem}>
-              <label>
-                Genres musicaux <span>*</span>
-              </label>
-              <Select
-                isMulti
-                styles={customStyles}
-                options={genreOptions}
-                onChange={handleGenreChange}
+              <label>Instagram</label>
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Lien vers un post Instagram..."
+                onChange={(e) => setInstagram(e.target.value)}
+                value={instagram}
               />
             </div>
             <div className={styles.formElem}>
@@ -165,7 +165,7 @@ export default function CreateEvent() {
             {loading ? "Chargement" : "Enregister le brouillon"}
             </button>
             <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Published")}>
-              {loading ? "Chargement" : "Mettre à jour"}
+              {loading ? "Chargement" : "Publier"}
             </button>
           </div>
         </form>

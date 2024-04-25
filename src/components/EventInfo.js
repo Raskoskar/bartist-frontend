@@ -25,8 +25,8 @@ export const EventInfo = ({ isOpen, onClose, event, venue, booking }) => {
       <div onClick={handleWrapper} className={styles.wrapper}>
         <div className={styles.content}>
             {/* Ajoutez l'image de l'événement si disponible */}
-            {event.picture && (
-              <Image src={event.picture} width={400} height={400} alt={event.title} className={styles.eventImage} />
+            {(
+              <Image src={event?.picture != "" ? event.picture : '/assets/noevent.png'} width={400} height={400} alt={event.title} className={styles.eventImage} />
             )}
           <div className={styles.eventInfo}>
             <div className={styles.infoLeft}>

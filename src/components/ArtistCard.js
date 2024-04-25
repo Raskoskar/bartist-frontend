@@ -34,10 +34,10 @@ function ArtistCard({ artist }) {
     <React.Fragment>
       <div className={styles.card} onClick={() => handleOpenModal('artist')}>
         <div className={styles.leftContent}>
-            {artist.picture && <Image 
+            {<Image 
                     alt="profil image"
                     className={styles.logo}
-                    src= {artist.picture}
+                    src={artist.picture != "" ? artist.picture : '/assets/noprofil.png'}
                     width={75}
                     height={75}
                   />   }
@@ -52,7 +52,7 @@ function ArtistCard({ artist }) {
           </div>
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.contact}>Contacter</button>
+          {/*<button className={styles.contact}>Contacter</button>*/}
           <button className={styles.book} onClick={(e) => {
             e.stopPropagation();
             handleOpenModal('booking');

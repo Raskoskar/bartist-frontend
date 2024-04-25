@@ -8,13 +8,14 @@ import { updateBookingStatus } from "@/api/bookings";
 import { getArtistById } from "@/api/artists";
 import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
+import { useSelector } from "react-redux";
 function CardBooking({ booking, isReceived }) {
   // État local pour stocker les informations de réservation
   const [artistBook, setArtistBook] = useState({});
   const [venueBook, setVenueBook] = useState({});
   const [eventBook, setEventBook] = useState({});
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-
+  const user = useSelector(state => state.user.value)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,8 +74,8 @@ function CardBooking({ booking, isReceived }) {
           </div>
         </div>
         <div className={styles.venueInfosContainer}>
-          <span>{venueBook.name}</span>
-          <span>{venueBook.address}</span>
+          <span>{!user.isVenue ? venueBook.name : artistBook.name}</span>
+          <span>{user.isVenue && venueBook.address}</span>
         </div>
         <div className={styles.hoursContainer}>
           <span>{booking.hour_start}</span>
@@ -91,7 +92,7 @@ function CardBooking({ booking, isReceived }) {
         )}
         {(booking.status === "Confirmed" || booking.status === "Refused" || !isReceived) && <div className={styles.statusContainer}><span>{booking.status}</span></div>}
       </div>
-      <BookingInfo isOpen={isEventModalOpen} onClose={closeEventModal} event={eventBook} venue={venueBook} booking={booking} />
+      <BookingInfo isOpen={isEventModalOpen} onClose={closeEventModal} event={eventBook} venue={venueBook} booking={booking} artist={artistBook} user={user} />
     </>
   );
 }

@@ -18,7 +18,7 @@ export const ArtistInfo = ({ isOpen, onClose, artist }) => {
     <div onClick={onClose} className={`${styles.container} ${isOpen ? styles.open : ''}`}>
       <div onClick={e => e.stopPropagation()} className={styles.wrapper}>
           {/* Utilisation du composant Image de Next.js pour afficher l'image de l'artiste */}
-          {artist.picture && <Image src={artist.picture} alt={artist.name} width={250} height={250}/>}
+          {<Image src={artist.picture != "" ? artist.picture : '/assets/noprofil.png'} alt={artist.name} width={250} height={250}/>}
         <div className={styles.title}>
           <h3>{artist.name}</h3>
           
@@ -36,22 +36,22 @@ export const ArtistInfo = ({ isOpen, onClose, artist }) => {
           <h4>Réseaux sociaux :</h4>
           <div className={styles.linksContainer}>
             {/* Boutons pour les réseaux sociaux, affichés seulement si le lien est disponible */}
-            {artist.socials.youtube && (
+            {artist.socials.youtube != "" &&  (
               <button onClick={(e) => handleLinks(e, artist.socials.youtube)} className={`${styles.youtube} ${styles.linksButton}`}>
                 <FontAwesomeIcon icon={faYoutube} />
               </button>
             )}
-            {artist.socials.deezer && (
+            {artist.socials.deezer != "" && (
               <button onClick={(e) => handleLinks(e, artist.socials.deezer)} className={`${styles.deezer} ${styles.linksButton}`}>
                 <FontAwesomeIcon icon={faDeezer} />
               </button>
             )}
-            {artist.socials.soundcloud && (
+            {artist.socials.soundcloud != "" && (
               <button onClick={(e) => handleLinks(e, artist.socials.soundcloud)} className={`${styles.soundcloud} ${styles.linksButton}`}>
                 <FontAwesomeIcon icon={faSoundcloud} />
               </button>
             )}
-            {artist.socials.spotify && (
+            {artist.socials.spotify != "" && (
               <button onClick={(e) => handleLinks(e, artist.socials.spotify)} className={`${styles.linksButton} ${styles.spotify}`}>
                 <FontAwesomeIcon icon={faSpotify} />
               </button>

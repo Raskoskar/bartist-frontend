@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { updateProfilVenue } from "@/api/venues"; // import route POST; @ permet d'acceder a la racine du projet
 import { uploadFile } from "@/api/upload";
 import venueType from "@/data/venueType";
+import Select from "react-select";
+import { customStyles } from "@/styles/CustomSlect";
 function VenueForm() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -29,9 +31,7 @@ function VenueForm() {
       description,
       picture
     );
-    console.log("dataVenues =>", dataVenues);
     if (dataVenues.result) {
-      console.log("dataVenues =>", dataVenues);
       router.push("/Events");
     } else {
       document.querySelector(
@@ -47,46 +47,51 @@ function VenueForm() {
     console.log("data", data);
     setPicture(data.imageUrl); // recupere l'url du fichier sur cloudinary
   };
-
+  const handleTypeChange = (selectedOptions) => {
+    setType(selectedOptions.value);
+  };
   return (
     <div className={styles.blurBg}>
       <div className={styles.formContainer}>
         <form className={styles.form}>
-          <h2 className={styles.title}>Créer votre profil établissement</h2>
+          <h2 className={styles.title}>Créez votre profil établissement</h2>
           <div className={styles.formPicture}>
             <div className={styles.formSection}>
+            <label>
+                    Nom de l'établissement <span>*</span>
+                  </label>
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
                 className={styles.input}
                 type="text"
+                required
                 placeholder="Nom de l'établissement"
                 id="formName"
               />
+              <label>
+                    Adresse de l'établissement <span>*</span>
+                  </label>
               <input
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
                 className={styles.input}
                 type="text"
+                required
                 placeholder="Adresse de l'établissement"
                 id="formAddress"
               />
-              <select
-                onChange={(e) => setType(e.target.value)}
-                value={type}
-                placeholder="Vous représentez ?"
-                className={styles.inputSelect}
-                name="types"
-                id="types-select"
-              >
-                {venueType.map((type) => {
-                  return (
-                    <option className={styles.option} value={type.value}>
-                      {type.label}
-                    </option>
-                  );
-                })}
-              </select>
+              <label>
+                    Type d'établissement <span>*</span>
+                  </label>
+              <Select
+                onChange={handleTypeChange}
+                styles={customStyles}
+                    options={venueType}
+              />
+              <label>
+                    Description <span>*</span>
+                  </label>
               <input
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
@@ -120,7 +125,7 @@ function VenueForm() {
             id="create"
             className={styles.createBtn}
           >
-            Créer
+            Créer le profil
           </button>
         </form>
         <div id="alert"></div>

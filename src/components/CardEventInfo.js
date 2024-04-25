@@ -42,7 +42,7 @@ function CardEventInfo({ isOpen, onClose, event }) {
             <div onClick={handleEventWrapper} className={styles.wrapper}>
                 <Image
                     className={styles.pictureEvent}
-                    src={event.picture}
+                    src={event?.picture != "" ? event.picture : '/assets/noevent.png'}
                     alt={event.title}
                     width={350}
                     height={350}

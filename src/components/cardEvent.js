@@ -62,9 +62,9 @@ function CardEvent({ event }) {
         <Image
           alt="logo"
           className={styles.logo}
-          src={event?.picture}
-          width={250}
-          height={250}
+          src={event?.picture != "" ? event.picture : '/assets/noevent.png'}
+          width={225}
+          height={225}
         />
         <div className={styles.cardInfo}>
           <h3 className={styles.title}>{event?.title}</h3>
