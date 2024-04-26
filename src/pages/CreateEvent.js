@@ -43,7 +43,7 @@ export default function CreateEvent() {
   const handleSubmit = (status) => {
     console.log(picture)
     try {
-      setLoading(Tsukimi_Rounded)
+      setLoading(true)
       createEvent(
         user.token,
         title,
