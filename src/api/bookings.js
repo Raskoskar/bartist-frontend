@@ -69,6 +69,7 @@ export const updateBookingStatus = async (id, status) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Private-Network": "true"
         },
         body: JSON.stringify({ _id: id, status: status }),
       }
