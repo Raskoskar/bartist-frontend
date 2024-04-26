@@ -4,7 +4,7 @@ export const uploadFile = async (event) => {
     try {
       const formData = new FormData();
        formData.append('image', file);
-      const response = await fetch('http://localhost:3000/uploadFile', {
+      const response = await fetch('https://bartist-backend-raskoskars-projects.vercel.app/uploadFile', {
         method: 'POST',
         body: formData,
       })

@@ -1,7 +1,7 @@
 //FETCH signUp
 export const signUpVenue = async (email, password) => {
     try{
-        const response = await fetch(`http://localhost:3000/venues/signUp`, 
+        const response = await fetch(`https://bartist-backend-raskoskars-projects.vercel.app/venues/signUp`, 
         {
             method: 'POST',
             headers: {
@@ -18,7 +18,7 @@ export const signUpVenue = async (email, password) => {
 //FETCH signIn
 export const signInVenue = async (email, password) => {
     try{
-        const response = await fetch(`http://localhost:3000/venues/signIn`, 
+        const response = await fetch(`https://bartist-backend-raskoskars-projects.vercel.app/venues/signIn`, 
         {
             method: 'POST',
             headers: {
@@ -39,7 +39,7 @@ export const updateProfilVenue = async (
         
     try{
         
-        const response = await fetch(`http://localhost:3000/venues/createProfile/${token}`, 
+        const response = await fetch(`https://bartist-backend-raskoskars-projects.vercel.app/venues/createProfile/${token}`, 
         {
             method: 'POST',
             headers: {
@@ -59,7 +59,7 @@ export const updateProfilVenue = async (
 // FONCTION DE RECUPERATION D'UN ETABLISSEMENT EN FONCTION DE SON OBJECT ID
 export const getVenueById = async (id) => {
     try{
-      const response = await fetch(`http://localhost:3000/venues/id/${id}`, {
+      const response = await fetch(`https://bartist-backend-raskoskars-projects.vercel.app/venues/id/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export const getVenueById = async (id) => {
 
   export const getVenueByToken = async (token) => {
     try{
-      const response = await fetch(`http://localhost:3000/venues/token/${token}`, {
+      const response = await fetch(`https://bartist-backend-raskoskars-projects.vercel.app/venues/token/${token}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

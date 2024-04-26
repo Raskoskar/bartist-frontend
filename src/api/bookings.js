@@ -14,7 +14,7 @@ export const createBooking = async (
 ) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/bookings/createBooking`,
+      `https://bartist-backend-raskoskars-projects.vercel.app/bookings/createBooking`,
       {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export const createBooking = async (
 export const displayBookings = async (token, isVenue) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/bookings/displayAllBookings`,
+      `https://bartist-backend-raskoskars-projects.vercel.app/bookings/displayAllBookings`,
       {
         method: "POST",
         headers: {
@@ -64,7 +64,7 @@ export const displayBookings = async (token, isVenue) => {
 export const updateBookingStatus = async (id, status) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/bookings/updateBookingStatus`,
+      `https://bartist-backend-raskoskars-projects.vercel.app/bookings/updateBookingStatus`,
       {
         method: "POST",
         headers: {
@@ -84,7 +84,7 @@ export const updateBookingStatus = async (id, status) => {
 export const getBookingByEventId = async (id) => {
   try{
     const response = await fetch(
-      `http://localhost:3000/bookings/id/${id}`,
+      `https://bartist-backend-raskoskars-projects.vercel.app/bookings/id/${id}`,
       {
         method: "GET",
         headers: {
