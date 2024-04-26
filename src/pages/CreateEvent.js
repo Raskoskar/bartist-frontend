@@ -56,15 +56,15 @@ export default function CreateEvent() {
         facebook,
         instagram
       );
-      setTimeout(4000)
-      setLoading(false)
-      router.push("/Events");
     } catch (e) {
       setError(
         `Failed to ${status === "Brouillon" ? "save" : "publish"} the event: ${
           e.message
         }`
       );
+    } finally {
+      setLoading(false)
+      router.push("/Events");
     }
   };
 

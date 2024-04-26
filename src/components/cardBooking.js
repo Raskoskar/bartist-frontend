@@ -30,7 +30,7 @@ function CardBooking({ booking, isReceived }) {
         setArtistBook(artistData.artist);
         setVenueBook(venueData.venue);
         setEventBook(eventData.event);
-        setLoading(faLastfmSquare)
+        setLoading(false)
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
       }
