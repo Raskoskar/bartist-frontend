@@ -16,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import genreOptions from "@/data/genres.json";
 import { uploadFile } from '@/api/upload';
+import { Tsukimi_Rounded } from "next/font/google";
 
 
 export default function CreateEvent() {
@@ -42,6 +43,7 @@ export default function CreateEvent() {
   const handleSubmit = (status) => {
     console.log(picture)
     try {
+      setLoading(Tsukimi_Rounded)
       createEvent(
         user.token,
         title,
@@ -54,6 +56,8 @@ export default function CreateEvent() {
         facebook,
         instagram
       );
+      setTimeout(4000)
+      setLoading(false)
       router.push("/Events");
     } catch (e) {
       setError(

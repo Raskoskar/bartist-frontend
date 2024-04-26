@@ -30,7 +30,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
     const [events, setEvents] = useState([]) // Liste  des events
     const [eventBooking, setEventBooking] = useState("") // event selectionné pour le booking
     const [artistBook, setArtistBook] = useState("") // artist selectionné pour le booking
-
+    const [loading, setLoading] = useState(false)
     
 
     useEffect(() => {
@@ -71,9 +71,12 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
 
    
     const handleSubmit = async () => {
+      setLoading(true)
       const status = 'En attente';
       if(user.isVenue){
          await createBooking(user.token, user.isVenue, artist._id , venue, eventBooking, hour_start, Number(duration), Number(rate), status, description)
+         setLoading(false)
+         setTimeout(4000)
          router.push("/Propositions")
       }else{
         const data = await createBooking(user.token, user.isVenue, artistBook._id , event.venue, event._id, hour_start, Number(duration), Number(rate), status, description)
@@ -165,7 +168,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
             id="Send booking proposal"
             onClick={() => handleSubmit()}
           >
-            Envoyer la proposition
+            {loading ? "Chargement..." : "Envoyer la proposition"}
           </button>
         </div>
       </div>
