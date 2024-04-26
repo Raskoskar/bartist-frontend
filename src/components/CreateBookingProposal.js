@@ -151,11 +151,11 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
               onChange={(e) => setHour_start(e)} 
               value={hour_start}
               minutesStep={15}
-              className={styles.input}
               sx={{
-                color: 'white',
-                // backgroundColor: 'red',
-                borderColor: '#3F88C5',
+                input: { color: '#fff' },
+                border: '1px solid #3F88C5',
+                borderRadius: '16px',
+                width: '300px',
               }}
             />
           </div>
