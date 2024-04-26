@@ -79,7 +79,7 @@ function CardBooking({ booking, isReceived }) {
         </div>
         <div className={styles.venueInfosContainer}>
           <span>{!user.isVenue ? venueBook.name : artistBook.name}</span>
-          <span>{user.isVenue && venueBook.address}</span>
+          <span>{!user.isVenue && venueBook.address}</span>
         </div>
         <div className={styles.hoursContainer}>
           <span>{booking.hour_start}</span>

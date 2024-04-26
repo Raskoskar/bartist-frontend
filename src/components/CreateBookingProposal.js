@@ -13,7 +13,8 @@ import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberIn
 import { getVenueByToken } from "@/api/venues";
 import { getArtist } from "@/api/artists";
 import { useRouter } from "next/navigation";
-
+import ReactSelect from "react-select";
+import { customStyles } from "@/styles/CustomSlect";
 
 
 // transformer en modal lié au  bouton booker pour récupérer les infos
@@ -81,42 +82,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
     }
 
 
-    const customStyles = {
-      control: (provided) => ({
-        ...provided,
-        backgroundColor: "transparent",
-        border: "1px solid #3F88C5",
-        borderRadius: "16px",
-        width: "100%",
-        height: "44px",
-        fontSize: "14px",
-      }),
-      menu: (provided) => ({
-        ...provided,
-        padding: "0px",
-        fontSize: "12px",
-      }),
-      option: (provided, state) => ({
-        ...provided,
-        ...styles.option,
-        backgroundColor: state.isFocused ? "#3F88C5" : "white",
-        color: state.isSelected ? "white" : "black",
-        color: state.isFocused ? "white" : "black",
-        fontSize: "12px",
-      }),
-      multiValue: (provided) => ({
-        ...provided,
-        backgroundColor: "#3F88C5",
-        color: "white",
-      }),
-      multiValueLabel: (provided) => ({
-        ...provided,
-        color: "white",
-      }),
-      multiValueRemove: (provided) => ({
-        ...provided,
-      }),
-    };
+    
 
 
       if (!isOpen) return null;
@@ -135,7 +101,7 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
             </label>
             <span className={styles.title}>{isVenue ? artist.name : event.title}</span>
           </div>
-          {isVenue ? <Select
+          {isVenue ? <ReactSelect
                     placeholder="Choisissez un événement"
                     styles={customStyles}
                     options={eventsInfos}
@@ -151,11 +117,11 @@ const CreateBookingProposal = ({isOpen, onClose, artist, event}) => {
               onChange={(e) => setHour_start(e)} 
               value={hour_start}
               minutesStep={15}
-              className={styles.input}
               sx={{
-                color: 'white',
-                // backgroundColor: 'red',
-                borderColor: '#3F88C5',
+                input: { color: '#fff' },
+                border: '1px solid #3F88C5',
+                borderRadius: '16px',
+                width: '300px',
               }}
             />
           </div>

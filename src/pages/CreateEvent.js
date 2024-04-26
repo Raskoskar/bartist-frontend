@@ -94,7 +94,18 @@ export default function CreateEvent() {
               <label>
                 Date de l'événement <span>*</span>
               </label>
-              <DatePicker disablePast onChange={setDate} value={date} styles />
+              <DatePicker
+                disablePast
+                onChange={setDate}
+                value={date}
+                // styles
+                sx={{
+                  input: { color: "#fff" },
+                  border: "1px solid #3F88C5",
+                  borderRadius: "16px",
+                  openPickerIcon: { color: "#fff" },
+                }}
+              />
             </div>
             <div className={styles.formElem}>
               <label>Photo</label>
@@ -137,6 +148,11 @@ export default function CreateEvent() {
                 onChange={setHour_start}
                 value={hour_start}
                 minutesStep={15}
+                sx={{
+                  input: { color: "#fff" },
+                  border: "1px solid #3F88C5",
+                  borderRadius: "16px",
+                }}
               />
             </div>
             <div className={styles.formElem}>
@@ -161,10 +177,18 @@ export default function CreateEvent() {
             </div>
           </div>
           <div className={styles.btnContainer}>
-            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Brouillon")}>
-            {loading ? "Chargement" : "Enregister le brouillon"}
+            <button
+              disabled={loading ? true : false}
+              type="button"
+              onClick={() => handleSubmit("Brouillon")}
+            >
+              {loading ? "Chargement" : "Enregister le brouillon"}
             </button>
-            <button disabled={loading ? true : false} type="button" onClick={() => handleSubmit("Publié")}>
+            <button
+              disabled={loading ? true : false}
+              type="button"
+              onClick={() => handleSubmit("Publié")}
+            >
               {loading ? "Chargement" : "Publier"}
             </button>
           </div>
