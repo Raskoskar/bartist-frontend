@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {domains: ['placehold.co', 'hostname', 'fakepath', '', 'res.cloudinary.com']}// pour autoriser placehold, ce sera le meme principe pour les autres sites eventuel, les rajouter a la suite
+  images: {
+    remotePatterns: [
+      { hostname: 'placehold.co' },
+      { hostname: 'hostname' },
+      { hostname: 'fakepath' },
+      { hostname: 'res.cloudinary.com' },
+    ],
+  },
 };
 
 webpack: (config, { isServer }) => {
