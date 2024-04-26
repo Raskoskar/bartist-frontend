@@ -13,7 +13,7 @@ export const createEvent = async (
   instagram
 ) => {
   try {
-    const response = await fetch(`bartist-backend.vercel.app/events/createEvent`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/events/createEvent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const createEvent = async (
 export const displayEvents = async (token) => {
   try {
     const response = await fetch(
-      `bartist-backend.vercel.app/events/displayEvents/${token}`,
+      `https://bartist-backend.vercel.app/events/displayEvents/${token}`,
       {}
     );
     const data = await response.json();
@@ -56,7 +56,7 @@ export const displayEvents = async (token) => {
 
 export const getEvents = async () => {
   try {
-    const response = await fetch("bartist-backend.vercel.app/events", {});
+    const response = await fetch("https://bartist-backend.vercel.app/events", {});
     const data = await response.json();
     return data;
   } catch (error) {
@@ -66,7 +66,7 @@ export const getEvents = async () => {
 
   export const deleteEvents = async (_id) => {
     try{
-      const response = await fetch(`bartist-backend.vercel.app/events/deleteEvent`, {
+      const response = await fetch(`https://bartist-backend.vercel.app/events/deleteEvent`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const getEvents = async () => {
 
   export const updateEventStatus = async (status, id) => {
     try{
-      const response = await fetch('bartist-backend.vercel.app/events/updateEventStatus', {
+      const response = await fetch('https://bartist-backend.vercel.app/events/updateEventStatus', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export const getEvents = async () => {
 
   export const getEventById = async (id) => {
     try{
-      const response = await fetch(`bartist-backend.vercel.app/events/id/${id}`,
+      const response = await fetch(`https://bartist-backend.vercel.app/events/id/${id}`,
       )
       const data = await response.json()
       return data;
@@ -113,7 +113,7 @@ export const getEvents = async () => {
   export const getEventsByVenueToken = async (token) =>
   {
     try{
-      const response = await fetch(`bartist-backend.vercel.app/events/getEventsByVenueToken/${token}`,
+      const response = await fetch(`https://bartist-backend.vercel.app/events/getEventsByVenueToken/${token}`,
       )
       const data = await response.json()
       return data;
@@ -126,7 +126,7 @@ export const getEvents = async () => {
   export const displayEventsByBooking = async (token) => {
     try{
       const response = await fetch(
-        `bartist-backend.vercel.app/events/token/${token}`
+        `https://bartist-backend.vercel.app/events/token/${token}`
       )
       const  data = await response.json()
       return data

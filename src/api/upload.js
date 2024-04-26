@@ -4,7 +4,7 @@ export const uploadFile = async (event) => {
     try {
       const formData = new FormData();
        formData.append('image', file);
-      const response = await fetch('bartist-backend.vercel.app/uploadFile', {
+      const response = await fetch('https://bartist-backend.vercel.app/uploadFile', {
         method: 'POST',
         body: formData,
       })

@@ -2,7 +2,7 @@
 // l'inscription d'un nouvel utilisateur
 export const signUpArtist = async (email, password) => {
   try {
-    const response = await fetch(`bartist-backend.vercel.app/artists/signUp`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/artists/signUp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const signUpArtist = async (email, password) => {
 // la connnexion d'un utilisateur
 export const signInArtist = async (email, password) => {
   try {
-    const response = await fetch(`bartist-backend.vercel.app/artists/signIn`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/artists/signIn`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
