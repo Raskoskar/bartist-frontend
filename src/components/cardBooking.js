@@ -10,23 +10,27 @@ import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
 function CardBooking({ booking, isReceived }) {
   // État local pour stocker les informations de réservation
   const [artistBook, setArtistBook] = useState({});
   const [venueBook, setVenueBook] = useState({});
   const [eventBook, setEventBook] = useState({});
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
   const user = useSelector(state => state.user.value)
   const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const artistData = await getArtistById(booking.artist);
         const venueData = await getVenueById(booking.venue);
         const eventData = await getEventById(booking.event);
         setArtistBook(artistData.artist);
         setVenueBook(venueData.venue);
         setEventBook(eventData.event);
+        setLoading(faLastfmSquare)
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
       }
@@ -62,10 +66,12 @@ function CardBooking({ booking, isReceived }) {
 
   const dateComponents = formatDate(eventBook?.date).split(" ");
   const cardClass = styles.card + (booking.status === "Confirmée" ? ` ${styles.accepted}` : booking.status === "Refusée" ? ` ${styles.cancel}` : "");
-
+  
   return (
+    
     <>
       <div className={cardClass} onClick={openEventModal}>
+        {loading ? <p>Chargement...</p> : <>
         <div className={styles.leftContent}>
           <div className={styles.dateContainer}>
             <span className={styles.day}>{dateComponents[0]}</span>
@@ -95,7 +101,7 @@ function CardBooking({ booking, isReceived }) {
           </div>
         )}
         {(booking.status === "Confirmée" || booking.status === "Refusée" || !isReceived) && <div className={styles.statusContainer}><span>{booking.status}</span></div>}
-      </div>
+        </>}</div>
       <BookingInfo isOpen={isEventModalOpen} onClose={closeEventModal} event={eventBook} venue={venueBook} booking={booking} artist={artistBook} user={user} />
     </>
   );
