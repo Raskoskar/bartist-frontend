@@ -27,8 +27,10 @@ export const createEvent = async (
         picture: picture,
         genres: genres,
         status: status,
-        facebook: facebook,
-        instagram: instagram,
+        socials : {
+          facebook: facebook,
+          instagram: instagram  
+        },
         genres: genres,
       }),
     });

@@ -10,6 +10,7 @@ import { getVenueById } from "@/api/venues";
 import { getEventById } from "@/api/events";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 function CardBooking({ booking, isReceived }) {
   // État local pour stocker les informations de réservation
   const [artistBook, setArtistBook] = useState({});
@@ -18,6 +19,7 @@ function CardBooking({ booking, isReceived }) {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const user = useSelector(state => state.user.value)
   const router = useRouter()
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
