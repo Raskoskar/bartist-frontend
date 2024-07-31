@@ -54,7 +54,7 @@ function ArtistCard({ artist }) {
         <div className={styles.buttonContainer}>
           {/*<button className={styles.contact}>Contacter</button>*/}
           <button className={styles.book} onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Évite que l'évènement courant ne se propage plus loin dans les phases de capture et de déploiement.
             handleOpenModal('booking');
           }}>Booker</button>
         </div>

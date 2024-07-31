@@ -20,6 +20,7 @@ function CardBooking({ booking, isReceived }) {
   const [loading, setLoading] = useState(false)
   const user = useSelector(state => state.user.value)
   const router = useRouter()
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
