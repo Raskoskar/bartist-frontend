@@ -35,7 +35,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     getImg().then(data => {
-      setProfilImg(user.isVenue ? data.venue.picture : data.picture)
+      setProfilImg(user.isVenue ? data.venue.picture : data?.picture)
     });
   }, [])
 

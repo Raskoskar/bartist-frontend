@@ -42,13 +42,15 @@ export default function Profile() {
     getProfile(user.token, user.isVenue).then((response) => {
       if (!isVenue) {
         setProfile(response);
+        console.log(response, 'infos');
       } else if (isVenue) {
         setProfile(response.venue);
       } else {
         console.log("error in getProfile");
       }
     });
-  }, []);
+  }, [user, isVenue]);
+  
 
   // Fonction de gestion selection des genres musicals
   const handleGenreChange = (selectedOptions) => {

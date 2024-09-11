@@ -1,8 +1,4 @@
-//"use client"; // cloudinary : https://next.cloudinary.dev/nextjs-14
-//import cloudinary from 'cloudinary';
-
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/CreateEvent.module.css";
 import Select from "react-select";
@@ -16,8 +12,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import genreOptions from "@/data/genres.json";
 import { uploadFile } from '@/api/upload';
-import { Tsukimi_Rounded } from "next/font/google";
-
 
 export default function CreateEvent() {
   const [title, setTitle] = useState("");
@@ -40,11 +34,10 @@ export default function CreateEvent() {
     );
   };
 
-  const handleSubmit = (status) => {
-    console.log(picture)
+  const handleSubmit = async (status) => {
     try {
-      setLoading(true)
-      createEvent(
+      setLoading(true);
+      await createEvent(
         user.token,
         title,
         description,
@@ -56,6 +49,7 @@ export default function CreateEvent() {
         facebook,
         instagram
       );
+      router.push("/Events");
     } catch (e) {
       setError(
         `Failed to ${status === "Brouillon" ? "save" : "publish"} the event: ${
@@ -63,8 +57,7 @@ export default function CreateEvent() {
         }`
       );
     } finally {
-      setLoading(false)
-      router.push("/Events");
+      setLoading(false);
     }
   };
 
@@ -72,8 +65,12 @@ export default function CreateEvent() {
   const handleFileUpload = async (event) => {
     setLoading(true);
     const data = await uploadFile(event); // Récupère le fichier sélectionné par l'utilisateur
-    setPicture(data.imageUrl); 
+    setPicture(data.imageUrl);
     setLoading(false);
+  };
+
+  const isFormValid = () => {
+    return title && date && hour_start && genres.length > 0;
   };
 
   return (
@@ -89,6 +86,7 @@ export default function CreateEvent() {
               <input
                 className={styles.input}
                 type="text"
+                required
                 placeholder="Titre de l'événément..."
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
@@ -100,6 +98,7 @@ export default function CreateEvent() {
               </label>
               <DatePicker
                 disablePast
+                required
                 onChange={setDate}
                 value={date}
                 // styles
@@ -149,6 +148,7 @@ export default function CreateEvent() {
                 Heure de début de l'événement <span>*</span>
               </label>
               <MobileTimePicker
+                required
                 onChange={setHour_start}
                 value={hour_start}
                 minutesStep={15}
@@ -181,6 +181,7 @@ export default function CreateEvent() {
             </div>
           </div>
           <div className={styles.btnContainer}>
+            {isFormValid() ?  <></> : <p>Veuillez remplir les champs obligatoire</p> }
             <button
               disabled={loading ? true : false}
               type="button"
@@ -189,7 +190,7 @@ export default function CreateEvent() {
               {loading ? "Chargement" : "Enregister le brouillon"}
             </button>
             <button
-              disabled={loading ? true : false}
+              disabled={loading || !isFormValid() ? true : false}
               type="button"
               onClick={() => handleSubmit("Publié")}
             >

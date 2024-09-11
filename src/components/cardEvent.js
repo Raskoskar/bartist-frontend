@@ -9,14 +9,17 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import CardEventInfo from "./CardEventInfo";
 import formatDate from "@/utils/dateFormater";
+import ConfirmationModal from "./ConfirmationModal";
 
-function CardEvent({ event }) {
+function CardEvent({ event, onDelete }) {
   const isVenue = useSelector((state) => state.user.value.isVenue);
   const router = useRouter();
   const [isDelete, setIsDelete] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [bookings, setBookings] = useState([]);
-  const [refused, setRefused] = useState(false)
+  const [refused, setRefused] = useState(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+
   useEffect(() => {
     console.log("eventcard: ", event);
     getBookingByEventId(event?._id)
@@ -47,20 +50,23 @@ function CardEvent({ event }) {
 
   const handleDeleteEvent = () => {
     deleteEvents(event._id)
-      .then(() => setIsDelete(true))
+      .then(() => {
+        setIsDelete(true);
+        onDelete(); // Appeler la fonction de rappel pour recharger la liste des événements
+      })
       .catch((error) =>
         console.error("Erreur lors de la suppression de l'événement:", error)
       );
   };
 
-  
-  
-  
+  const openConfirmationModal = () => setIsConfirmationModalOpen(true);
+  const closeConfirmationModal = () => setIsConfirmationModalOpen(false);
+
   if (isDelete || refused) return null;
   const openEventModal = () => setIsEventModalOpen(true);
   const closeEventModal = () => setIsEventModalOpen(false);
   const date = formatDate(event?.date);
-  //const cardClass = booking.status === "Confirmée" ? ` ${styles.accepted}` : booking.status === "Refusée" ? ` ${styles.cancel}` : "";
+
   return (
     <>
       <div className={styles.card} onClick={openEventModal}>
@@ -100,7 +106,7 @@ function CardEvent({ event }) {
             <div className={styles.cardBtns}>
               <FontAwesomeIcon
                 icon={faWindowClose}
-                onClick={handleDeleteEvent}
+                onClick={openConfirmationModal}
                 className={styles.deleteIcon}
                 size="2xl"
               />
@@ -120,6 +126,11 @@ function CardEvent({ event }) {
         isOpen={isEventModalOpen}
         onClose={closeEventModal}
         event={event}
+      />
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onClose={closeConfirmationModal}
+        onConfirm={handleDeleteEvent}
       />
     </>
   );

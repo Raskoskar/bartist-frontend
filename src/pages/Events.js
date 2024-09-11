@@ -45,6 +45,10 @@ function Events() {
     getEvents();
   }, []);
 
+  const handleDeleteEvent = () => {
+    getEvents(); // Recharger la liste des événements après la suppression
+  };
+
   return (
     <Layout>
       <div className={styles.main}>
@@ -62,6 +66,7 @@ function Events() {
                   event={user.isVenue ? event : event.event}
                   id={event._id}
                   key={event._id} 
+                  onDelete={handleDeleteEvent}
                 />
               ))
             ) : (
