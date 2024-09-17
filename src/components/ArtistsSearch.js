@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import { getArtists } from "../api/artists";
 import ArtistCard from "@/components/ArtistCard";
-import styles from "@/styles/Search.module.css";
+import styles from "@/styles/ArtistsSearch.module.css"; // Utiliser un fichier CSS spécifique
 import ReactSelect from "react-select";
 import genreOptions from "@/data/genres.json";
-import { customStyles } from "@/styles/CustomSlect";
+import { customStyles } from "@/styles/CustomSlect"; // Correction du nom du fichier
+import { FaSearch } from "react-icons/fa"; // Pour ajouter une icône de recherche
 
 export default function ArtistsSearch() {
   const [artists, setArtists] = useState([]);
@@ -33,7 +33,9 @@ export default function ArtistsSearch() {
   const filteredArtists = useMemo(
     () =>
       artists.filter((artist) => {
-        const nameMatch = artist?.name?.toLowerCase().includes(searchTerm);
+        const nameMatch = artist?.name
+          ?.toLowerCase()
+          .includes(searchTerm.toLowerCase());
         const genreMatch =
           selectedGenres.length === 0 ||
           selectedGenres.some((genre) => artist.genres.includes(genre.value));
@@ -43,20 +45,23 @@ export default function ArtistsSearch() {
   );
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value.toLowerCase());
+    setSearchTerm(event.target.value);
   };
 
   return (
-    <>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Chercher un artiste..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        aria-label="Chercher un artiste"
-      />
-      <div className={styles.filters}>
+    <div className={styles.container}>
+      <div className={styles.searchBar}>
+        <div className={styles.searchInput}>
+          <FaSearch className={styles.searchIcon} />
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Chercher un artiste..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            aria-label="Chercher un artiste"
+          />
+        </div>
         <ReactSelect
           value={selectedGenres}
           onChange={setSelectedGenres}
@@ -66,6 +71,7 @@ export default function ArtistsSearch() {
           isMulti={true}
           isSearchable={true}
           styles={customStyles}
+          className={styles.select}
         />
       </div>
       {error && <p className={styles.error}>{error}</p>}
@@ -78,6 +84,6 @@ export default function ArtistsSearch() {
           <p className={styles.noArtists}>Aucun artiste trouvé.</p>
         )}
       </div>
-    </>
+    </div>
   );
 }

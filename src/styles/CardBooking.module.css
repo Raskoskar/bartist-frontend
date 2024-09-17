@@ -19,11 +19,11 @@
 }
 
 .cancel{
-    background-color: rgb(212, 58, 58);
+    background-color: #d43a3a;
 }
 
 .accepted{
-    background-color: green;
+    background-color: #008000;
 }
 
 .leftContent{

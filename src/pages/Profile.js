@@ -8,101 +8,93 @@ import { updateArtist } from "@/api/artists";
 import { updateProfilVenue } from "@/api/venues";
 import genreOptions from "@/data/genres.json";
 import { useRouter } from "next/router";
-import CreateBookingProposal from "@/components/CreateBookingProposal";
 import { customStyles } from "@/styles/CustomSlect";
 import ArtistTypeOptions from "@/data/artistType";
-import VenuTypeOptions from "@/data/venueType";
+import VenueTypeOptions from "@/data/venueType";
 import { uploadFile } from "@/api/upload";
 
 export default function Profile() {
-  // Variables d'états
+  // Variables d'état
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
-  const [genres, setGenres] = useState([""]);
+  const [genres, setGenres] = useState([]);
   const [members, setMembers] = useState("");
   const [picture, setPicture] = useState("");
-  const [medias, setMedias] = useState([""]);
   const [youtube, setYoutube] = useState("");
   const [facebook, setFacebook] = useState("");
   const [deezer, setDeezer] = useState("");
   const [spotify, setSpotify] = useState("");
-  const [souncloud, setSoundcloud] = useState("");
-  const [adress, setAdress] = useState("");
+  const [soundcloud, setSoundcloud] = useState("");
+  const [address, setAddress] = useState("");
   const [venueType, setVenueType] = useState("");
   const [profile, setProfile] = useState({});
 
-  // Savoir si l'utilisateur est un artiste ou un établissement pour gérer l'affichage.
+  // Savoir si l'utilisateur est un artiste ou un établissement
   const user = useSelector((state) => state.user.value);
   const isVenue = user.isVenue;
   const router = useRouter();
 
-  // Récupération des informations utilisateurs en BDD :
+  // Récupération des informations utilisateur
   useEffect(() => {
     getProfile(user.token, user.isVenue).then((response) => {
       if (!isVenue) {
         setProfile(response);
-        console.log(response, 'infos');
       } else if (isVenue) {
         setProfile(response.venue);
       } else {
-        console.log("error in getProfile");
+        console.error("Erreur lors de la récupération du profil");
       }
     });
   }, [user, isVenue]);
-  
 
-  // Fonction de gestion selection des genres musicals
+  // Gestion des changements de sélection
   const handleGenreChange = (selectedOptions) => {
     setGenres(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
 
-  // Fcontion de gestion selection du type d'artiste
-  const handleTypeChange = (selectedOptions) => {
-    setType(selectedOptions.value);
+  const handleTypeChange = (selectedOption) => {
+    setType(selectedOption ? selectedOption.value : "");
   };
 
-  // Fonction de gestion selection du type d'établissement
-  const handleVenueChange = (selectedOptions) => {
-    setVenueType(selectedOptions.value);
+  const handleVenueChange = (selectedOption) => {
+    setVenueType(selectedOption ? selectedOption.value : "");
   };
 
   const handleFileUpload = async (event) => {
-    console.log("event", event);
-    const data = await uploadFile(event); // Récupère le fichier sélectionné par l'utilisateur
-    console.log("data", data);
-    setPicture(data.imageUrl); // recupere l'url du fichier sur cloudinary
+    const data = await uploadFile(event);
+    setPicture(data.imageUrl);
   };
 
-  // Fonction de mise à jour du profil utilisateur:
-  const handleUpdateProfil = async () => {
+  // Mise à jour du profil utilisateur
+  const handleUpdateProfile = async () => {
     let data = null;
     if (!isVenue) {
       data = await updateArtist(
         user.token,
-        name != "" ? name : profile.name,
-        type != "" ? type : profile.type,
-        description != "" ? description : profile.description,
-        members != "" ? members : profile.members,
-        picture != "" ? picture : profile.picture,
+        name || profile.name,
+        type || profile.type,
+        description || profile.description,
+        members || profile.members,
+        picture || profile.picture,
         genres.length > 0 ? genres : profile.genres,
-        medias != [] ? medias : profile.medias,
-        youtube != "" ? youtube : profile.medias.youtube,
-        souncloud != "" ? souncloud : profile.socials.soundcloud,
-        facebook != "" ? facebook : profile.socials.facebook,
-        deezer != "" ? deezer : profile.socials.deezer,
-        spotify != "" ? spotify : profile.socials.spotify
+        profile.medias,
+        youtube || profile.socials?.youtube,
+        soundcloud || profile.socials?.soundcloud,
+        facebook || profile.socials?.facebook,
+        deezer || profile.socials?.deezer,
+        spotify || profile.socials?.spotify
       );
     } else {
       data = await updateProfilVenue(
         user.token,
-        name != "" ? name : profile.name,
-        adress != "" ? adress : profile.adress,
-        venueType != "" ? venueType : profile.type,
-        description != "" ? description : profile.description,
-        picture != "" ? picture : profile.picture
+        name || profile.name,
+        address || profile.address,
+        venueType || profile.type,
+        description || profile.description,
+        picture || profile.picture
       );
     }
     if (data.result) {
@@ -112,16 +104,13 @@ export default function Profile() {
     }
   };
 
-  // Style du Composant React Select
-  // (provided) => au lieu de garder le style natif on aplique ce qui est en desous
-
   return (
     <Layout>
       <div className={styles.main}>
         <div className={styles.titleContainer}>
-          <span className={styles.title}>
-            Mon Profil {isVenue ? "établissement" : "artiste"}
-          </span>
+          <h1 className={styles.title}>
+            Mon Profil {isVenue ? "Établissement" : "Artiste"}
+          </h1>
         </div>
         <div
           className={`${styles.formContainer} ${
@@ -131,7 +120,7 @@ export default function Profile() {
           {!isVenue && (
             <>
               <div>
-                <span className={styles.exp}>Informations générales</span>
+                <h2 className={styles.exp}>Informations générales</h2>
                 <hr />
                 <div className={styles.formElem}>
                   <label>
@@ -140,7 +129,7 @@ export default function Profile() {
                   <input
                     className={styles.input}
                     type="text"
-                    placeholder={profile.name}
+                    placeholder={profile.name || "Votre nom de scène"}
                     onChange={(e) => setName(e.target.value)}
                     value={name}
                   />
@@ -150,7 +139,7 @@ export default function Profile() {
                     Type d'artiste <span>*</span>
                   </label>
                   <Select
-                    placeholder={profile.type}
+                    placeholder={profile.type || "Sélectionnez un type"}
                     styles={customStyles}
                     options={ArtistTypeOptions}
                     onChange={handleTypeChange}
@@ -161,10 +150,12 @@ export default function Profile() {
                 </div>
                 <div className={styles.formElem}>
                   <label>
-                    Genre(s)<span>*</span>
+                    Genre(s) <span>*</span>
                   </label>
                   <Select
-                    placeholder={profile.genres?.join(", ")}
+                    placeholder={
+                      profile.genres?.join(", ") || "Sélectionnez des genres"
+                    }
                     isMulti
                     styles={customStyles}
                     options={genreOptions}
@@ -175,47 +166,35 @@ export default function Profile() {
                   />
                 </div>
                 <div className={styles.formElem}>
-                  <label>Combien de musiciens comporte votre groupe ?</label>
+                  <label>Nombre de musiciens</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.members}
+                    type="number"
+                    placeholder={profile.members || "Nombre de membres"}
                     onChange={(e) => setMembers(e.target.value)}
                     value={members}
                   />
                 </div>
-                {/*<div className={styles.formElem}>
-                  <label>Medias</label>
-                  <input
-                    className={styles.input}
-                    type="text"
-                    placeholder={profile.medias?.join(", ")}
-                    onChange={(e) => setMedias(e.target.value.split(","))}
-                    value={medias.join(", ")}
-                  />
-                    </div>*/}
                 <div className={styles.formElem}>
                   <label>Photo de profil</label>
                   <input
                     type="file"
                     onChange={handleFileUpload}
-                    accept="image/*" // Limite le type de fichiers acceptés aux images
-                    className={styles.input}
+                    accept="image/*"
+                    className={styles.inputFile}
                     name="image"
                   />
                 </div>
               </div>
               <div>
-                {" "}
-                {/* Right Column for Artist */}
-                <span className={styles.exp}>Réseaux sociaux</span>
+                <h2 className={styles.exp}>Réseaux sociaux</h2>
                 <hr />
                 <div className={styles.formElem}>
                   <label>Youtube</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.socials?.youtube}
+                    type="url"
+                    placeholder={profile.socials?.youtube || "Lien Youtube"}
                     onChange={(e) => setYoutube(e.target.value)}
                     value={youtube}
                   />
@@ -224,8 +203,8 @@ export default function Profile() {
                   <label>Facebook</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.socials?.facebook}
+                    type="url"
+                    placeholder={profile.socials?.facebook || "Lien Facebook"}
                     onChange={(e) => setFacebook(e.target.value)}
                     value={facebook}
                   />
@@ -234,18 +213,20 @@ export default function Profile() {
                   <label>SoundCloud</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.socials?.souncloud}
+                    type="url"
+                    placeholder={
+                      profile.socials?.soundcloud || "Lien SoundCloud"
+                    }
                     onChange={(e) => setSoundcloud(e.target.value)}
-                    value={souncloud}
+                    value={soundcloud}
                   />
                 </div>
                 <div className={styles.formElem}>
                   <label>Spotify</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.socials?.spotify}
+                    type="url"
+                    placeholder={profile.socials?.spotify || "Lien Spotify"}
                     onChange={(e) => setSpotify(e.target.value)}
                     value={spotify}
                   />
@@ -254,8 +235,8 @@ export default function Profile() {
                   <label>Deezer</label>
                   <input
                     className={styles.input}
-                    type="text"
-                    placeholder={profile.socials?.deezer}
+                    type="url"
+                    placeholder={profile.socials?.deezer || "Lien Deezer"}
                     onChange={(e) => setDeezer(e.target.value)}
                     value={deezer}
                   />
@@ -265,8 +246,8 @@ export default function Profile() {
           )}
           {isVenue && (
             <div>
-              {" "}
-              {/* Single Column for Venue */}
+              <h2 className={styles.exp}>Informations de l'établissement</h2>
+              <hr />
               <div className={styles.formElem}>
                 <label>
                   Nom de l'établissement <span>*</span>
@@ -274,7 +255,7 @@ export default function Profile() {
                 <input
                   className={styles.input}
                   type="text"
-                  placeholder={profile?.name}
+                  placeholder={profile.name || "Nom de l'établissement"}
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
@@ -286,9 +267,9 @@ export default function Profile() {
                 <input
                   className={styles.input}
                   type="text"
-                  placeholder={profile.address}
-                  onChange={(e) => setAdress(e.target.value)}
-                  value={adress}
+                  placeholder={profile.address || "Adresse"}
+                  onChange={(e) => setAddress(e.target.value)}
+                  value={address}
                 />
               </div>
               <div className={styles.formElem}>
@@ -296,30 +277,30 @@ export default function Profile() {
                   Type d'établissement <span>*</span>
                 </label>
                 <Select
-                  placeholder={profile.type}
+                  placeholder={profile.type || "Sélectionnez un type"}
                   styles={customStyles}
-                  options={VenuTypeOptions}
+                  options={VenueTypeOptions}
                   onChange={handleVenueChange}
-                  value={VenuTypeOptions.find(
+                  value={VenueTypeOptions.find(
                     (option) => option.value === venueType
                   )}
                 />
               </div>
               <div className={styles.formElem}>
                 <label>Description</label>
-                <input
+                <textarea
                   className={styles.input}
-                  type="text"
-                  placeholder={profile.description}
+                  placeholder={profile.description || "Description"}
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />
               </div>
               <div className={styles.formElem}>
+                <label>Photo de l'établissement</label>
                 <input
                   type="file"
                   onChange={handleFileUpload}
-                  accept="image/*" // Limite le type de fichiers acceptés aux images
+                  accept="image/*"
                   className={styles.inputFile}
                   name="image"
                 />
@@ -330,7 +311,7 @@ export default function Profile() {
         <button
           className={styles.btn}
           type="button"
-          onClick={handleUpdateProfil}
+          onClick={handleUpdateProfile}
         >
           Mettre à jour
         </button>

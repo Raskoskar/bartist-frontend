@@ -1,90 +1,150 @@
-.blurBg{
+/* Styles globaux */
+.blurBg {
     background-size: cover;
-    background-image: url("../../public/assets/background.png");
-}
-.main{
+    background-image: url("/assets/background.png");
+    min-height: 100vh;
+  }
+  
+  .main {
+    display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
     padding: 20px;
-    padding-top: 0;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.card{
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    min-height: 550px;
-    max-height: 800px;
-    width: 400px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #0A0A0A;
-    border-radius: 50px;
-}
-
-.card > h2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  
+  /* Carte du formulaire */
+  .card {
+    background-color: rgba(10, 10, 10, 0.9);
+    border-radius: 20px;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .card > h2 {
     font-size: 2rem;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
     text-align: center;
-}
-
-.formElem > label{
-    font-size: 12px;
-}
-.formElem > label > span{
-    font-size: 16px;
-}
-
-.form{
-    height: 100%;
-    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Formulaire */
+  .form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 25px
-}
-.form > h3{
-    text-align: center;
-    margin-top: 20px;
-}
-
-.formElem{
+    gap: 20px;
+  }
+  
+  .formElem {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.input{
-    background-color: transparent;
-    border: #3F88C5 solid 1px;
-    padding: 15px 10px;
-    width: 300px;
-    height: 44px;
-    border-radius: 16px;
-    color: white;
-}
-
-.input:focus{
+    gap: 5px;
+  }
+  
+  .formElem > label {
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .formElem > label > span {
+    color: #e74c3c;
+  }
+  
+  .input,
+  .textarea,
+  .select__control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #3f88c5;
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    width: 100%;
+  }
+  
+  .input::placeholder,
+  .textarea::placeholder {
+    color: #ccc;
+  }
+  
+  .input:focus,
+  .textarea:focus {
     outline: none;
-    border: 1px #D1D5DB solid;
-    
-}
-
-.btnDiv{
+    border-color: #d1d5db;
+  }
+  
+  .textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .inputFile {
+    color: #fff;
+  }
+  
+  .btnDiv {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.container2{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .button {
+    background-color: #3f88c5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .button:hover {
+    background-color: #3373a1;
+  }
+  
+  .button:disabled {
+    background-color: #6c7a89;
+    cursor: not-allowed;
+  }
+  
+  .buttonSecondary {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  
+  .buttonSecondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  #alert {
+    color: #e74c3c;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .card {
+      padding: 20px;
+    }
+  
+    .form {
+      gap: 15px;
+    }
+  
+    .btnDiv {
+      flex-direction: column;
+    }
+  
+    .button,
+    .buttonSecondary {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

@@ -1,46 +1,50 @@
-import styles from "./Profil.module.css"
 export const customStyles = {
   control: (provided) => ({
     ...provided,
-    backgroundColor: "transparent",
-    border: "1px solid #3F88C5",
-    borderRadius: "16px",
-    width: "100%",
-    height: "44px",
-    fontSize: "14px",
-    color: "white", // Assure que le texte dans le contrôle est blanc
-  }),
-  menu: (provided) => ({
-    ...provided,
-    padding: "0px",
-    color: "white",
-    fontSize: "12px",
-    backgroundColor: "#3F88C5" // Change la couleur de fond du menu déroulant
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isFocused ? "#3F88C5" : "white",
-    color: state.isSelected ? "white" : "black",
-    fontSize: "12px",
-  }),
-  multiValue: (provided) => ({
-    ...provided,
-    backgroundColor: "#3F88C5",
-    color: "white",
-  }),
-  multiValueLabel: (provided) => ({
-    ...provided,
-    color: "white",
-  }),
-  multiValueRemove: (provided) => ({
-    ...provided,
+    backgroundColor: 'rgba(6, 1, 63, 0.6)',
+    borderColor: '#3f88c5',
+    color: '#fff',
+    borderRadius: '8px',
+    padding: '2px',
+    minHeight: '44px',
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: "white" // Définit la couleur du placeholder en blanc
+    color: '#ccc',
   }),
-  singleValue: (provided, state) => ({
+  singleValue: (provided) => ({
     ...provided,
-    color: state.isDisabled ? "gray" : "white", // Assure que la valeur sélectionnée est aussi en blanc, sauf si désactivée
-  })
+    color: '#fff',
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: 'rgba(6, 1, 63, 0.9)',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused
+      ? 'rgba(63, 136, 197, 0.5)'
+      : 'transparent',
+    color: '#fff',
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: '#3f88c5',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    color: '#fff',
+    ':hover': {
+      backgroundColor: '#3373a1',
+      color: 'white',
+    },
+  }),
 };

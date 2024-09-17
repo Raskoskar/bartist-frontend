@@ -1,49 +1,74 @@
+/* Styles globaux pour la zone principale */
 .mainContent {
     width: 100%;
     padding: 20px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     overflow-y: auto;
-}
-
-.filters {
+  }
+  
+  /* Styles pour les filtres */
+  .filters {
     display: flex;
     width: 100%;
     align-items: flex-start;
-    justify-content: left;
+    justify-content: flex-start;
     gap: 10px;
-}
-
-.input {
-    background-color: #06013f53;
+    flex-wrap: wrap;
+  }
+  
+  .input {
+    background-color: rgba(6, 1, 63, 0.6);
     border: none;
-    padding: 15px 10px;
+    padding: 10px 15px;
     width: 100%;
+    max-width: 400px;
     height: 44px;
     border-radius: 16px;
     color: white;
-}
-
-.input::placeholder {
+    font-size: 16px;
+  }
+  
+  .input::placeholder {
     color: #ffffff;
-}
-
-.input:focus {
+  }
+  
+  .input:focus {
     outline: none;
-    border: 1px #D1D5DB solid;
-
-}
-
-.list{
-    max-height: 100%;
+    border: 1px solid #d1d5db;
+  }
+  
+  .list {
+    width: 100%;
+    max-width: 1000px;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    overflow-x:visible;
-    gap: 10px;
-    width: 100%;
-}
+    overflow-y: auto;
+    gap: 20px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .mainContent {
+      padding: 15px;
+      gap: 15px;
+    }
+  
+    .filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .input {
+      max-width: 100%;
+      font-size: 14px;
+    }
+  
+    .list {
+      gap: 15px;
+    }
+  }
+  
