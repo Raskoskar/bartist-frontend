@@ -53,7 +53,7 @@
 .book{
     height: fit-content;
     font-size: 14px;
-    background-color: #007bff;
+    background-color: #214E73;
 }
 
 .genres{
@@ -63,7 +63,7 @@
 }
 
 .genre{
-    background-color: #007bff;
+    background-color: #214E73;
     padding: 5px;
     border-radius: 5px;
     color: white;
