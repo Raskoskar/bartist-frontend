@@ -53,7 +53,7 @@ export const updateArtist = async (
 ) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/artists/createProfile/${token}`,
+      `https://bartist-backend.vercel.app/createProfile/${token}`,
       {
         method: "POST",
         headers: {
@@ -85,7 +85,7 @@ export const updateArtist = async (
 // Fonction de liaison vers le backend et de controle des données pour récupérer les données sur un artiste.
 export const getArtist = async (token) => {
   try {
-    const response = await fetch(`http://localhost:3000/artists/token/${token}`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/artists/token/${token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const getArtist = async (token) => {
 
 export const getArtists = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/artists`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/artists`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ export const getArtists = async () => {
 
 export const getArtistById = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/artists/id/${id}`, {
+    const response = await fetch(`https://bartist-backend.vercel.app/artists/id/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
