@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bartist-frontend.vercel.app/
+
+# Sitemaps
+Sitemap: https://bartist-frontend.vercel.app/sitemap.xml
